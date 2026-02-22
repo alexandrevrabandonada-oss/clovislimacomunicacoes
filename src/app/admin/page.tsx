@@ -1,33 +1,45 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import { supabase } from '../../lib/supabase/client'
+export const dynamic = 'force-dynamic'
+import React, { useEffect, useState, useRef } from 'react'
 
 export default function AdminPage(){
   const [user, setUser] = useState<any>(null)
   const [file, setFile] = useState<File|undefined>()
   const [title, setTitle] = useState('')
 
+  const supabaseRef = useRef<any>(null)
   useEffect(()=>{
-    const s = supabase.auth.onAuthStateChange((event, session)=>{
-      setUser(session?.user ?? null)
+    let mounted = true
+    let subscription: any
+    import('../../lib/supabase/client').then(({ supabase: sb })=>{
+      if(!mounted) return
+      supabaseRef.current = sb
+      const res = sb.auth.onAuthStateChange((event, session)=>{
+        setUser(session?.user ?? null)
+      })
+      subscription = res?.data?.subscription
+      sb.auth.getUser().then((r: any)=> setUser(r.data.user ?? null))
     })
-    supabase.auth.getUser().then(r=> setUser(r.data.user ?? null))
-    return ()=> s.subscription.unsubscribe()
+    return ()=>{ mounted = false; if(subscription) subscription.unsubscribe() }
   },[])
 
   const signIn = async ()=>{
-    await supabase.auth.signInWithOtp({ email: window.prompt('Email para magic link') || '' })
+    const sb = supabaseRef.current
+    if(!sb){ alert('Supabase não inicializado ainda'); return }
+    await sb.auth.signInWithOtp({ email: window.prompt('Email para magic link') || '' })
     alert('Verifique seu email para o link mágico')
   }
 
   const upload = async ()=>{
     if(!user){ alert('Faça login'); return }
     if(!file){ alert('Escolha um arquivo'); return }
+    const sb = supabaseRef.current
+    if(!sb){ alert('Supabase não inicializado'); return }
     const path = `${Date.now()}-${file.name}`
-    const { error: upErr } = await supabase.storage.from('portfolio').upload(path, file)
+    const { error: upErr } = await sb.storage.from('portfolio').upload(path, file)
     if(upErr) { alert('Upload failed'); return }
-    const url = supabase.storage.from('portfolio').getPublicUrl(path).data.publicUrl
-    const { error: insertErr } = await supabase.from('works').insert([{ title, image: url }])
+    const url = sb.storage.from('portfolio').getPublicUrl(path).data.publicUrl
+    const { error: insertErr } = await sb.from('works').insert([{ title, image: url }])
     if(insertErr) { alert('Insert failed') }
     else { alert('Work created') }
   }
