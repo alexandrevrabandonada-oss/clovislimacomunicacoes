@@ -11,7 +11,10 @@
     "setup:supabase": "node tools/setup-supabase.mjs",
     "setup:github": "node tools/setup-github.mjs",
     "setup:vercel": "node tools/setup-vercel.mjs",
-    "db:types": "node tools/db-types.mjs"
+    "db:types": "node tools/db-types.mjs",
+    "import:portfolio": "node scripts/import-portfolio.mjs",
+    "doctor": "node tools/doctor.mjs",
+    "backfill:cover-urls": "node scripts/backfill-cover-urls.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.25.0",

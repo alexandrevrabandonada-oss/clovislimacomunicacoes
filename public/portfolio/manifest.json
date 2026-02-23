@@ -1,0 +1,15 @@
+{
+  "defaultType": "other",
+  "items": {
+    "01.jpg": {
+      "title": "Obra 01",
+      "type": "other",
+      "content_warning": null
+    },
+    "02.jpg": {
+      "title": "Obra 02",
+      "type": "other",
+      "content_warning": null
+    }
+  }
+}
