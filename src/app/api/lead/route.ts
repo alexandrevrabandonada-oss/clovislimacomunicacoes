@@ -132,6 +132,7 @@ export async function POST(req: NextRequest) {
   }
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } })
+  const createdAt = new Date().toISOString()
   const insert = await supabase
     .from('leads')
     .insert([
@@ -149,10 +150,11 @@ export async function POST(req: NextRequest) {
         user_agent: userAgent || null,
         status: 'new',
         notes: null,
+        created_at: createdAt,
         metadata: {
           source: 'contact_form',
           ip,
-          created_at: new Date().toISOString()
+          created_at: createdAt
         }
       }
     ])
