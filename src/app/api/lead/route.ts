@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { getLeadNotifier } from '../../../lib/notify'
 
 type RateEntry = {
   count: number
@@ -40,6 +41,15 @@ function isRateLimited(ip: string): boolean {
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function isValidPhone(phone: string): boolean {
+  const digits = phone.replace(/\D/g, '')
+  return digits.length >= 10 && digits.length <= 15
+}
+
+function toText(value: unknown, max = 500): string {
+  return String(value || '').trim().slice(0, max)
 }
 
 async function validateTurnstile(token: string, ip: string): Promise<boolean> {
@@ -88,17 +98,26 @@ export async function POST(req: NextRequest) {
   }
 
   const name = String(payload.name || '').trim()
-  const email = String(payload.email || '').trim().toLowerCase()
-  const phone = String(payload.phone || '').trim()
-  const company = String(payload.company || '').trim()
-  const message = String(payload.message || '').trim()
-  const turnstileToken = String(payload.turnstileToken || '').trim()
+  const email = toText(payload.email, 200).toLowerCase()
+  const phone = toText(payload.phone, 30)
+  const company = toText(payload.company, 200)
+  const message = toText(payload.message, 4000)
+  const turnstileToken = toText(payload.turnstileToken, 2000)
+  const utmSource = toText(payload.utm_source, 200)
+  const utmMedium = toText(payload.utm_medium, 200)
+  const utmCampaign = toText(payload.utm_campaign, 200)
+  const referrer = toText(payload.referrer, 1000) || toText(req.headers.get('referer') || '', 1000)
+  const pageUrl = toText(payload.page_url, 1000)
+  const userAgent = toText(payload.user_agent, 1000) || toText(req.headers.get('user-agent') || '', 1000)
 
   if (!name || name.length < 2) {
     return NextResponse.json({ error: 'Ops, faltou informar um nome válido.' }, { status: 400 })
   }
   if (!isValidEmail(email)) {
     return NextResponse.json({ error: 'Ops, faltou informar um email válido.' }, { status: 400 })
+  }
+  if (!isValidPhone(phone)) {
+    return NextResponse.json({ error: 'Ops, faltou informar um telefone válido com DDD.' }, { status: 400 })
   }
   if (!message || message.length < 10) {
     return NextResponse.json({ error: 'Ops, faltou detalhar melhor sua mensagem.' }, { status: 400 })
@@ -113,23 +132,50 @@ export async function POST(req: NextRequest) {
   }
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } })
-  const { error } = await supabase.from('leads').insert([
-    {
+  const insert = await supabase
+    .from('leads')
+    .insert([
+      {
+        name,
+        email,
+        phone,
+        company: company || null,
+        message,
+        utm_source: utmSource || null,
+        utm_medium: utmMedium || null,
+        utm_campaign: utmCampaign || null,
+        referrer: referrer || null,
+        page_url: pageUrl || null,
+        user_agent: userAgent || null,
+        status: 'new',
+        notes: null,
+        metadata: {
+          source: 'contact_form',
+          ip,
+          created_at: new Date().toISOString()
+        }
+      }
+    ])
+    .select('id')
+    .single()
+
+  if (insert.error) {
+    return NextResponse.json({ error: 'Ops, faltou concluir o envio. Tente novamente.' }, { status: 500 })
+  }
+
+  const leadId = (insert.data as { id?: string } | null)?.id || ''
+  try {
+    const notifier = getLeadNotifier()
+    await notifier.sendLeadCreated({
+      leadId,
       name,
       email,
-      phone: phone || null,
+      phone,
       company: company || null,
-      message,
-      metadata: {
-        source: 'contact_form',
-        ip,
-        created_at: new Date().toISOString()
-      }
-    }
-  ])
-
-  if (error) {
-    return NextResponse.json({ error: 'Ops, faltou concluir o envio. Tente novamente.' }, { status: 500 })
+      message
+    })
+  } catch {
+    console.log('[lead-notify] send failed')
   }
 
   return NextResponse.json({ ok: true }, { status: 201 })

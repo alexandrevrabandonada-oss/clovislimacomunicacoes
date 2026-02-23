@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image'
+import { trackEvent } from '../lib/analytics'
 
 type Work = {
   id: string
@@ -29,19 +30,26 @@ export default function Hero({ works }: HeroProps){
   const featuredImage = featuredSafeWork?.cover_url || featuredSafeWork?.cover_image_url || null
 
   return (
-    <div className="min-h-[64vh] grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <div className="min-h-[56vh] md:min-h-[58vh] grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
       <div>
         <p className="stamp">Ilustração + Produto Digital</p>
-        <h1 className="mt-4 text-4xl md:text-6xl font-extrabold leading-tight">Humor que comunica. Design que converte.</h1>
-        <p className="mt-4 max-w-2xl text-lg">
+        <h1 className="mt-3 text-4xl md:text-6xl font-extrabold leading-tight">Humor que comunica. Design que converte.</h1>
+        <p className="mt-3 max-w-2xl text-base md:text-lg">
           Charges e ilustração editorial com linguagem autoral, junto de sites e PWAs sob medida para captar, engajar e converter.
         </p>
-        <div className="mt-7 flex flex-wrap gap-3">
-          <a href="#works" className="inline-block bg-accent text-white px-5 py-2.5 rounded-full font-semibold">Ver trabalhos</a>
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          <a
+            href="#works"
+            onClick={() => trackEvent('click_cta_ver_trabalhos')}
+            className="ink-button inline-block w-full sm:w-auto text-center bg-accent text-white px-5 py-2.5 font-semibold"
+          >
+            Ver trabalhos
+          </a>
           <a
             href="#contact"
             onClick={(event) => {
               event.preventDefault()
+              trackEvent('click_cta_site_pwa')
               const message = 'Quero um site ou PWA com a identidade da minha marca.'
               const url = new URL(window.location.href)
               url.searchParams.set('prefill_message', message)
@@ -49,13 +57,13 @@ export default function Hero({ works }: HeroProps){
               window.dispatchEvent(new CustomEvent('contact-prefill', { detail: { message } }))
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }}
-            className="inline-block border-2 border-black px-5 py-2.5 rounded-full font-semibold bg-white"
+            className="ink-button inline-block w-full sm:w-auto text-center px-5 py-2.5 font-semibold bg-white"
           >
             Quero um site/PWA
           </a>
         </div>
       </div>
-      <div className="relative h-[340px] md:h-[420px] rounded-[26px] overflow-hidden border-2 border-black bg-white">
+      <div className="relative h-[280px] sm:h-[320px] md:h-[360px] rounded-[22px] overflow-hidden border-2 border-black bg-white">
         {featuredImage ? (
           <>
             <Image src={featuredImage} alt={featuredSafeWork?.title || 'Obra em destaque'} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />

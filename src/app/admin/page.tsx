@@ -65,6 +65,9 @@ export default function AdminPage(){
   return (
     <div className="mt-20">
       <h1 className="text-2xl font-bold">Admin</h1>
+      <p className="mt-2">
+        <a href="/admin/leads" className="underline">Ir para painel de leads</a>
+      </p>
       {!user ? (
         <div className="mt-4">
           <p>Protegido por Supabase Magic Link.</p>

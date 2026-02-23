@@ -1,6 +1,7 @@
 "use client"
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
+import { trackEvent } from '../lib/analytics'
 
 declare global {
   interface Window {
@@ -21,11 +22,13 @@ export default function ContactForm(){
   const [turnstileToken, setTurnstileToken] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [feedback, setFeedback] = useState('')
+  const [whatsAppHref, setWhatsAppHref] = useState('')
   const [widgetReady, setWidgetReady] = useState(false)
   const messageRef = useRef<HTMLTextAreaElement | null>(null)
   const turnstileContainerRef = useRef<HTMLDivElement | null>(null)
   const widgetIdRef = useRef<string | null>(null)
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+  const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/\D/g, '')
 
   const mountTurnstile = useCallback(() => {
     if (!turnstileSiteKey) return
@@ -81,9 +84,9 @@ export default function ContactForm(){
 
   const submit = async (e:any)=>{
     e.preventDefault()
-    if (!name.trim() || !email.trim() || !message.trim()) {
+    if (!name.trim() || !email.trim() || !phone.trim() || !message.trim()) {
       setStatus('error')
-      setFeedback('Ops, faltou preencher nome, email e mensagem.')
+      setFeedback('Ops, faltou preencher nome, email, telefone e mensagem.')
       return
     }
     if (!turnstileToken) {
@@ -95,6 +98,14 @@ export default function ContactForm(){
     setStatus('loading')
     setFeedback('Enviando...')
 
+    const params = new URLSearchParams(window.location.search)
+    const utmSource = params.get('utm_source') || ''
+    const utmMedium = params.get('utm_medium') || ''
+    const utmCampaign = params.get('utm_campaign') || ''
+    const pageUrl = window.location.href
+    const referrer = document.referrer || ''
+    const userAgent = navigator.userAgent || ''
+
     try {
       const response = await fetch('/api/lead', {
         method: 'POST',
@@ -105,7 +116,13 @@ export default function ContactForm(){
           phone,
           company,
           message,
-          turnstileToken
+          turnstileToken,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+          referrer,
+          page_url: pageUrl,
+          user_agent: userAgent
         })
       })
       const data = await response.json()
@@ -119,6 +136,12 @@ export default function ContactForm(){
 
       setStatus('success')
       setFeedback('Recebido. Retorno em até 24 horas.')
+      trackEvent('submit_lead_success')
+      const prefill = `Olá! Acabei de enviar o formulário pelo site. Meu nome é ${name} e gostaria de continuar o atendimento.`
+      const href = whatsAppNumber
+        ? `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(prefill)}`
+        : `https://wa.me/?text=${encodeURIComponent(prefill)}`
+      setWhatsAppHref(href)
       setName('')
       setEmail('')
       setPhone('')
@@ -143,7 +166,7 @@ export default function ContactForm(){
       <form className="mt-4" onSubmit={submit}>
         <label className="block">Nome<input className="w-full border p-2" value={name} onChange={e=>setName(e.target.value)} required /></label>
         <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e=>setEmail(e.target.value)} required /></label>
-        <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e=>setPhone(e.target.value)} /></label>
+        <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e=>setPhone(e.target.value)} required /></label>
         <label className="block mt-2">Empresa<input className="w-full border p-2" value={company} onChange={e=>setCompany(e.target.value)} /></label>
         <label className="block mt-2">Mensagem<textarea ref={messageRef} className="w-full border p-2" value={message} onChange={e=>setMessage(e.target.value)} required /></label>
         <div className="mt-3">
@@ -156,18 +179,28 @@ export default function ContactForm(){
         <button className="mt-3 bg-accent text-white px-4 py-2 rounded disabled:opacity-70" type="submit" disabled={status === 'loading'}>
           {status === 'loading' ? 'Enviando...' : 'Enviar'}
         </button>
-        {status !== 'idle' && (
-          <p
-            className={`mt-3 rounded-md border px-3 py-2 text-sm ${
-              status === 'success'
-                ? 'border-emerald-300 bg-emerald-50 text-emerald-800'
-                : status === 'error'
-                  ? 'border-red-300 bg-red-50 text-red-800'
-                  : 'border-slate-300 bg-white text-slate-700'
-            }`}
-          >
+        {status !== 'idle' && status !== 'success' && (
+          <p className={`mt-3 rounded-md border px-3 py-2 text-sm ${
+            status === 'error'
+              ? 'border-red-300 bg-red-50 text-red-800'
+              : 'border-slate-300 bg-white text-slate-700'
+          }`}>
             {feedback}
           </p>
+        )}
+        {status === 'success' && (
+          <div className="mt-4 rounded-2xl border-2 border-emerald-300 bg-[linear-gradient(135deg,#f0fdf4_0%,#ecfeff_100%)] p-4 shadow-sm">
+            <p className="text-emerald-900 font-semibold">{feedback}</p>
+            <p className="mt-1 text-sm text-emerald-800">Se preferir, continue agora pelo WhatsApp.</p>
+            <a
+              href={whatsAppHref}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-block rounded-full border border-emerald-800 bg-emerald-700 px-4 py-2 text-sm font-semibold text-white"
+            >
+              Continuar no WhatsApp
+            </a>
+          </div>
         )}
       </form>
     </div>
