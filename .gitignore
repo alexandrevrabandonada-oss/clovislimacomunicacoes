@@ -15,3 +15,7 @@ pnpm-debug.log*
 .vscode/
 coverage/node_modules
 .vercel
+# reports gerados automaticamente
+reports/
+import-report.md
+preflight-report.md

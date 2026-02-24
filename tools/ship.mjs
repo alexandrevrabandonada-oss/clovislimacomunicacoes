@@ -241,13 +241,14 @@ async function main() {
   }
 
   const branch = run('git branch --show-current')
-  const currentBranch = (branch.stdout || 'main').trim() || 'main'
+  const detectedBranch = (branch.stdout || 'main').trim() || 'main'
+  const pushBranch = 'main'
   steps.push({
     name: 'git-branch',
     status: branch.skipped ? 'skipped' : branch.ok ? 'ok' : 'failed',
     command: branch.command,
     details: branch.skipped ? 'dry-run: comando não executado.' : undefined,
-    output: currentBranch
+    output: `detected=${detectedBranch}, push=${pushBranch}`
   })
   if (!branch.ok) {
     await writeReport(reportPath, steps)
@@ -255,7 +256,7 @@ async function main() {
     process.exit(1)
   }
 
-  const push = run(`git push origin ${currentBranch}`)
+  const push = run(`git push origin ${pushBranch}`)
   steps.push({
     name: 'git-push',
     status: push.skipped ? 'skipped' : push.ok ? 'ok' : 'failed',
@@ -270,39 +271,13 @@ async function main() {
     process.exit(1)
   }
 
-  const vercelWhoAmI = run('vercel whoami', { allowFailure: true })
-  const vercelLogged = vercelWhoAmI.code === 0
   steps.push({
-    name: 'vercel-auth',
-    status: vercelWhoAmI.skipped ? 'skipped' : vercelLogged ? 'ok' : 'skipped',
-    command: vercelWhoAmI.command,
-    code: vercelWhoAmI.code,
-    details: vercelWhoAmI.skipped ? 'dry-run: comando não executado.' : undefined,
-    output: `${tail(vercelWhoAmI.stdout)}\n${tail(vercelWhoAmI.stderr)}`.trim() || 'not logged in'
+    name: 'deploy',
+    status: push.skipped ? 'skipped' : 'ok',
+    details: push.skipped
+      ? 'dry-run: deploy automático não foi disparado.'
+      : 'Deploy é automático via GitHub→Vercel: push para o branch dispara build/deploy na Vercel.'
   })
-
-  if (vercelLogged) {
-    const deploy = run('vercel --prod --yes')
-    steps.push({
-      name: 'vercel-deploy',
-      status: deploy.skipped ? 'skipped' : deploy.ok ? 'ok' : 'failed',
-      command: deploy.command,
-      code: deploy.code,
-      details: deploy.skipped ? 'dry-run: comando não executado.' : undefined,
-      output: `${tail(deploy.stdout)}\n${tail(deploy.stderr)}`.trim()
-    })
-    if (!deploy.ok) {
-      await writeReport(reportPath, steps)
-      console.error('Ship failed at Vercel deploy.')
-      process.exit(1)
-    }
-  } else {
-    steps.push({
-      name: 'vercel-deploy',
-      status: 'skipped',
-      details: 'Vercel CLI not logged in.'
-    })
-  }
 
   await writeReport(reportPath, steps)
   console.log(`Ship completed. Report: ${path.relative(ROOT, reportPath)}`)
@@ -315,6 +290,7 @@ async function writeReport(reportPath, steps) {
     '',
     `- Generated at: ${now}`,
     `- Dry run: ${isDryRun ? 'yes' : 'no'}`,
+    '- Deploy: GitHub→Vercel (auto on push)',
     '',
     '## Steps',
     ''

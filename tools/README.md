@@ -34,3 +34,10 @@ Notes / Caveats:
 - The scripts avoid commands that explicitly print tokens. They do not store or echo any secrets.
 
 If you want, I can run the appropriate script now (tell me which one).
+
+Ship commands:
+
+```bash
+npm run ship
+npm run ship:dry
+```

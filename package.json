@@ -15,7 +15,8 @@
     "import:portfolio": "node scripts/import-portfolio.mjs",
     "doctor": "node tools/doctor.mjs",
     "backfill:cover-urls": "node scripts/backfill-cover-urls.mjs",
-    "ship": "node tools/ship.mjs"
+    "ship": "node tools/ship.mjs",
+    "ship:dry": "node tools/ship.mjs --dry-run"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.25.0",
