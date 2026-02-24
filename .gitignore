@@ -19,3 +19,4 @@ coverage/node_modules
 reports/
 import-report.md
 preflight-report.md
+_drop/

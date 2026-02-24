@@ -2,14 +2,18 @@
 import { createHash } from 'crypto'
 import { promises as fs } from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { createClient } from '@supabase/supabase-js'
 
-const ROOT = process.cwd()
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
+const ROOT = path.resolve(SCRIPT_DIR, '..')
 const PORTFOLIO_DIR = path.join(ROOT, 'public', 'portfolio')
 const MANIFEST_PATH = path.join(PORTFOLIO_DIR, 'manifest.json')
 const REPORT_PATH = path.join(ROOT, 'scripts', 'import-report.md')
 const BUCKET = 'portfolio'
-const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif'])
+const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp'])
+const isDryRun = process.argv.includes('--dry-run')
+const ALLOWED_DB_TYPES = new Set(['branding', 'social_media', 'website', 'video', 'other'])
 
 function parseEnvFile(content) {
   const entries = {}
@@ -93,6 +97,23 @@ function formatRow(cells) {
   return `| ${cells.join(' | ')} |`
 }
 
+function resolveDbType(rawType) {
+  const normalized = String(rawType || '').trim().toLowerCase()
+  if (ALLOWED_DB_TYPES.has(normalized)) return normalized
+  if (normalized === 'charge') return 'other'
+  return 'other'
+}
+
+function getManifestRecords(manifestItems) {
+  const records = []
+  for (const [key, rawValue] of Object.entries(manifestItems || {})) {
+    const entry = rawValue && typeof rawValue === 'object' ? rawValue : {}
+    const file = String(entry.file || key || '').trim()
+    records.push({ key, file, entry })
+  }
+  return records
+}
+
 async function main() {
   await loadLocalEnv()
 
@@ -106,25 +127,96 @@ async function main() {
 
   const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } })
 
-  const manifestRaw = await fs.readFile(MANIFEST_PATH, 'utf8')
-  const manifest = JSON.parse(manifestRaw)
+  console.log(`[import] mode=${isDryRun ? 'dry-run' : 'real'}`)
+  console.log(`[import] cwd=${process.cwd()}`)
+  console.log(`[import] root=${ROOT}`)
+  console.log(`[import] portfolio_dir=${PORTFOLIO_DIR}`)
+  console.log(`[import] manifest_path=${MANIFEST_PATH}`)
+
+  let manifestLoadOk = false
+  let manifest = {}
+  let manifestRaw = ''
+  try {
+    manifestRaw = await fs.readFile(MANIFEST_PATH, 'utf8')
+    manifest = JSON.parse(manifestRaw)
+    manifestLoadOk = true
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error)
+    throw new Error(`Falha ao carregar manifest.json em ${MANIFEST_PATH}: ${msg}`)
+  }
+
   const manifestItems = manifest?.items || {}
+  const manifestRecords = getManifestRecords(manifestItems)
   const defaultType = manifest?.defaultType || 'other'
+  console.log(`[import] manifest_loaded=${manifestLoadOk}`)
+  console.log(`[import] manifest_entries=${manifestRecords.length}`)
 
   const files = await walkFiles(PORTFOLIO_DIR)
+  console.log(`[import] image_files_found=${files.length}`)
+  const existingRelativeFiles = new Set(
+    files.map((absPath) => normalizePath(path.relative(PORTFOLIO_DIR, absPath)))
+  )
+  const missingManifestFiles = manifestRecords
+    .filter((record) => !!record.file && !existingRelativeFiles.has(record.file))
+    .map((record) => record.file)
+
+  if (missingManifestFiles.length > 0) {
+    console.log('[import] manifest references missing files:')
+    for (const file of missingManifestFiles) console.log(`  - ${file}`)
+  }
+
   const results = []
-  const stats = { created: 0, updated: 0, unchanged: 0, failed: 0 }
+  const stats = { created: 0, updated: 0, unchanged: 0, failed: 0, planned: 0 }
+
+  if (files.length === 0) {
+    console.log('[import] image_files_found=0')
+    console.log('[import] Coloque arquivos em public/portfolio/01.jpg, 02.jpg...')
+    console.log('[import] Depois rode npm run import:portfolio')
+  }
 
   for (const absPath of files) {
     const relPath = normalizePath(path.relative(PORTFOLIO_DIR, absPath))
-    const manifestItem = manifestItems[relPath] || {}
+    const manifestItem = (manifestItems[relPath] && typeof manifestItems[relPath] === 'object')
+      ? manifestItems[relPath]
+      : {}
     const type = manifestItem.type || defaultType
     const title = manifestItem.title || titleFromFilename(relPath)
+    const rawContentWarning = manifestItem.content_warning
     const contentWarning =
-      manifestItem.content_warning === undefined ? null : String(manifestItem.content_warning || '')
+      rawContentWarning === undefined || rawContentWarning === null || rawContentWarning === ''
+        ? null
+        : String(rawContentWarning)
     const slug = manifestItem.slug || slugify(path.parse(relPath).name)
     const hash = await sha256(absPath)
     const publicUrl = supabase.storage.from(BUCKET).getPublicUrl(relPath).data.publicUrl
+
+    const dbType = resolveDbType(type)
+    if (dbType !== type) {
+      console.log(`[import] type '${type}' mapped to '${dbType}' for DB enum compatibility`)
+    }
+
+    const upsertPayload = {
+      title,
+      slug,
+      type: dbType,
+      cover_url: publicUrl,
+      cover_image_url: publicUrl,
+      content_warning: contentWarning || null,
+      source_hash: hash,
+      is_published: true
+    }
+
+    if (isDryRun) {
+      stats.planned += 1
+      results.push({
+        file: relPath,
+        slug,
+        status: 'planned',
+        detail: `type=${type} content_warning=${contentWarning || 'null'}`
+      })
+      console.log(`[dry-run] file=${relPath} slug=${slug} type=${type} content_warning=${contentWarning || 'null'}`)
+      continue
+    }
 
     let existing = null
     const existingQuery = await supabase
@@ -188,20 +280,24 @@ async function main() {
     }
 
     const write = await supabase.from('works').upsert(
-      {
-        title,
-        slug,
-        type,
-        cover_url: publicUrl,
-        cover_image_url: publicUrl,
-        content_warning: contentWarning || null,
-        source_hash: hash,
-        is_published: true
-      },
+      upsertPayload,
       { onConflict: 'slug' }
     )
 
     if (write.error) {
+      console.error('[import] upsert payload (safe):', {
+        slug: upsertPayload.slug,
+        title: upsertPayload.title,
+        type: upsertPayload.type,
+        content_warning: upsertPayload.content_warning,
+        cover_url: upsertPayload.cover_url
+      })
+      console.error('[import] supabase upsert error:', {
+        message: write.error.message,
+        code: write.error.code,
+        details: write.error.details,
+        hint: write.error.hint
+      })
       stats.failed += 1
       results.push({
         file: relPath,
@@ -227,7 +323,13 @@ async function main() {
     '',
     `- Generated at: ${now}`,
     `- Source folder: \`public/portfolio\``,
+    `- Resolved source path: \`${PORTFOLIO_DIR}\``,
     `- Bucket: \`${BUCKET}\``,
+    `- Dry run: ${isDryRun ? 'yes' : 'no'}`,
+    `- Manifest loaded: ${manifestLoadOk ? 'yes' : 'no'}`,
+    `- Manifest entries: ${manifestRecords.length}`,
+    `- Image files found: ${files.length}`,
+    `- Manifest files missing on disk: ${missingManifestFiles.length}`,
     '',
     '## Summary',
     '',
@@ -235,6 +337,13 @@ async function main() {
     `- Updated: ${stats.updated}`,
     `- Unchanged: ${stats.unchanged}`,
     `- Failed: ${stats.failed}`,
+    `- Planned (dry-run): ${stats.planned}`,
+    '',
+    '## Manifest Validation',
+    '',
+    ...(missingManifestFiles.length
+      ? missingManifestFiles.map((file) => `- Missing file referenced in manifest: \`${file}\``)
+      : ['- All manifest entries point to existing files.']),
     '',
     '## Files',
     '',
@@ -253,7 +362,7 @@ async function main() {
   await fs.writeFile(REPORT_PATH, `${reportLines.join('\n')}\n`, 'utf8')
   console.log(`Import finished. Report: ${path.relative(ROOT, REPORT_PATH)}`)
   console.log(
-    `Summary -> created:${stats.created} updated:${stats.updated} unchanged:${stats.unchanged} failed:${stats.failed}`
+    `Summary -> created:${stats.created} updated:${stats.updated} unchanged:${stats.unchanged} failed:${stats.failed} planned:${stats.planned}`
   )
 
   if (stats.failed > 0) process.exitCode = 1

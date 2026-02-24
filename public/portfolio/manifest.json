@@ -1,15 +1,47 @@
 {
-  "defaultType": "other",
+  "defaultType": "charge",
   "items": {
-    "01.jpg": {
+    "WhatsApp Image 2026-02-21 at 20.44.49.jpeg": {
+      "file": "WhatsApp Image 2026-02-21 at 20.44.49.jpeg",
       "title": "Obra 01",
-      "type": "other",
-      "content_warning": null
+      "type": "charge",
+      "content_warning": false
     },
-    "02.jpg": {
+    "WhatsApp Image 2026-02-21 at 20.45.52.jpeg": {
+      "file": "WhatsApp Image 2026-02-21 at 20.45.52.jpeg",
       "title": "Obra 02",
-      "type": "other",
-      "content_warning": null
+      "type": "charge",
+      "content_warning": false
+    },
+    "WhatsApp Image 2026-02-21 at 20.46.24.jpeg": {
+      "file": "WhatsApp Image 2026-02-21 at 20.46.24.jpeg",
+      "title": "Obra 03",
+      "type": "charge",
+      "content_warning": false
+    },
+    "WhatsApp Image 2026-02-21 at 20.46.53.jpeg": {
+      "file": "WhatsApp Image 2026-02-21 at 20.46.53.jpeg",
+      "title": "Obra 04",
+      "type": "charge",
+      "content_warning": false
+    },
+    "WhatsApp Image 2026-02-21 at 20.46.54.jpeg": {
+      "file": "WhatsApp Image 2026-02-21 at 20.46.54.jpeg",
+      "title": "Obra 05",
+      "type": "charge",
+      "content_warning": false
+    },
+    "WhatsApp Image 2026-02-21 at 20.48.04.jpeg": {
+      "file": "WhatsApp Image 2026-02-21 at 20.48.04.jpeg",
+      "title": "Obra 06",
+      "type": "charge",
+      "content_warning": false
+    },
+    "WhatsApp Image 2026-02-21 at 20.48.05.jpeg": {
+      "file": "WhatsApp Image 2026-02-21 at 20.48.05.jpeg",
+      "title": "Obra 07",
+      "type": "charge",
+      "content_warning": false
     }
   }
 }

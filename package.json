@@ -12,6 +12,8 @@
     "setup:github": "node tools/setup-github.mjs",
     "setup:vercel": "node tools/setup-vercel.mjs",
     "db:types": "node tools/db-types.mjs",
+    "portfolio:check": "node scripts/check-portfolio.mjs",
+    "portfolio:ingest": "node scripts/ingest-portfolio.mjs && npm run import:portfolio",
     "import:portfolio": "node scripts/import-portfolio.mjs",
     "doctor": "node tools/doctor.mjs",
     "backfill:cover-urls": "node scripts/backfill-cover-urls.mjs",
