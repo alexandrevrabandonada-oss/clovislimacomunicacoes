@@ -20,6 +20,7 @@ type ManifestData = {
 
 type GalleryItem = {
   id: string
+  slug: string
   file: string
   src: string
   title: string
@@ -31,31 +32,34 @@ function normalizeWarning(value: unknown): boolean {
   return value === true || String(value).toLowerCase() === 'true'
 }
 
-const TILE_ASPECTS = [
-  'aspect-[4/5]',
-  'aspect-[3/4]',
-  'aspect-[1/1]',
-  'aspect-[5/4]'
-]
+function slugify(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
 
-function getTileClasses(index: number): string {
-  if (index === 0) return 'sm:col-span-2 lg:col-span-4 lg:row-span-2'
-  if (index === 4) return 'sm:col-span-2 lg:col-span-3 lg:row-span-2'
-  return 'sm:col-span-1 lg:col-span-2 lg:row-span-1'
+function getTileClasses(index: number, total: number): string {
+  if (total < 6) return 'sm:col-span-1 lg:col-span-2'
+  if (index % 6 === 0) return 'sm:col-span-2 lg:col-span-3'
+  return 'sm:col-span-1 lg:col-span-2'
 }
 
 type GalleryCardProps = {
   item: GalleryItem
   index: number
-  onOpen: (work: GalleryItem) => void
+  total: number
+  onOpen: (work: GalleryItem, trigger?: HTMLElement | null) => void
 }
 
-function GalleryCard({ item, index, onOpen }: GalleryCardProps) {
+function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
   const tiltRef = useTilt<HTMLElement>(3)
+  const [imageLoaded, setImageLoaded] = useState(false)
   const sensitive = item.contentWarning
-  const aspect = TILE_ASPECTS[index % TILE_ASPECTS.length]
-  const tileClass = getTileClasses(index)
-  const largeTile = index === 0 || index === 4
+  const tileClass = getTileClasses(index, total)
+  const largeTile = total >= 6 && index % 6 === 0
 
   return (
     <article
@@ -64,22 +68,26 @@ function GalleryCard({ item, index, onOpen }: GalleryCardProps) {
       role="button"
       tabIndex={0}
       aria-label={`Abrir obra ${item.title}`}
-      onClick={() => onOpen(item)}
+      onClick={(event) => onOpen(item, event.currentTarget)}
       onKeyDown={(event) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault()
-          onOpen(item)
+          onOpen(item, event.currentTarget as HTMLElement)
         }
       }}
     >
-      <div className={`ink-frame relative ${largeTile ? 'aspect-[16/10]' : aspect}`}>
+      <div className={`ink-frame relative ${largeTile ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}>
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-[linear-gradient(160deg,#f5f5f5_0%,#ececec_100%)]" aria-hidden="true" />
+        )}
         {item.src ? (
           <Image
             src={item.src}
             alt={item.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            className="object-cover transition duration-300"
+            onLoad={() => setImageLoaded(true)}
+            className={`object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
           />
         ) : (
           <div className="h-full w-full bg-[linear-gradient(160deg,#f5f5f5_0%,#ececec_100%)]" />
@@ -96,7 +104,7 @@ function GalleryCard({ item, index, onOpen }: GalleryCardProps) {
           <button
             onClick={(event) => {
               event.stopPropagation()
-              onOpen(item)
+              onOpen(item, event.currentTarget)
             }}
             className="ink-button px-3 py-1.5 bg-white text-sm font-medium"
           >
@@ -113,7 +121,22 @@ export default function Gallery(){
   const [filter,setFilter] = useState<'all' | 'safe' | 'sensitive'>('all')
   const [items, setItems] = useState<GalleryItem[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
-  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
+  const [currentShareUrl, setCurrentShareUrl] = useState('')
+  const [lastTrigger, setLastTrigger] = useState<HTMLElement | null>(null)
+
+  const updateUrlWithSelected = (slug: string | null) => {
+    if (typeof window === 'undefined') return
+    const url = new URL(window.location.href)
+    if (slug) {
+      url.searchParams.set('obra', slug)
+    } else {
+      url.searchParams.delete('obra')
+    }
+    const next = `${url.pathname}${url.search}${url.hash}`
+    window.history.replaceState({}, '', next)
+    setCurrentShareUrl(window.location.href)
+  }
 
   const loadManifest = async () => {
     setStatus('loading')
@@ -123,13 +146,16 @@ export default function Gallery(){
       const manifest = (await response.json()) as ManifestData
       const defaultType = (manifest.defaultType || 'obra').trim() || 'obra'
       const rawItems = manifest.items || {}
-      const normalized = Object.entries(rawItems).map(([key, value]) => {
+      const normalized = Object.entries(rawItems).map(([key, value], index) => {
         const file = (value?.file || key || '').trim()
+        const title = (value?.title || file || 'Obra').trim()
+        const titleSlug = slugify(title || file)
         return {
           id: key,
+          slug: `obra-${String(index + 1).padStart(2, '0')}-${titleSlug || 'item'}`,
           file,
           src: `/portfolio/${encodeURIComponent(file)}`,
-          title: (value?.title || file || 'Obra').trim(),
+          title,
           type: (value?.type || defaultType).trim(),
           contentWarning: normalizeWarning(value?.content_warning)
         }
@@ -151,17 +177,66 @@ export default function Gallery(){
   )
 
   const selected = useMemo(
-    () => items.find((work) => work.id === selectedId) || null,
-    [items, selectedId]
+    () => items.find((work) => work.slug === selectedSlug) || null,
+    [items, selectedSlug]
   )
+  const shareHref = currentShareUrl || ''
 
-  const openWorkModal = (work: GalleryItem) => {
-    setSelectedId(work.id)
-    trackEvent('open_work_modal', { file: work.file, type: work.type })
+  useEffect(() => {
+    if (!items.length) return
+    const fromQuery = () => {
+      const params = new URLSearchParams(window.location.search)
+      const obra = (params.get('obra') || '').trim()
+      if (!obra) {
+        setSelectedSlug(null)
+        setCurrentShareUrl(window.location.href)
+        return
+      }
+      const exists = items.some((item) => item.slug === obra)
+      setSelectedSlug(exists ? obra : null)
+      setCurrentShareUrl(window.location.href)
+    }
+
+    fromQuery()
+    window.addEventListener('popstate', fromQuery)
+    return () => window.removeEventListener('popstate', fromQuery)
+  }, [items])
+
+  const openWorkModal = (work: GalleryItem, trigger?: HTMLElement | null) => {
+    setSelectedSlug(work.slug)
+    setLastTrigger(trigger || null)
+    updateUrlWithSelected(work.slug)
+    trackEvent('open_work_modal', { file: work.file, type: work.type, slug: work.slug })
   }
 
   const closeWorkModal = () => {
-    setSelectedId(null)
+    setSelectedSlug(null)
+    updateUrlWithSelected(null)
+    if (lastTrigger) {
+      window.setTimeout(() => lastTrigger.focus(), 0)
+    }
+  }
+
+  const copyLink = async () => {
+    const href = currentShareUrl || window.location.href
+    try {
+      await navigator.clipboard.writeText(href)
+    } catch {
+      // no-op
+    }
+  }
+
+  const askForThisCharge = (work: GalleryItem) => {
+    const message = `Ola! Tenho interesse nesta obra: "${work.title}" (${work.type}). Podemos conversar sobre valores e prazo?`
+    const url = new URL(window.location.href)
+    url.searchParams.delete('obra')
+    url.searchParams.set('prefill_message', message)
+    url.hash = 'contato'
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`)
+    window.dispatchEvent(new CustomEvent('contact-prefill', { detail: { message } }))
+    const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.getElementById('contato')?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' })
+    setSelectedSlug(null)
   }
 
   return (
@@ -178,10 +253,10 @@ export default function Gallery(){
       </div>
 
       {status === 'loading' && (
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense lg:auto-rows-[10px]">
           {[1, 2, 3, 4, 5, 6].map((slot) => (
-            <article key={slot} className={`ink-card p-3 md:p-3.5 animate-pulse ${getTileClasses(slot - 1)}`}>
-              <div className="ink-frame relative aspect-[4/5] bg-slate-200" />
+            <article key={slot} className={`ink-card p-3 md:p-3.5 animate-pulse ${getTileClasses(slot - 1, 6)}`}>
+              <div className={`ink-frame relative ${slot === 1 ? 'aspect-[16/10]' : 'aspect-[4/3]'} bg-slate-200`} />
               <div className="mt-3 h-4 w-2/3 rounded bg-slate-200" />
               <div className="mt-2 h-3 w-1/3 rounded bg-slate-200" />
             </article>
@@ -205,12 +280,13 @@ export default function Gallery(){
       )}
 
       {status === 'ready' && works.length > 0 && (
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense lg:auto-rows-[10px]">
         {works.map((item, index) => (
-          <GalleryCard key={item.id} item={item} index={index} onOpen={openWorkModal} />
+          <GalleryCard key={item.id} item={item} index={index} total={works.length} onOpen={openWorkModal} />
         ))}
       </div>
       )}
+      <p className="mt-4 text-xs text-slate-700">Publicacao / licenciamento / prints sob demanda.</p>
 
       <Modal open={!!selected} onClose={closeWorkModal} labelledById="gallery-modal-title">
         {selected && (
@@ -226,6 +302,30 @@ export default function Gallery(){
               )}
             </div>
             <p className="mt-3 text-sm text-slate-700">Arquivo: {selected.file}</p>
+            <div className="mt-5 border-t border-black/15 pt-4">
+              <h4 className="text-sm font-bold uppercase tracking-[0.08em] text-slate-700">Compartilhar</h4>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button type="button" onClick={copyLink} className="ink-button bg-white px-3 py-1.5 text-sm font-semibold">
+                  Copiar link
+                </button>
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(`Confira esta obra: ${selected.title} ${shareHref}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ink-button bg-white px-3 py-1.5 text-sm font-semibold"
+                >
+                  WhatsApp
+                </a>
+                <button
+                  type="button"
+                  onClick={() => askForThisCharge(selected)}
+                  className="ink-button bg-black px-3 py-1.5 text-sm font-semibold text-white"
+                >
+                  Quero esta charge
+                </button>
+              </div>
+              <p className="mt-3 text-xs text-slate-700">Publicacao / licenciamento / prints sob demanda.</p>
+            </div>
           </div>
         )}
       </Modal>

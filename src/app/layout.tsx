@@ -26,13 +26,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    url: siteUrl,
+    url: `${siteUrl}/`,
     siteName,
     title: defaultTitle,
     description: defaultDescription,
     images: [
       {
-        url: '/og',
+        url: '/og.png',
         width: 1200,
         height: 630,
         alt: 'Clóvis Lima Comunicações'
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: defaultTitle,
     description: defaultDescription,
-    images: ['/og']
+    images: ['/og.png']
   },
   robots: {
     index: true,

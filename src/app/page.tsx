@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Hero from '../components/Hero'
 import Gallery from '../components/Gallery'
 import Services from '../components/Services'
+import PrintsTeaser from '../components/PrintsTeaser'
 import Timeline from '../components/Timeline'
 import Clients from '../components/Clients'
 import ContactForm from '../components/ContactForm'
@@ -28,6 +29,9 @@ export default async function Page() {
       <div id="works" className="sr-only" aria-hidden="true" />
       <section id="trabalhos" className="mt-16">
         <Gallery />
+      </section>
+      <section id="prints-licenciamento" className="mt-16">
+        <PrintsTeaser />
       </section>
       <div id="services" className="sr-only" aria-hidden="true" />
       <section id="servicos" className="mt-16">

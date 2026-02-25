@@ -30,12 +30,26 @@ export default function Hero({ works }: HeroProps){
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const featuredSafeWork = works.find((work) => work.is_featured === true && !isSensitive(work.content_warning))
   const featuredImage = featuredSafeWork?.cover_url || featuredSafeWork?.cover_image_url || null
+  const titleWords = ['Humor', 'que', 'comunica.', 'Design', 'que', 'converte.']
 
   return (
     <div className="min-h-[56vh] md:min-h-[58vh] grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
       <div>
         <p className="stamp">Ilustração + Produto Digital</p>
-        <h1 ref={headingRef} className={`reveal-heading mt-3 text-4xl md:text-6xl font-extrabold leading-tight ${revealed ? 'is-revealed' : ''}`}>Humor que comunica. Design que converte.</h1>
+        <h1
+          ref={headingRef}
+          className={`hero-kinetic-title mt-3 text-4xl md:text-6xl font-extrabold leading-tight ${revealed ? 'is-revealed' : ''}`}
+        >
+          {titleWords.map((word, index) => (
+            <span
+              key={`${word}-${index}`}
+              className={`hero-kinetic-word ${word === 'converte.' ? 'hero-ink-underline' : ''}`}
+              style={{ ['--d' as string]: index }}
+            >
+              {word}{index < titleWords.length - 1 ? ' ' : ''}
+            </span>
+          ))}
+        </h1>
         <p className="mt-3 max-w-2xl text-base md:text-lg">
           Ilustração autoral e sites/PWAs sob medida para transformar atenção em cliente.
         </p>

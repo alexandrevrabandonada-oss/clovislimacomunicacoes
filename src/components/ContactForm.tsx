@@ -20,11 +20,46 @@ const PACKAGE_LABELS: Record<string, string> = {
   'serie-especial': 'Serie / Especial',
   'landing-rapida': 'Landing rapida',
   'site-completo': 'Site completo',
+  prints: 'Print assinado',
+  'licenca-editorial': 'Licenca editorial',
+  'licenca-campanha': 'Licenca campanha',
   pwa: 'PWA'
 }
 
 function packageMessage(label: string): string {
   return `Ola! Tenho interesse no pacote: ${label}. Meu objetivo e: ... Prazo ideal: ...`
+}
+
+function formatWorkLabel(slug: string): string {
+  const clean = slug.trim().toLowerCase()
+  if (!clean) return ''
+  const parts = clean.split('-').filter(Boolean)
+  if (parts.length >= 2 && parts[0] === 'obra') {
+    const number = parts[1]
+    const titleParts = parts.slice(2).map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    if (titleParts.length) return `Obra ${number} - ${titleParts.join(' ')}`
+    return `Obra ${number}`
+  }
+  return clean
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ')
+}
+
+function buildTemplate(packageSlug: string, packageLabel: string, workLabel: string): string {
+  if (['prints', 'licenca-editorial', 'licenca-campanha'].includes(packageSlug)) {
+    return `Ola! Quero valores e formatos (tamanho, tiragem, prazo) para ${packageLabel || packageSlug}.`
+  }
+  if (packageLabel && workLabel) {
+    return `Ola! Quero o pacote ${packageLabel} usando a referencia ${workLabel}. Prazo e valor?`
+  }
+  if (workLabel) {
+    return `Ola! Quero falar sobre a obra ${workLabel} (licenciamento/print/publicacao).`
+  }
+  if (packageLabel) {
+    return packageMessage(packageLabel)
+  }
+  return 'Ola! Quero conversar sobre um projeto. Meu objetivo e: ... Prazo ideal: ...'
 }
 
 export default function ContactForm(){
@@ -46,11 +81,12 @@ export default function ContactForm(){
   const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/\D/g, '')
   const hasTurnstile = Boolean(turnstileSiteKey)
   const lastAutoMessageRef = useRef('')
+  const [selectedPackageSlug, setSelectedPackageSlug] = useState('')
   const [selectedPackageLabel, setSelectedPackageLabel] = useState('')
+  const [selectedWorkSlug, setSelectedWorkSlug] = useState('')
+  const [selectedWorkLabel, setSelectedWorkLabel] = useState('')
 
-  const fallbackTemplate = selectedPackageLabel
-    ? `Ola! Tenho interesse no pacote: ${selectedPackageLabel}. Meu objetivo e: ... Prazo ideal: ...`
-    : 'Ola! Quero conversar sobre um projeto. Meu objetivo e: ... Prazo ideal: ...'
+  const fallbackTemplate = buildTemplate(selectedPackageSlug, selectedPackageLabel, selectedWorkLabel)
   const contactText = (message || '').trim() || fallbackTemplate
   const fallbackWhatsAppHref = whatsAppNumber
     ? `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(contactText)}`
@@ -78,21 +114,26 @@ export default function ContactForm(){
     const prefillFromQuery = () => {
       const params = new URLSearchParams(window.location.search)
       const pacote = (params.get('pacote') || '').trim().toLowerCase()
-      if (pacote) {
-        const label = PACKAGE_LABELS[pacote] || pacote
-        setSelectedPackageLabel(label)
-        const nextMessage = packageMessage(label)
-        if (!message.trim() || message === lastAutoMessageRef.current) {
-          setMessage(nextMessage)
-          lastAutoMessageRef.current = nextMessage
-        }
+      const obra = (params.get('obra') || '').trim().toLowerCase()
+      const packageLabel = pacote ? (PACKAGE_LABELS[pacote] || pacote) : ''
+      const workLabel = obra ? formatWorkLabel(obra) : ''
+      setSelectedPackageSlug(pacote)
+      setSelectedPackageLabel(packageLabel)
+      setSelectedWorkSlug(obra)
+      setSelectedWorkLabel(workLabel)
+
+      const prefill = params.get('prefill_message')
+      if (prefill && (!message.trim() || message === lastAutoMessageRef.current)) {
+        const nextMessage = prefill.trim()
+        setMessage(nextMessage)
+        lastAutoMessageRef.current = nextMessage
         return
       }
 
-      const prefill = params.get('prefill_message')
-      if (prefill && !message.trim()) {
-        setMessage(prefill)
-        lastAutoMessageRef.current = prefill
+      if ((packageLabel || workLabel) && (!message.trim() || message === lastAutoMessageRef.current)) {
+        const nextMessage = buildTemplate(pacote, packageLabel, workLabel)
+        setMessage(nextMessage)
+        lastAutoMessageRef.current = nextMessage
       }
     }
 
@@ -111,8 +152,9 @@ export default function ContactForm(){
       const title = custom.detail?.title?.trim() || ''
       const label = title || PACKAGE_LABELS[slug] || slug
       if (!label) return
+      setSelectedPackageSlug(slug)
       setSelectedPackageLabel(label)
-      const nextMessage = packageMessage(label)
+      const nextMessage = buildTemplate(slug, label, selectedWorkLabel)
       setMessage(nextMessage)
       lastAutoMessageRef.current = nextMessage
       setTimeout(() => messageRef.current?.focus(), 100)
@@ -127,7 +169,7 @@ export default function ContactForm(){
       window.removeEventListener('contact-package', onPackage)
       window.removeEventListener('popstate', prefillFromQuery)
     }
-  }, [message])
+  }, [message, selectedWorkLabel])
 
   useEffect(() => {
     if (!widgetReady) return
@@ -220,6 +262,20 @@ export default function ContactForm(){
     }
   }
 
+  const removeWorkReference = () => {
+    setSelectedWorkSlug('')
+    setSelectedWorkLabel('')
+    const url = new URL(window.location.href)
+    url.searchParams.delete('obra')
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`)
+
+    if (!message.trim() || message === lastAutoMessageRef.current) {
+      const nextMessage = buildTemplate(selectedPackageSlug, selectedPackageLabel, '')
+      setMessage(nextMessage)
+      lastAutoMessageRef.current = nextMessage
+    }
+  }
+
   return (
     <div className="max-w-2xl">
       <Script
@@ -233,6 +289,14 @@ export default function ContactForm(){
         <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e=>setEmail(e.target.value)} required /></label>
         <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e=>setPhone(e.target.value)} required /></label>
         <label className="block mt-2">Empresa<input className="w-full border p-2" value={company} onChange={e=>setCompany(e.target.value)} /></label>
+        {selectedWorkSlug && (
+          <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-black/40 bg-white px-3 py-1 text-xs">
+            <span>Referencia: {selectedWorkLabel || selectedWorkSlug}</span>
+            <button type="button" onClick={removeWorkReference} className="ink-button rounded-full border border-black bg-white px-2 py-0.5 text-[11px] font-semibold">
+              remover
+            </button>
+          </div>
+        )}
         <label className="block mt-2">Mensagem<textarea ref={messageRef} className="w-full border p-2" value={message} onChange={e=>setMessage(e.target.value)} required /></label>
         <div className="mt-3">
           {hasTurnstile ? (
