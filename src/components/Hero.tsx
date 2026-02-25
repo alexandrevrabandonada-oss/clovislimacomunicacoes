@@ -89,7 +89,14 @@ export default function Hero({ works }: HeroProps){
       <div className="relative h-[280px] sm:h-[320px] md:h-[360px] rounded-[22px] overflow-hidden border-2 border-black bg-white">
         {featuredImage ? (
           <>
-            <Image src={featuredImage} alt={featuredSafeWork?.title || 'Obra em destaque'} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+            <Image
+              src={featuredImage}
+              alt={featuredSafeWork?.title || 'Obra em destaque'}
+              fill
+              priority
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
             <div className="absolute bottom-4 left-4 right-4 rounded-xl bg-black/70 text-white px-3 py-2 text-sm">
               <strong>Destaque:</strong> {featuredSafeWork?.title}
             </div>

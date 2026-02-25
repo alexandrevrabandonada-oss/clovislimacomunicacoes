@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import React from 'react'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import Header from '../components/Header'
 import { getSiteUrl } from '../lib/site'
@@ -51,13 +51,18 @@ export const metadata: Metadata = {
   }
 }
 
+export const viewport: Viewport = {
+  themeColor: '#ef4444'
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Clóvis Lima',
-    jobTitle: 'Cartunista, Ilustrador e Designer',
+    jobTitle: 'Cartunista, Jornalista, Designer',
     url: siteUrl,
+    areaServed: 'Brasil',
     sameAs: []
   }
 

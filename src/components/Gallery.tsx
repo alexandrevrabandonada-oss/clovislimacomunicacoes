@@ -86,7 +86,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
             alt={item.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            onLoad={() => setImageLoaded(true)}
+            onLoadingComplete={() => setImageLoaded(true)}
             className={`object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
           />
         ) : (
@@ -119,10 +119,11 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
 export default function Gallery(){
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const [filter,setFilter] = useState<'all' | 'safe' | 'sensitive'>('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [typeFilter, setTypeFilter] = useState('all')
   const [items, setItems] = useState<GalleryItem[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
-  const [currentShareUrl, setCurrentShareUrl] = useState('')
   const [lastTrigger, setLastTrigger] = useState<HTMLElement | null>(null)
 
   const updateUrlWithSelected = (slug: string | null) => {
@@ -135,7 +136,6 @@ export default function Gallery(){
     }
     const next = `${url.pathname}${url.search}${url.hash}`
     window.history.replaceState({}, '', next)
-    setCurrentShareUrl(window.location.href)
   }
 
   const loadManifest = async () => {
@@ -171,16 +171,29 @@ export default function Gallery(){
     void loadManifest()
   }, [])
 
-  const works = useMemo(
-    () => items.filter((w) => filter === 'all' || (w.contentWarning ? filter === 'sensitive' : filter === 'safe')),
-    [items, filter]
+  const availableTypes = useMemo(
+    () => ['all', ...Array.from(new Set(items.map((item) => item.type.trim().toLowerCase()).filter(Boolean))).sort()],
+    [items]
   )
+
+  const works = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase()
+    return items.filter((w) => {
+      const byWarning = filter === 'all' || (w.contentWarning ? filter === 'sensitive' : filter === 'safe')
+      const normalizedType = w.type.trim().toLowerCase()
+      const byType = typeFilter === 'all' || normalizedType === typeFilter
+      const bySearch =
+        !q || w.title.toLowerCase().includes(q) || normalizedType.includes(q)
+      return byWarning && byType && bySearch
+    })
+  }, [items, filter, typeFilter, searchQuery])
 
   const selected = useMemo(
     () => items.find((work) => work.slug === selectedSlug) || null,
     [items, selectedSlug]
   )
-  const shareHref = currentShareUrl || ''
+  const canonicalHref =
+    selected && typeof window !== 'undefined' ? `${window.location.origin}/w/${selected.slug}` : ''
 
   useEffect(() => {
     if (!items.length) return
@@ -189,12 +202,10 @@ export default function Gallery(){
       const obra = (params.get('obra') || '').trim()
       if (!obra) {
         setSelectedSlug(null)
-        setCurrentShareUrl(window.location.href)
         return
       }
       const exists = items.some((item) => item.slug === obra)
       setSelectedSlug(exists ? obra : null)
-      setCurrentShareUrl(window.location.href)
     }
 
     fromQuery()
@@ -218,7 +229,7 @@ export default function Gallery(){
   }
 
   const copyLink = async () => {
-    const href = currentShareUrl || window.location.href
+    const href = selected ? `${window.location.origin}/w/${selected.slug}` : window.location.href
     try {
       await navigator.clipboard.writeText(href)
     } catch {
@@ -251,6 +262,34 @@ export default function Gallery(){
           <button onClick={()=>setFilter('sensitive')} className="ink-chip px-3 py-1 text-sm font-medium">Com aviso</button>
         </div>
       </div>
+      <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto] sm:items-center">
+        <label className="block text-sm">
+          <span className="sr-only">Buscar obras por titulo ou tipo</span>
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            aria-label="Buscar obras por titulo ou tipo"
+            placeholder="Buscar por titulo ou tipo"
+            className="w-full rounded border border-black/30 bg-white px-3 py-2 text-sm"
+          />
+        </label>
+        <label className="block text-sm">
+          <span className="sr-only">Filtrar obras por tipo</span>
+          <select
+            value={typeFilter}
+            onChange={(event) => setTypeFilter(event.target.value)}
+            aria-label="Filtrar obras por tipo"
+            className="w-full rounded border border-black/30 bg-white px-3 py-2 text-sm"
+          >
+            {availableTypes.map((type) => (
+              <option key={type} value={type}>
+                {type === 'all' ? 'Todos' : type}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
 
       {status === 'loading' && (
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense lg:auto-rows-[10px]">
@@ -275,7 +314,7 @@ export default function Gallery(){
 
       {status === 'ready' && works.length === 0 && (
         <div className="mt-6 ink-card p-4">
-          <p className="text-sm text-slate-700">Nenhuma obra encontrada.</p>
+          <p className="text-sm text-slate-700">Nenhuma obra encontrada para esse filtro/busca.</p>
         </div>
       )}
 
@@ -309,12 +348,18 @@ export default function Gallery(){
                   Copiar link
                 </button>
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(`Confira esta obra: ${selected.title} ${shareHref}`)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(`Confira esta obra: ${selected.title} ${canonicalHref}`)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="ink-button bg-white px-3 py-1.5 text-sm font-semibold"
                 >
                   WhatsApp
+                </a>
+                <a
+                  href={`/w/${selected.slug}`}
+                  className="ink-button bg-white px-3 py-1.5 text-sm font-semibold"
+                >
+                  Abrir pagina da obra
                 </a>
                 <button
                   type="button"

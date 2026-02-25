@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { promises as fs } from 'fs'
 import path from 'path'
 import WorkDetail, { WorkDetailData } from '../../../components/WorkDetail'
+import WorkShareBlock from '../../../components/WorkShareBlock'
 import { fetchPublishedWorkBySlug } from '../../../lib/works'
 import { getSiteUrl } from '../../../lib/site'
 
@@ -169,16 +171,48 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
     currentManifestIndex >= 0 && currentManifestIndex < manifestEntries.length - 1
       ? manifestEntries[currentManifestIndex + 1]
       : null
+  const previousHref = previousWork ? `/w/${previousWork.slug}` : '/'
+  const nextHref = nextWork ? `/w/${nextWork.slug}` : '/'
+  const currentType = (work.type || '').trim().toLowerCase()
 
-  const suggestedPackage = work.type.toLowerCase().includes('charge') ? 'charge-avulsa' : 'site-completo'
-  const contactMessage = `Ola! Quero algo nesse estilo: "${work.title}" (${work.type}). Meu objetivo e: ... Prazo ideal: ...`
-  const contactHref = `/?pacote=${encodeURIComponent(suggestedPackage)}&prefill_message=${encodeURIComponent(contactMessage)}#contato`
+  const sameType = manifestEntries.filter(
+    (item) =>
+      item.slug !== params.slug &&
+      item.slug !== slugify(work.title) &&
+      item.type.trim().toLowerCase() === currentType
+  )
+
+  const fallbackFromNext =
+    currentManifestIndex >= 0
+      ? manifestEntries
+          .slice(currentManifestIndex + 1)
+          .concat(manifestEntries.slice(0, currentManifestIndex))
+          .filter((item) => item.slug !== params.slug && item.slug !== slugify(work.title))
+      : manifestEntries.filter((item) => item.slug !== params.slug && item.slug !== slugify(work.title))
+
+  const relatedWorks = [...sameType]
+  for (const item of fallbackFromNext) {
+    if (relatedWorks.find((entry) => entry.slug === item.slug)) continue
+    relatedWorks.push(item)
+    if (relatedWorks.length >= 6) break
+  }
+
+  const shareUrl = `${siteUrl}/w/${work.slug}`
+  const printsHref = `/?pacote=prints&obra=${encodeURIComponent(work.slug)}#contato`
+  const editorialHref = `/?pacote=licenca-editorial&obra=${encodeURIComponent(work.slug)}#contato`
+  const campaignHref = `/?pacote=licenca-campanha&obra=${encodeURIComponent(work.slug)}#contato`
 
   const creativeWorkSchema = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     name: work.title,
     url: `${siteUrl}/w/${work.slug}`,
+    creator: {
+      '@type': 'Person',
+      name: 'Clóvis Lima',
+      jobTitle: 'Cartunista, Jornalista, Designer',
+      url: siteUrl
+    },
     genre: work.type,
     datePublished: work.created_at || undefined,
     description:
@@ -199,40 +233,65 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
       <WorkDetail work={work} />
 
       <div className="mx-auto mt-8 max-w-6xl grid grid-cols-1 gap-4 md:grid-cols-2">
-        <aside className="ink-card p-4">
-          <h2 className="text-xl font-extrabold">Quer algo nesse estilo?</h2>
+        <aside className="ink-card p-4 lg:sticky lg:top-24 lg:self-start">
+          <h2 className="text-xl font-extrabold">Licenciamento / Prints</h2>
           <p className="mt-2 text-sm text-slate-700">
-            Transformamos esta linguagem visual em uma solucao sob medida para sua pauta, campanha ou produto digital.
+            Ative esta obra como print ou licenca, com orientacao de formato e uso.
           </p>
-          <Link href={contactHref} className="ink-button mt-4 inline-block rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white">
-            Quero conversar sobre este estilo
-          </Link>
-        </aside>
-
-        <aside className="ink-card p-4">
-          <h2 className="text-xl font-extrabold">Navegar no portfolio</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {previousWork ? (
-              <Link href={`/w/${previousWork.slug}`} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
-                Obra anterior
-              </Link>
-            ) : (
-              <span className="inline-block rounded-full border border-black/30 bg-white/70 px-4 py-2 text-sm font-semibold text-slate-500">
-                Obra anterior
-              </span>
-            )}
-            {nextWork ? (
-              <Link href={`/w/${nextWork.slug}`} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
-                Proxima obra
-              </Link>
-            ) : (
-              <span className="inline-block rounded-full border border-black/30 bg-white/70 px-4 py-2 text-sm font-semibold text-slate-500">
-                Proxima obra
-              </span>
-            )}
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link href={printsHref} className="ink-button inline-block rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white">
+              Quero print assinado
+            </Link>
+            <Link href={editorialHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+              Licenca editorial
+            </Link>
+            <Link href={campaignHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+              Quero usar em campanha
+            </Link>
           </div>
         </aside>
+
+        <WorkShareBlock shareUrl={shareUrl} title={work.title} />
+
+        <aside className="ink-card p-4 md:col-span-2">
+          <h2 className="text-xl font-extrabold">Navegar no portfolio</h2>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link href={previousHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+              Anterior
+            </Link>
+            <Link href={nextHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+              Proxima
+            </Link>
+          </div>
+          {currentManifestIndex < 0 && (
+            <p className="mt-2 text-xs text-slate-600">
+              Ordem do manifest nao encontrada para esta obra. Navegacao aponta para a home.
+            </p>
+          )}
+        </aside>
       </div>
+
+      {relatedWorks.length > 0 && (
+        <section className="mx-auto mt-8 max-w-6xl">
+          <h2 className="text-2xl font-extrabold">Obras relacionadas</h2>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedWorks.slice(0, 6).map((item) => (
+              <Link key={item.slug} href={`/w/${item.slug}`} className="ink-card p-3">
+                <div className="ink-frame relative aspect-[16/10]">
+                  <Image
+                    src={`/portfolio/${encodeURIComponent(item.file)}`}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="mt-3 font-semibold leading-tight">{item.title}</h3>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </section>
   )
 }
