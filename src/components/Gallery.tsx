@@ -3,6 +3,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import Modal from './Modal'
 import { trackEvent } from '../lib/analytics'
+import { useTilt } from '../lib/useTilt'
+import { useRevealOnView } from '../lib/useRevealOnView'
 
 type ManifestItem = {
   file: string
@@ -36,7 +38,78 @@ const TILE_ASPECTS = [
   'aspect-[5/4]'
 ]
 
+function getTileClasses(index: number): string {
+  if (index === 0) return 'sm:col-span-2 lg:col-span-4 lg:row-span-2'
+  if (index === 4) return 'sm:col-span-2 lg:col-span-3 lg:row-span-2'
+  return 'sm:col-span-1 lg:col-span-2 lg:row-span-1'
+}
+
+type GalleryCardProps = {
+  item: GalleryItem
+  index: number
+  onOpen: (work: GalleryItem) => void
+}
+
+function GalleryCard({ item, index, onOpen }: GalleryCardProps) {
+  const tiltRef = useTilt<HTMLElement>(3)
+  const sensitive = item.contentWarning
+  const aspect = TILE_ASPECTS[index % TILE_ASPECTS.length]
+  const tileClass = getTileClasses(index)
+  const largeTile = index === 0 || index === 4
+
+  return (
+    <article
+      ref={tiltRef}
+      className={`ink-card p-3 md:p-3.5 ${tileClass}`}
+      role="button"
+      tabIndex={0}
+      aria-label={`Abrir obra ${item.title}`}
+      onClick={() => onOpen(item)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          onOpen(item)
+        }
+      }}
+    >
+      <div className={`ink-frame relative ${largeTile ? 'aspect-[16/10]' : aspect}`}>
+        {item.src ? (
+          <Image
+            src={item.src}
+            alt={item.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            className="object-cover transition duration-300"
+          />
+        ) : (
+          <div className="h-full w-full bg-[linear-gradient(160deg,#f5f5f5_0%,#ececec_100%)]" />
+        )}
+      </div>
+
+      <div className="mt-3">
+        <h3 className="font-semibold leading-tight">{item.title}</h3>
+        <div className="mt-2 flex flex-wrap gap-2 text-xs">
+          <span className="rounded-full border border-black/70 px-2 py-1 bg-white">{item.type}</span>
+          {sensitive && <span className="rounded-full border border-red-800/80 px-2 py-1 bg-red-50 text-red-900">sensível</span>}
+        </div>
+        <div className="mt-3">
+          <button
+            onClick={(event) => {
+              event.stopPropagation()
+              onOpen(item)
+            }}
+            className="ink-button px-3 py-1.5 bg-white text-sm font-medium"
+          >
+            Abrir obra
+          </button>
+        </div>
+      </div>
+    </article>
+  )
+}
+
 export default function Gallery(){
+  const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const [filter,setFilter] = useState<'all' | 'safe' | 'sensitive'>('all')
   const [items, setItems] = useState<GalleryItem[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
@@ -93,7 +166,7 @@ export default function Gallery(){
 
   return (
     <div className="pt-2">
-      <h2 className="text-3xl md:text-4xl font-extrabold">Galeria de Charges</h2>
+      <h2 ref={headingRef} className={`reveal-heading text-3xl md:text-4xl font-extrabold ${revealed ? 'is-revealed' : ''}`}>Galeria de Charges</h2>
       <p className="mt-2 text-sm md:text-base text-slate-700">Selecione o filtro e explore as obras publicadas.</p>
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <div className="text-xs font-bold uppercase tracking-[0.12em] text-slate-600 mr-1">Filtro</div>
@@ -105,9 +178,9 @@ export default function Gallery(){
       </div>
 
       {status === 'loading' && (
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense">
           {[1, 2, 3, 4, 5, 6].map((slot) => (
-            <article key={slot} className="ink-card p-3 md:p-3.5 animate-pulse">
+            <article key={slot} className={`ink-card p-3 md:p-3.5 animate-pulse ${getTileClasses(slot - 1)}`}>
               <div className="ink-frame relative aspect-[4/5] bg-slate-200" />
               <div className="mt-3 h-4 w-2/3 rounded bg-slate-200" />
               <div className="mt-2 h-3 w-1/3 rounded bg-slate-200" />
@@ -132,40 +205,10 @@ export default function Gallery(){
       )}
 
       {status === 'ready' && works.length > 0 && (
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
-        {works.map((w, index)=> {
-          const sensitive = w.contentWarning
-          const aspect = TILE_ASPECTS[index % TILE_ASPECTS.length]
-
-          return (
-            <article key={w.id} className="ink-card p-3 md:p-3.5">
-              <div className={`ink-frame relative ${aspect}`}>
-                {w.src ? (
-                  <Image
-                    src={w.src}
-                    alt={w.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    className="object-cover transition duration-300"
-                  />
-                ) : (
-                  <div className="h-full w-full bg-[linear-gradient(160deg,#f5f5f5_0%,#ececec_100%)]" />
-                )}
-              </div>
-
-              <div className="mt-3">
-                <h3 className="font-semibold leading-tight">{w.title}</h3>
-                <div className="mt-2 flex flex-wrap gap-2 text-xs">
-                  <span className="rounded-full border border-black/70 px-2 py-1 bg-white">{w.type}</span>
-                  {sensitive && <span className="rounded-full border border-red-800/80 px-2 py-1 bg-red-50 text-red-900">sensível</span>}
-                </div>
-                <div className="mt-3">
-                  <button onClick={()=>openWorkModal(w)} className="ink-button px-3 py-1.5 bg-white text-sm font-medium">Abrir obra</button>
-                </div>
-              </div>
-            </article>
-          )
-        })}
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense">
+        {works.map((item, index) => (
+          <GalleryCard key={item.id} item={item} index={index} onOpen={openWorkModal} />
+        ))}
       </div>
       )}
 

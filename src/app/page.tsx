@@ -7,6 +7,7 @@ import Timeline from '../components/Timeline'
 import Clients from '../components/Clients'
 import ContactForm from '../components/ContactForm'
 import Footer from '../components/Footer'
+import SectionRail from '../components/SectionRail'
 import { fetchPublishedWorks } from '../lib/works'
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default async function Page() {
 
   return (
     <>
+      <SectionRail />
       <section id="hero">
         <Hero works={works} />
       </section>

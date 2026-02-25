@@ -1,4 +1,9 @@
+"use client"
+
+import { useRevealOnView } from '../lib/useRevealOnView'
+
 export default function Timeline(){
+  const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const items = [
     { year: '1984', text: 'Estagiário de arte (cartaz) em rede de supermercados.', kind: 'poster' },
     { year: '1985', text: 'Charges/ilustrações para boletins do Sindicato dos Metalúrgicos.', kind: 'union' },
@@ -21,7 +26,7 @@ export default function Timeline(){
 
   return (
     <div>
-      <h2 className="text-2xl font-bold">Sobre / Timeline</h2>
+      <h2 ref={headingRef} className={`reveal-heading text-2xl font-bold ${revealed ? 'is-revealed' : ''}`}>Sobre / Timeline</h2>
       <div className="relative mt-8">
         <div className="absolute left-4 top-0 h-full w-[3px] rounded-full bg-black/70 md:left-1/2 md:-translate-x-1/2" />
         <ol className="space-y-6 md:space-y-8">

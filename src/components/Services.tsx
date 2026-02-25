@@ -1,4 +1,6 @@
 "use client"
+import { useTilt } from '../lib/useTilt'
+import { useRevealOnView } from '../lib/useRevealOnView'
 
 type PackageItem = {
   slug: string
@@ -61,8 +63,10 @@ function sendPackagePrefill(item: PackageItem) {
 }
 
 function PackageCard({ item, group }: { item: PackageItem; group: string }) {
+  const tiltRef = useTilt<HTMLElement>(3)
+
   return (
-    <article className="ink-card p-4">
+    <article ref={tiltRef} className="ink-card p-4">
       <p className="text-[11px] uppercase tracking-[0.12em] text-slate-700">{group}</p>
       <h3 className="mt-1 text-xl font-extrabold">{item.title}</h3>
       <p className="mt-1 inline-block stamp">{item.subtitle}</p>
@@ -85,10 +89,12 @@ function PackageCard({ item, group }: { item: PackageItem; group: string }) {
 }
 
 export default function Services() {
+  const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
+
   return (
     <div className="space-y-14">
       <section>
-        <h2 className="text-3xl font-extrabold">Pacotes</h2>
+        <h2 ref={headingRef} className={`reveal-heading text-3xl font-extrabold ${revealed ? 'is-revealed' : ''}`}>Pacotes</h2>
         <p className="mt-2 max-w-3xl text-slate-700">
           Combinações prontas para acelerar contratação e entrega, com linguagem visual autoral de HQ.
         </p>

@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import { trackEvent } from '../lib/analytics'
+import { useRevealOnView } from '../lib/useRevealOnView'
 
 declare global {
   interface Window {
@@ -27,6 +28,7 @@ function packageMessage(label: string): string {
 }
 
 export default function ContactForm(){
+  const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [phone,setPhone] = useState('')
@@ -42,10 +44,21 @@ export default function ContactForm(){
   const widgetIdRef = useRef<string | null>(null)
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
   const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+  const hasTurnstile = Boolean(turnstileSiteKey)
   const lastAutoMessageRef = useRef('')
+  const [selectedPackageLabel, setSelectedPackageLabel] = useState('')
+
+  const fallbackTemplate = selectedPackageLabel
+    ? `Ola! Tenho interesse no pacote: ${selectedPackageLabel}. Meu objetivo e: ... Prazo ideal: ...`
+    : 'Ola! Quero conversar sobre um projeto. Meu objetivo e: ... Prazo ideal: ...'
+  const contactText = (message || '').trim() || fallbackTemplate
+  const fallbackWhatsAppHref = whatsAppNumber
+    ? `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(contactText)}`
+    : `https://wa.me/?text=${encodeURIComponent(contactText)}`
+  const fallbackEmailHref = `mailto:?subject=${encodeURIComponent('Contato pelo site - Clovis Lima')}&body=${encodeURIComponent(contactText)}`
 
   const mountTurnstile = useCallback(() => {
-    if (!turnstileSiteKey) return
+    if (!hasTurnstile) return
     if (!turnstileContainerRef.current || !window.turnstile) return
     if (widgetIdRef.current) return
 
@@ -59,7 +72,7 @@ export default function ContactForm(){
         setFeedback('Ops, faltou validar o anti-spam. Tente novamente.')
       }
     })
-  }, [turnstileSiteKey])
+  }, [hasTurnstile, turnstileSiteKey])
 
   useEffect(() => {
     const prefillFromQuery = () => {
@@ -67,6 +80,7 @@ export default function ContactForm(){
       const pacote = (params.get('pacote') || '').trim().toLowerCase()
       if (pacote) {
         const label = PACKAGE_LABELS[pacote] || pacote
+        setSelectedPackageLabel(label)
         const nextMessage = packageMessage(label)
         if (!message.trim() || message === lastAutoMessageRef.current) {
           setMessage(nextMessage)
@@ -97,6 +111,7 @@ export default function ContactForm(){
       const title = custom.detail?.title?.trim() || ''
       const label = title || PACKAGE_LABELS[slug] || slug
       if (!label) return
+      setSelectedPackageLabel(label)
       const nextMessage = packageMessage(label)
       setMessage(nextMessage)
       lastAutoMessageRef.current = nextMessage
@@ -129,6 +144,11 @@ export default function ContactForm(){
 
   const submit = async (e:any)=>{
     e.preventDefault()
+    if (!hasTurnstile) {
+      setStatus('error')
+      setFeedback('Envio indisponivel no momento. Use WhatsApp ou E-mail abaixo.')
+      return
+    }
     if (!name.trim() || !email.trim() || !phone.trim() || !message.trim()) {
       setStatus('error')
       setFeedback('Ops, faltou preencher nome, email, telefone e mensagem.')
@@ -207,7 +227,7 @@ export default function ContactForm(){
         strategy="afterInteractive"
         onLoad={() => setWidgetReady(true)}
       />
-      <h2 className="text-2xl font-bold">Contato</h2>
+      <h2 ref={headingRef} className={`reveal-heading text-2xl font-bold ${revealed ? 'is-revealed' : ''}`}>Contato</h2>
       <form className="mt-4" onSubmit={submit}>
         <label className="block">Nome<input id="contact-name" name="name" className="w-full border p-2" value={name} onChange={e=>setName(e.target.value)} required /></label>
         <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e=>setEmail(e.target.value)} required /></label>
@@ -215,15 +235,39 @@ export default function ContactForm(){
         <label className="block mt-2">Empresa<input className="w-full border p-2" value={company} onChange={e=>setCompany(e.target.value)} /></label>
         <label className="block mt-2">Mensagem<textarea ref={messageRef} className="w-full border p-2" value={message} onChange={e=>setMessage(e.target.value)} required /></label>
         <div className="mt-3">
-          {turnstileSiteKey ? (
+          {hasTurnstile ? (
             <div ref={turnstileContainerRef} />
           ) : (
-            <p className="text-sm text-red-700">Falta configurar `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.</p>
+            <p id="turnstile-missing-help" className="text-sm text-red-700">Envio pelo formulario indisponivel agora. Use WhatsApp ou E-mail abaixo.</p>
           )}
         </div>
-        <button className="mt-3 bg-accent text-white px-4 py-2 rounded disabled:opacity-70" type="submit" disabled={status === 'loading'}>
+        <button
+          className="mt-3 bg-accent text-white px-4 py-2 rounded disabled:opacity-70"
+          type="submit"
+          disabled={status === 'loading' || !hasTurnstile}
+          aria-describedby={!hasTurnstile ? 'turnstile-missing-help' : undefined}
+          title={!hasTurnstile ? 'Envio indisponivel: captcha anti-spam nao configurado.' : undefined}
+        >
           {status === 'loading' ? 'Enviando...' : 'Enviar'}
         </button>
+        {!hasTurnstile && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            <a
+              href={fallbackWhatsAppHref}
+              target="_blank"
+              rel="noreferrer"
+              className="ink-button inline-block rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white"
+            >
+              WhatsApp
+            </a>
+            <a
+              href={fallbackEmailHref}
+              className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold text-black"
+            >
+              E-mail
+            </a>
+          </div>
+        )}
         {status !== 'idle' && status !== 'success' && (
           <p className={`mt-3 rounded-md border px-3 py-2 text-sm ${
             status === 'error'

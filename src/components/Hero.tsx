@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image'
 import { trackEvent } from '../lib/analytics'
+import { useRevealOnView } from '../lib/useRevealOnView'
 
 type Work = {
   id: string
@@ -26,6 +27,7 @@ function isSensitive(contentWarning: string | null): boolean {
 }
 
 export default function Hero({ works }: HeroProps){
+  const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const featuredSafeWork = works.find((work) => work.is_featured === true && !isSensitive(work.content_warning))
   const featuredImage = featuredSafeWork?.cover_url || featuredSafeWork?.cover_image_url || null
 
@@ -33,7 +35,7 @@ export default function Hero({ works }: HeroProps){
     <div className="min-h-[56vh] md:min-h-[58vh] grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
       <div>
         <p className="stamp">Ilustração + Produto Digital</p>
-        <h1 className="mt-3 text-4xl md:text-6xl font-extrabold leading-tight">Humor que comunica. Design que converte.</h1>
+        <h1 ref={headingRef} className={`reveal-heading mt-3 text-4xl md:text-6xl font-extrabold leading-tight ${revealed ? 'is-revealed' : ''}`}>Humor que comunica. Design que converte.</h1>
         <p className="mt-3 max-w-2xl text-base md:text-lg">
           Ilustração autoral e sites/PWAs sob medida para transformar atenção em cliente.
         </p>
