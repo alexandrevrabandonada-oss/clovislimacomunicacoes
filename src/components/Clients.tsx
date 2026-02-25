@@ -6,11 +6,11 @@ import { useRevealOnView } from '../lib/useRevealOnView'
 export default function Clients(){
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const clients = [
-    { label: 'IBASE', variant: 'rect' as const },
-    { label: 'Dupont', variant: 'tilted' as const },
-    { label: 'Diário do Vale', variant: 'rough' as const },
-    { label: 'Folha do Aço', variant: 'tilted' as const },
-    { label: 'Pavio Curto', variant: 'rect' as const }
+    { label: 'IBASE', variant: 'rect' as const, logo_url: '/clients/ibase.png' },
+    { label: 'DuPont', variant: 'tilted' as const, logo_url: '/clients/dupont.svg' },
+    { label: 'Diário do Vale', variant: 'rough' as const, logo_url: '/clients/diario-do-vale.png' },
+    { label: 'Folha do Aço', variant: 'tilted' as const, logo_url: '/clients/folha-do-aco.png' },
+    { label: 'Pavio Curto', variant: 'rect' as const, logo_url: '/clients/pavio-curto.png' }
   ]
 
   return (
@@ -19,7 +19,7 @@ export default function Clients(){
       <p className="mt-3 text-sm md:text-base">Trabalhos publicados/realizados para:</p>
       <div className="mt-4 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 items-stretch">
         {clients.map((client)=> (
-          <StampBadge key={client.label} label={client.label} variant={client.variant} />
+          <StampBadge key={client.label} label={client.label} variant={client.variant} logo_url={client.logo_url} />
         ))}
       </div>
     </div>
