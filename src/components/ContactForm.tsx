@@ -13,6 +13,19 @@ declare global {
   }
 }
 
+const PACKAGE_LABELS: Record<string, string> = {
+  'charge-avulsa': 'Charge avulsa',
+  'pacote-mensal': 'Pacote mensal',
+  'serie-especial': 'Serie / Especial',
+  'landing-rapida': 'Landing rapida',
+  'site-completo': 'Site completo',
+  pwa: 'PWA'
+}
+
+function packageMessage(label: string): string {
+  return `Ola! Tenho interesse no pacote: ${label}. Meu objetivo e: ... Prazo ideal: ...`
+}
+
 export default function ContactForm(){
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
@@ -29,6 +42,7 @@ export default function ContactForm(){
   const widgetIdRef = useRef<string | null>(null)
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
   const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+  const lastAutoMessageRef = useRef('')
 
   const mountTurnstile = useCallback(() => {
     if (!turnstileSiteKey) return
@@ -50,9 +64,21 @@ export default function ContactForm(){
   useEffect(() => {
     const prefillFromQuery = () => {
       const params = new URLSearchParams(window.location.search)
+      const pacote = (params.get('pacote') || '').trim().toLowerCase()
+      if (pacote) {
+        const label = PACKAGE_LABELS[pacote] || pacote
+        const nextMessage = packageMessage(label)
+        if (!message.trim() || message === lastAutoMessageRef.current) {
+          setMessage(nextMessage)
+          lastAutoMessageRef.current = nextMessage
+        }
+        return
+      }
+
       const prefill = params.get('prefill_message')
       if (prefill && !message.trim()) {
         setMessage(prefill)
+        lastAutoMessageRef.current = prefill
       }
     }
 
@@ -61,12 +87,31 @@ export default function ContactForm(){
       const incoming = custom.detail?.message || ''
       if (!incoming) return
       setMessage(incoming)
+      lastAutoMessageRef.current = incoming
+      setTimeout(() => messageRef.current?.focus(), 100)
+    }
+
+    const onPackage = (event: Event) => {
+      const custom = event as CustomEvent<{ slug?: string; title?: string }>
+      const slug = (custom.detail?.slug || '').trim().toLowerCase()
+      const title = custom.detail?.title?.trim() || ''
+      const label = title || PACKAGE_LABELS[slug] || slug
+      if (!label) return
+      const nextMessage = packageMessage(label)
+      setMessage(nextMessage)
+      lastAutoMessageRef.current = nextMessage
       setTimeout(() => messageRef.current?.focus(), 100)
     }
 
     prefillFromQuery()
     window.addEventListener('contact-prefill', onPrefill)
-    return () => window.removeEventListener('contact-prefill', onPrefill)
+    window.addEventListener('contact-package', onPackage)
+    window.addEventListener('popstate', prefillFromQuery)
+    return () => {
+      window.removeEventListener('contact-prefill', onPrefill)
+      window.removeEventListener('contact-package', onPackage)
+      window.removeEventListener('popstate', prefillFromQuery)
+    }
   }, [message])
 
   useEffect(() => {
@@ -164,7 +209,7 @@ export default function ContactForm(){
       />
       <h2 className="text-2xl font-bold">Contato</h2>
       <form className="mt-4" onSubmit={submit}>
-        <label className="block">Nome<input className="w-full border p-2" value={name} onChange={e=>setName(e.target.value)} required /></label>
+        <label className="block">Nome<input id="contact-name" name="name" className="w-full border p-2" value={name} onChange={e=>setName(e.target.value)} required /></label>
         <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e=>setEmail(e.target.value)} required /></label>
         <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e=>setPhone(e.target.value)} required /></label>
         <label className="block mt-2">Empresa<input className="w-full border p-2" value={company} onChange={e=>setCompany(e.target.value)} /></label>

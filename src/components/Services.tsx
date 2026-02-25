@@ -1,6 +1,7 @@
 "use client"
 
 type PackageItem = {
+  slug: string
   title: string
   subtitle: string
   bullets: string[]
@@ -8,16 +9,19 @@ type PackageItem = {
 
 const artPackages: PackageItem[] = [
   {
+    slug: 'charge-avulsa',
     title: 'Charge avulsa',
     subtitle: '1 tema, 1 revisão',
     bullets: ['Direção visual editorial', 'Entrega pronta para publicação']
   },
   {
+    slug: 'pacote-mensal',
     title: 'Pacote mensal',
     subtitle: 'X peças por mês',
     bullets: ['Consistência de linguagem', 'Planejamento por pauta']
   },
   {
+    slug: 'serie-especial',
     title: 'Série / Especial',
     subtitle: 'Pauta + storyboard + entrega',
     bullets: ['Narrativa sequencial', 'Formato para campanhas e veículos']
@@ -26,16 +30,19 @@ const artPackages: PackageItem[] = [
 
 const digitalPackages: PackageItem[] = [
   {
+    slug: 'landing-rapida',
     title: 'Landing rápida',
     subtitle: '1 página, SEO, formulário',
     bullets: ['Copy + design objetivo', 'Captação de leads pronta']
   },
   {
+    slug: 'site-completo',
     title: 'Site completo',
     subtitle: 'Páginas + CMS simples',
     bullets: ['Estrutura editorial escalável', 'Atualização facilitada']
   },
   {
+    slug: 'pwa',
     title: 'PWA',
     subtitle: 'Offline, instalação, dashboard',
     bullets: ['Experiência tipo app', 'Base para operação e métricas']
@@ -44,13 +51,13 @@ const digitalPackages: PackageItem[] = [
 
 const processSteps = ['Briefing', 'Rascunho', 'Ajustes', 'Final', 'Entrega/Deploy']
 
-function sendPackagePrefill(title: string, subtitle: string) {
-  const message = `Tenho interesse no pacote "${title}" (${subtitle}). Podemos conversar sobre orçamento e prazo?`
+function sendPackagePrefill(item: PackageItem) {
   const url = new URL(window.location.href)
-  url.searchParams.set('prefill_message', message)
-  window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`)
-  window.dispatchEvent(new CustomEvent('contact-prefill', { detail: { message } }))
-  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  url.searchParams.set('pacote', item.slug)
+  url.hash = 'contato'
+  window.history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`)
+  window.dispatchEvent(new CustomEvent('contact-package', { detail: { slug: item.slug, title: item.title } }))
+  document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function PackageCard({ item, group }: { item: PackageItem; group: string }) {
@@ -68,7 +75,7 @@ function PackageCard({ item, group }: { item: PackageItem; group: string }) {
       </div>
       <button
         type="button"
-        onClick={() => sendPackagePrefill(item.title, item.subtitle)}
+        onClick={() => sendPackagePrefill(item)}
         className="mt-5 rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white"
       >
         Quero este pacote

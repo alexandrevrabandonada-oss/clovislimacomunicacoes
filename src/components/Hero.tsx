@@ -35,33 +35,40 @@ export default function Hero({ works }: HeroProps){
         <p className="stamp">Ilustração + Produto Digital</p>
         <h1 className="mt-3 text-4xl md:text-6xl font-extrabold leading-tight">Humor que comunica. Design que converte.</h1>
         <p className="mt-3 max-w-2xl text-base md:text-lg">
-          Charges e ilustração editorial com linguagem autoral, junto de sites e PWAs sob medida para captar, engajar e converter.
+          Ilustração autoral e sites/PWAs sob medida para transformar atenção em cliente.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <a
-            href="#works"
+            href="#trabalhos"
             onClick={() => trackEvent('click_cta_ver_trabalhos')}
             className="ink-button inline-block w-full sm:w-auto text-center bg-accent text-white px-5 py-2.5 font-semibold"
           >
             Ver trabalhos
           </a>
           <a
-            href="#contact"
+            href="#contato"
             onClick={(event) => {
               event.preventDefault()
               trackEvent('click_cta_site_pwa')
               const message = 'Quero um site ou PWA com a identidade da minha marca.'
               const url = new URL(window.location.href)
               url.searchParams.set('prefill_message', message)
-              window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`)
+              window.history.replaceState({}, '', `${url.pathname}${url.search}#contato`)
               window.dispatchEvent(new CustomEvent('contact-prefill', { detail: { message } }))
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              requestAnimationFrame(() => {
+                window.setTimeout(() => {
+                  const nameInput = document.querySelector<HTMLInputElement>('input[name="name"], input[name="nome"], #contact-name')
+                  nameInput?.focus()
+                }, 120)
+              })
             }}
             className="ink-button inline-block w-full sm:w-auto text-center px-5 py-2.5 font-semibold bg-white"
           >
             Quero um site/PWA
           </a>
         </div>
+        <p className="mt-2 text-sm text-slate-700">Resposta rapida por e-mail ou WhatsApp em ate 24h uteis.</p>
       </div>
       <div className="relative h-[280px] sm:h-[320px] md:h-[360px] rounded-[22px] overflow-hidden border-2 border-black bg-white">
         {featuredImage ? (
