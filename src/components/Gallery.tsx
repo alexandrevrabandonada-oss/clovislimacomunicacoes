@@ -343,7 +343,7 @@ export default function Gallery(){
             <p className="mt-3 text-sm text-slate-700">Arquivo: {selected.file}</p>
             <div className="mt-5 border-t border-black/15 pt-4">
               <h4 className="text-sm font-bold uppercase tracking-[0.08em] text-slate-700">Compartilhar</h4>
-              <div className="mt-3 flex flex-wrap gap-2">
+              <div className="mt-3 flex flex-wrap items-center gap-2">
                 <button type="button" onClick={copyLink} className="ink-button bg-white px-3 py-1.5 text-sm font-semibold">
                   Copiar link
                 </button>
@@ -355,12 +355,6 @@ export default function Gallery(){
                 >
                   WhatsApp
                 </a>
-                <a
-                  href={`/w/${selected.slug}`}
-                  className="ink-button bg-white px-3 py-1.5 text-sm font-semibold"
-                >
-                  Abrir pagina da obra
-                </a>
                 <button
                   type="button"
                   onClick={() => askForThisCharge(selected)}
@@ -368,6 +362,12 @@ export default function Gallery(){
                 >
                   Quero esta charge
                 </button>
+                <a
+                  href={`/w/${selected.slug}`}
+                  className="text-sm text-slate-600 underline hover:text-black transition-colors ml-1"
+                >
+                  Abrir página da obra
+                </a>
               </div>
               <p className="mt-3 text-xs text-slate-700">Publicacao / licenciamento / prints sob demanda.</p>
             </div>

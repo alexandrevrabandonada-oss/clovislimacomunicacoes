@@ -185,9 +185,9 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
   const fallbackFromNext =
     currentManifestIndex >= 0
       ? manifestEntries
-          .slice(currentManifestIndex + 1)
-          .concat(manifestEntries.slice(0, currentManifestIndex))
-          .filter((item) => item.slug !== params.slug && item.slug !== slugify(work.title))
+        .slice(currentManifestIndex + 1)
+        .concat(manifestEntries.slice(0, currentManifestIndex))
+        .filter((item) => item.slug !== params.slug && item.slug !== slugify(work.title))
       : manifestEntries.filter((item) => item.slug !== params.slug && item.slug !== slugify(work.title))
 
   const relatedWorks = [...sameType]
@@ -232,66 +232,75 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
       />
       <WorkDetail work={work} />
 
-      <div className="mx-auto mt-8 max-w-6xl grid grid-cols-1 gap-4 md:grid-cols-2">
-        <aside className="ink-card p-4 lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto mt-12 max-w-6xl grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px] items-start">
+
+        {/* Coluna Principal: Navegação, Share e Obras Relacionadas */}
+        <div className="flex flex-col gap-8 min-w-0 order-last lg:order-first">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <WorkShareBlock shareUrl={shareUrl} title={work.title} />
+
+            <aside className="ink-card p-4">
+              <h2 className="text-xl font-extrabold">Navegar no portfolio</h2>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Link href={previousHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+                  Anterior
+                </Link>
+                <Link href={nextHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+                  Próxima
+                </Link>
+              </div>
+              {currentManifestIndex < 0 && (
+                <p className="mt-2 text-xs text-slate-600">
+                  Ordem do manifest nao encontrada para esta obra. Navegacao aponta para a home.
+                </p>
+              )}
+            </aside>
+          </div>
+
+          {relatedWorks.length > 0 && (
+            <section>
+              <h2 className="text-2xl font-extrabold">Obras relacionadas</h2>
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {relatedWorks.slice(0, 6).map((item) => (
+                  <Link key={item.slug} href={`/w/${item.slug}`} className="ink-card p-3">
+                    <div className="ink-frame relative aspect-[16/10]">
+                      <Image
+                        src={`/portfolio/${encodeURIComponent(item.file)}`}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <h3 className="mt-3 font-semibold leading-tight">{item.title}</h3>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+
+        {/* Coluna Secundária: Licenciamento / Prints (Sticky) */}
+        <aside className="ink-card p-4 lg:sticky lg:top-24">
           <h2 className="text-xl font-extrabold">Licenciamento / Prints</h2>
           <p className="mt-2 text-sm text-slate-700">
             Ative esta obra como print ou licenca, com orientacao de formato e uso.
           </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Link href={printsHref} className="ink-button inline-block rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white">
+          <div className="mt-4 flex flex-col gap-2">
+            <Link href={printsHref} className="ink-button block text-center rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white">
               Quero print assinado
             </Link>
-            <Link href={editorialHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+            <Link href={editorialHref} className="ink-button block text-center rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
               Licenca editorial
             </Link>
-            <Link href={campaignHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+            <Link href={campaignHref} className="ink-button block text-center rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
               Quero usar em campanha
             </Link>
           </div>
         </aside>
 
-        <WorkShareBlock shareUrl={shareUrl} title={work.title} />
-
-        <aside className="ink-card p-4 md:col-span-2">
-          <h2 className="text-xl font-extrabold">Navegar no portfolio</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Link href={previousHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
-              Anterior
-            </Link>
-            <Link href={nextHref} className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
-              Proxima
-            </Link>
-          </div>
-          {currentManifestIndex < 0 && (
-            <p className="mt-2 text-xs text-slate-600">
-              Ordem do manifest nao encontrada para esta obra. Navegacao aponta para a home.
-            </p>
-          )}
-        </aside>
       </div>
-
-      {relatedWorks.length > 0 && (
-        <section className="mx-auto mt-8 max-w-6xl">
-          <h2 className="text-2xl font-extrabold">Obras relacionadas</h2>
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedWorks.slice(0, 6).map((item) => (
-              <Link key={item.slug} href={`/w/${item.slug}`} className="ink-card p-3">
-                <div className="ink-frame relative aspect-[16/10]">
-                  <Image
-                    src={`/portfolio/${encodeURIComponent(item.file)}`}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="mt-3 font-semibold leading-tight">{item.title}</h3>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
     </section>
   )
 }
