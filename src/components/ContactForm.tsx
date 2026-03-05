@@ -62,13 +62,13 @@ function buildTemplate(packageSlug: string, packageLabel: string, workLabel: str
   return 'Ola! Quero conversar sobre um projeto. Meu objetivo e: ... Prazo ideal: ...'
 }
 
-export default function ContactForm(){
+export default function ContactForm() {
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
-  const [name,setName] = useState('')
-  const [email,setEmail] = useState('')
-  const [phone,setPhone] = useState('')
-  const [company,setCompany] = useState('')
-  const [message,setMessage] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [company, setCompany] = useState('')
+  const [message, setMessage] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [feedback, setFeedback] = useState('')
@@ -184,11 +184,11 @@ export default function ContactForm(){
     }
   }, [])
 
-  const submit = async (e:any)=>{
+  const submit = async (e: any) => {
     e.preventDefault()
     if (!hasTurnstile) {
       setStatus('error')
-      setFeedback('Envio indisponivel no momento. Use WhatsApp ou E-mail abaixo.')
+      setFeedback('Formulário temporariamente indisponível, use WhatsApp/e-mail.')
       return
     }
     if (!name.trim() || !email.trim() || !phone.trim() || !message.trim()) {
@@ -285,10 +285,10 @@ export default function ContactForm(){
       />
       <h2 ref={headingRef} className={`reveal-heading text-2xl font-bold ${revealed ? 'is-revealed' : ''}`}>Contato</h2>
       <form className="mt-4" onSubmit={submit}>
-        <label className="block">Nome<input id="contact-name" name="name" className="w-full border p-2" value={name} onChange={e=>setName(e.target.value)} required /></label>
-        <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e=>setEmail(e.target.value)} required /></label>
-        <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e=>setPhone(e.target.value)} required /></label>
-        <label className="block mt-2">Empresa<input className="w-full border p-2" value={company} onChange={e=>setCompany(e.target.value)} /></label>
+        <label className="block">Nome<input id="contact-name" name="name" className="w-full border p-2" value={name} onChange={e => setName(e.target.value)} required /></label>
+        <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e => setEmail(e.target.value)} required /></label>
+        <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e => setPhone(e.target.value)} required /></label>
+        <label className="block mt-2">Empresa<input className="w-full border p-2" value={company} onChange={e => setCompany(e.target.value)} /></label>
         {selectedWorkSlug && (
           <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-black/40 bg-white px-3 py-1 text-xs">
             <span>Referencia: {selectedWorkLabel || selectedWorkSlug}</span>
@@ -297,12 +297,12 @@ export default function ContactForm(){
             </button>
           </div>
         )}
-        <label className="block mt-2">Mensagem<textarea ref={messageRef} className="w-full border p-2" value={message} onChange={e=>setMessage(e.target.value)} required /></label>
+        <label className="block mt-2">Mensagem<textarea ref={messageRef} className="w-full border p-2" value={message} onChange={e => setMessage(e.target.value)} required /></label>
         <div className="mt-3">
           {hasTurnstile ? (
             <div ref={turnstileContainerRef} />
           ) : (
-            <p id="turnstile-missing-help" className="text-sm text-red-700">Envio pelo formulario indisponivel agora. Use WhatsApp ou E-mail abaixo.</p>
+            <p id="turnstile-missing-help" className="text-sm text-red-700">Formulário temporariamente indisponível, use WhatsApp/e-mail.</p>
           )}
         </div>
         <button
@@ -310,7 +310,7 @@ export default function ContactForm(){
           type="submit"
           disabled={status === 'loading' || !hasTurnstile}
           aria-describedby={!hasTurnstile ? 'turnstile-missing-help' : undefined}
-          title={!hasTurnstile ? 'Envio indisponivel: captcha anti-spam nao configurado.' : undefined}
+          title={!hasTurnstile ? 'Formulário temporariamente indisponível, use WhatsApp/e-mail.' : undefined}
         >
           {status === 'loading' ? 'Enviando...' : 'Enviar'}
         </button>
@@ -333,11 +333,10 @@ export default function ContactForm(){
           </div>
         )}
         {status !== 'idle' && status !== 'success' && (
-          <p className={`mt-3 rounded-md border px-3 py-2 text-sm ${
-            status === 'error'
+          <p className={`mt-3 rounded-md border px-3 py-2 text-sm ${status === 'error'
               ? 'border-red-300 bg-red-50 text-red-800'
               : 'border-slate-300 bg-white text-slate-700'
-          }`}>
+            }`}>
             {feedback}
           </p>
         )}

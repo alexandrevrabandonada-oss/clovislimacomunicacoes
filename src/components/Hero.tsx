@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image'
+import { Fragment } from 'react'
 import { trackEvent } from '../lib/analytics'
 import { useRevealOnView } from '../lib/useRevealOnView'
 
@@ -26,7 +27,7 @@ function isSensitive(contentWarning: string | null): boolean {
   return true
 }
 
-export default function Hero({ works }: HeroProps){
+export default function Hero({ works }: HeroProps) {
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const featuredSafeWork = works.find((work) => work.is_featured === true && !isSensitive(work.content_warning))
   const featuredImage = featuredSafeWork?.cover_url || featuredSafeWork?.cover_image_url || null
@@ -41,13 +42,15 @@ export default function Hero({ works }: HeroProps){
           className={`hero-kinetic-title mt-3 text-4xl md:text-6xl font-extrabold leading-tight ${revealed ? 'is-revealed' : ''}`}
         >
           {titleWords.map((word, index) => (
-            <span
-              key={`${word}-${index}`}
-              className={`hero-kinetic-word ${word === 'converte.' ? 'hero-ink-underline' : ''}`}
-              style={{ ['--d' as string]: index }}
-            >
-              {word}{index < titleWords.length - 1 ? ' ' : ''}
-            </span>
+            <Fragment key={`${word}-${index}`}>
+              <span
+                className={`hero-kinetic-word ${word === 'converte.' ? 'hero-ink-underline' : ''}`}
+                style={{ ['--d' as string]: index }}
+              >
+                {word}
+              </span>
+              {index < titleWords.length - 1 ? ' ' : ''}
+            </Fragment>
           ))}
         </h1>
         <p className="mt-3 max-w-2xl text-base md:text-lg">

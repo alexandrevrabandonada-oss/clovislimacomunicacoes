@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { promises as fs } from 'fs'
 import path from 'path'
 import WorkDetail, { WorkDetailData } from '../../../components/WorkDetail'
@@ -22,6 +22,7 @@ type ManifestItem = {
   title?: string
   type?: string
   content_warning?: boolean
+  slug?: string
 }
 
 type ManifestEntry = {
@@ -53,7 +54,7 @@ async function readManifestEntries(): Promise<ManifestEntry[]> {
         const title = (value.title || file || 'Obra').trim()
         const type = (value.type || defaultType).trim() || defaultType
         return {
-          slug: slugify(title) || slugify(file),
+          slug: value.slug || slugify(title) || slugify(file),
           title,
           type,
           file,
@@ -119,6 +120,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   if (!work) {
+    // Check if it's a legacy slug
+    const fallbackEntry = manifestEntries.find(entry => {
+      const parsedFile = entry.file.split('.').slice(0, -1).join('.')
+      const slugTitle = slugify(entry.title)
+      const slugFile = slugify(parsedFile)
+      return slugTitle === params.slug || slugFile === params.slug
+    })
+
+    if (fallbackEntry && fallbackEntry.slug && fallbackEntry.slug !== params.slug) {
+      // It's a valid legacy slug, we'll let the page redirect in the component,
+      // but we might as well yield the correct metadata using the new slug if we want.
+      // But redirect is better handled inside the page component.
+    }
+
     return {
       title: 'Obra não encontrada',
       alternates: { canonical: `/w/${params.slug}` }
@@ -161,7 +176,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function WorkDetailPage({ params }: { params: { slug: string } }) {
   const siteUrl = getSiteUrl()
   const [work, manifestEntries] = await Promise.all([getWork(params.slug), readManifestEntries()])
-  if (!work) notFound()
+
+  if (!work) {
+    const fallbackEntry = manifestEntries.find(entry => {
+      const parsedFile = entry.file.split('.').slice(0, -1).join('.')
+      const slugTitle = slugify(entry.title)
+      const slugFile = slugify(parsedFile)
+      return slugTitle === params.slug || slugFile === params.slug
+    })
+    if (fallbackEntry && fallbackEntry.slug && fallbackEntry.slug !== params.slug) {
+      redirect(`/w/${fallbackEntry.slug}`)
+    }
+    notFound()
+  }
+
   const sensitive = isSensitive(work.content_warning)
   const currentManifestIndex = manifestEntries.findIndex(
     (item) => item.slug === params.slug || item.slug === slugify(work.title)

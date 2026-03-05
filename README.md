@@ -43,3 +43,13 @@ npm run import:portfolio
 
 6. Veja o relatório:
    - `scripts/import-report.md`
+
+## Variáveis de Ambiente Necessárias (Vercel)
+
+Para o adequado funcionamento do sistema, as seguintes variáveis de ambiente devem estar configuradas na Vercel (em Preview e Production):
+
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY`: Chave pública do Cloudflare Turnstile (habilita o envio de formulário na UI).
+- `TURNSTILE_SECRET_KEY`: Chave secreta do Cloudflare Turnstile (validação de bot na API).
+- `NEXT_PUBLIC_WHATSAPP_NUMBER`: Número do WhatsApp para fallback de contatos (ex: `5511999999999`).
+- `SUPABASE_URL` (ou `NEXT_PUBLIC_SUPABASE_URL`): URL do projeto no Supabase para envio de leads.
+- `SUPABASE_SERVICE_ROLE_KEY`: Chave de serviço do Supabase, necessária para gravar leads no DB.

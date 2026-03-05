@@ -35,7 +35,7 @@ function goToContact(item: OfferItem) {
 
 export default function PrintsTeaser() {
   return (
-    <div style={{ position: "relative", zIndex: 0, marginTop: "2.5rem", inset: "auto" }}>
+    <div className="relative z-0 isolate mt-16 overflow-hidden">
       <h2 className="text-3xl font-extrabold">Prints &amp; Licenciamento</h2>
       <div className="mt-4 grid gap-4 md:grid-cols-3">
         {offers.map((item) => (

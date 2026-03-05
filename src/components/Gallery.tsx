@@ -116,9 +116,9 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
   )
 }
 
-export default function Gallery(){
+export default function Gallery() {
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
-  const [filter,setFilter] = useState<'all' | 'safe' | 'sensitive'>('all')
+  const [filter, setFilter] = useState<'all' | 'safe' | 'sensitive'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [typeFilter, setTypeFilter] = useState('all')
   const [items, setItems] = useState<GalleryItem[]>([])
@@ -152,7 +152,7 @@ export default function Gallery(){
         const titleSlug = slugify(title || file)
         return {
           id: key,
-          slug: `obra-${String(index + 1).padStart(2, '0')}-${titleSlug || 'item'}`,
+          slug: (value as any)?.slug || `obra-${String(index + 1).padStart(2, '0')}-${titleSlug || 'item'}`,
           file,
           src: `/portfolio/${encodeURIComponent(file)}`,
           title,
@@ -257,9 +257,9 @@ export default function Gallery(){
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <div className="text-xs font-bold uppercase tracking-[0.12em] text-slate-600 mr-1">Filtro</div>
         <div className="flex flex-wrap gap-2">
-          <button onClick={()=>setFilter('all')} className="ink-chip px-3 py-1 text-sm font-medium">Todos</button>
-          <button onClick={()=>setFilter('safe')} className="ink-chip px-3 py-1 text-sm font-medium">Sem alerta</button>
-          <button onClick={()=>setFilter('sensitive')} className="ink-chip px-3 py-1 text-sm font-medium">Com aviso</button>
+          <button onClick={() => setFilter('all')} className="ink-chip px-3 py-1 text-sm font-medium">Todos</button>
+          <button onClick={() => setFilter('safe')} className="ink-chip px-3 py-1 text-sm font-medium">Sem alerta</button>
+          <button onClick={() => setFilter('sensitive')} className="ink-chip px-3 py-1 text-sm font-medium">Com aviso</button>
         </div>
       </div>
       <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto] sm:items-center">
@@ -319,11 +319,11 @@ export default function Gallery(){
       )}
 
       {status === 'ready' && works.length > 0 && (
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense lg:auto-rows-[10px]">
-        {works.map((item, index) => (
-          <GalleryCard key={item.id} item={item} index={index} total={works.length} onOpen={openWorkModal} />
-        ))}
-      </div>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense lg:auto-rows-[10px]">
+          {works.map((item, index) => (
+            <GalleryCard key={item.id} item={item} index={index} total={works.length} onOpen={openWorkModal} />
+          ))}
+        </div>
       )}
       <p className="mt-4 text-xs text-slate-700">Publicacao / licenciamento / prints sob demanda.</p>
 
