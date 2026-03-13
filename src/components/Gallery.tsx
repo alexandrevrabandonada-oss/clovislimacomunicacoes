@@ -253,7 +253,7 @@ export default function Gallery() {
   return (
     <div className="pt-2">
       <h2 ref={headingRef} className={`reveal-heading text-3xl md:text-4xl font-extrabold ${revealed ? 'is-revealed' : ''}`}>Galeria de Charges</h2>
-      <p className="mt-2 text-sm md:text-base text-slate-700">Selecione o filtro e explore as obras publicadas.</p>
+      <p className="mt-2 text-sm md:text-base text-slate-700">Explore as últimas produções, licenciamentos e rascunhos em destaque.</p>
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <div className="text-xs font-bold uppercase tracking-[0.12em] text-slate-600 mr-1">Filtro</div>
         <div className="flex flex-wrap gap-2">
@@ -292,7 +292,7 @@ export default function Gallery() {
       </div>
 
       {status === 'loading' && (
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense lg:auto-rows-[10px]">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5">
           {[1, 2, 3, 4, 5, 6].map((slot) => (
             <article key={slot} className={`ink-card p-3 md:p-3.5 animate-pulse ${getTileClasses(slot - 1, 6)}`}>
               <div className={`ink-frame relative ${slot === 1 ? 'aspect-[16/10]' : 'aspect-[4/3]'} bg-slate-200`} />
@@ -319,7 +319,7 @@ export default function Gallery() {
       )}
 
       {status === 'ready' && works.length > 0 && (
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5 lg:grid-flow-dense lg:auto-rows-[10px]">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5">
           {works.map((item, index) => (
             <GalleryCard key={item.id} item={item} index={index} total={works.length} onOpen={openWorkModal} />
           ))}

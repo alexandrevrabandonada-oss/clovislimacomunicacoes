@@ -8,6 +8,7 @@ import PrintsTeaser from '../components/PrintsTeaser'
 import FAQ from '../components/FAQ'
 import Timeline from '../components/Timeline'
 import Clients from '../components/Clients'
+import MicroCases from '../components/MicroCases'
 import QuickQuote from '../components/QuickQuote'
 import ContactForm from '../components/ContactForm'
 import Footer from '../components/Footer'
@@ -36,7 +37,9 @@ export default async function Page() {
       <section id="trabalhos" className="mt-16">
         <Gallery />
       </section>
-      <section id="prints-licenciamento" className="mt-16">
+      <section id="prints-licenciamento" className="relative z-0 overflow-hidden mt-16">
+        {/* Fundo decorativo da seção — fica dentro do wrapper para evitar sobreposição da galeria */}
+        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
         <PrintsTeaser />
       </section>
       <div id="services" className="sr-only" aria-hidden="true" />
@@ -50,6 +53,9 @@ export default async function Page() {
       <section id="sobre" className="mt-16 space-y-16">
         <Timeline />
         <Clients />
+      </section>
+      <section id="resultados" className="mt-16">
+        <MicroCases />
       </section>
       <div id="contact" className="sr-only" aria-hidden="true" />
       <section id="contato" className="mt-16 space-y-4">

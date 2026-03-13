@@ -49,7 +49,7 @@ export default function Hero({ works }: HeroProps) {
               >
                 {word}
               </span>
-              {index < titleWords.length - 1 ? ' ' : ''}
+              {index < titleWords.length - 1 ? " " : ""}
             </Fragment>
           ))}
         </h1>

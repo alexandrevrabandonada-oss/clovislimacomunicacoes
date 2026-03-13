@@ -5,17 +5,19 @@ import { useEffect, useMemo, useState } from 'react'
 
 type NavItem = {
   label: string
-  href: '#trabalhos' | '#servicos' | '#sobre' | '#contato'
+  href: string
+  isPage?: boolean
 }
 
 const navItems: NavItem[] = [
   { label: 'Trabalhos', href: '#trabalhos' },
+  { label: 'Cases', href: '/cases', isPage: true },
   { label: 'Serviços', href: '#servicos' },
   { label: 'Sobre', href: '#sobre' },
   { label: 'Contato', href: '#contato' }
 ]
 
-export default function Header(){
+export default function Header() {
   const [activeHash, setActiveHash] = useState<string>('#trabalhos')
   const sectionIds = useMemo(
     () => navItems.map((item) => item.href.replace('#', '')),
@@ -68,7 +70,11 @@ export default function Header(){
               : 'hover:underline'
             const activeClass = isActive ? ' underline font-semibold' : ''
 
-            return (
+            return item.isPage ? (
+              <Link key={item.href} href={item.href} className={`${baseClass}${activeClass}`}>
+                {item.label}
+              </Link>
+            ) : (
               <a key={item.href} href={item.href} className={`${baseClass}${activeClass}`}>
                 {item.label}
               </a>

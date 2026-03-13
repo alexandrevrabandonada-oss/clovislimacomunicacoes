@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY || ''
 
-  if (!supabaseUrl || !serviceRoleKey || !turnstileSecret) {
+  if (!supabaseUrl || !serviceRoleKey) {
     return NextResponse.json({ error: 'Configuração de servidor incompleta.' }, { status: 500 })
   }
 
@@ -102,6 +102,7 @@ export async function POST(req: NextRequest) {
   const phone = toText(payload.phone, 30)
   const company = toText(payload.company, 200)
   const message = toText(payload.message, 4000)
+  const honeypot = toText(payload.honeypot, 200)
   const turnstileToken = toText(payload.turnstileToken, 2000)
   const utmSource = toText(payload.utm_source, 200)
   const utmMedium = toText(payload.utm_medium, 200)
@@ -110,25 +111,38 @@ export async function POST(req: NextRequest) {
   const pageUrl = toText(payload.page_url, 1000)
   const userAgent = toText(payload.user_agent, 1000) || toText(req.headers.get('user-agent') || '', 1000)
 
+  if (honeypot) {
+    console.log('[lead-reject] honeypot preenchido', { ip })
+    return NextResponse.json({ error: 'Ops, falha na validacao de seguranca.' }, { status: 400 })
+  }
   if (!name || name.length < 2) {
+    console.log('[lead-reject] nome ausente ou inválido', { ip })
     return NextResponse.json({ error: 'Ops, faltou informar um nome válido.' }, { status: 400 })
   }
   if (!isValidEmail(email)) {
+    console.log('[lead-reject] email inválido', { ip })
     return NextResponse.json({ error: 'Ops, faltou informar um email válido.' }, { status: 400 })
   }
   if (!isValidPhone(phone)) {
+    console.log('[lead-reject] telefone inválido', { ip })
     return NextResponse.json({ error: 'Ops, faltou informar um telefone válido com DDD.' }, { status: 400 })
   }
   if (!message || message.length < 10) {
+    console.log('[lead-reject] mensagem ausente ou curta', { ip })
     return NextResponse.json({ error: 'Ops, faltou detalhar melhor sua mensagem.' }, { status: 400 })
   }
-  if (!turnstileToken) {
-    return NextResponse.json({ error: 'Ops, faltou validar o anti-spam.' }, { status: 400 })
-  }
-
-  const turnstileOk = await validateTurnstile(turnstileToken, ip)
-  if (!turnstileOk) {
-    return NextResponse.json({ error: 'Ops, não conseguimos validar o anti-spam.' }, { status: 400 })
+  if (turnstileSecret) {
+    if (!turnstileToken) {
+      console.log('[lead-reject] faltou Turnstile token', { ip })
+      return NextResponse.json({ error: 'Ops, faltou validar o anti-spam.' }, { status: 400 })
+    }
+    const turnstileOk = await validateTurnstile(turnstileToken, ip)
+    if (!turnstileOk) {
+      console.log('[lead-reject] Turnstile token inválido', { ip })
+      return NextResponse.json({ error: 'Ops, não conseguimos validar o anti-spam.' }, { status: 400 })
+    }
+  } else {
+    console.log('[lead-verify] fallback sem turnstile', { ip })
   }
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } })

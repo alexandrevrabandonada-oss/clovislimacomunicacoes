@@ -27,7 +27,7 @@ const PACKAGE_LABELS: Record<string, string> = {
 }
 
 function packageMessage(label: string): string {
-  return `Ola! Tenho interesse no pacote: ${label}. Meu objetivo e: ... Prazo ideal: ...`
+  return `Olá! Tenho interesse no pacote: ${label}. Meu objetivo é: [descreva brevemente]. Prazo ideal: [data ou período].`
 }
 
 function formatWorkLabel(slug: string): string {
@@ -59,7 +59,7 @@ function buildTemplate(packageSlug: string, packageLabel: string, workLabel: str
   if (packageLabel) {
     return packageMessage(packageLabel)
   }
-  return 'Ola! Quero conversar sobre um projeto. Meu objetivo e: ... Prazo ideal: ...'
+  return 'Olá! Quero conversar sobre um projeto. Meu objetivo é: [descreva o projeto]. Canal de preferência: [WhatsApp/E-mail].'
 }
 
 export default function ContactForm() {
@@ -70,6 +70,7 @@ export default function ContactForm() {
   const [company, setCompany] = useState('')
   const [message, setMessage] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [feedback, setFeedback] = useState('')
   const [whatsAppHref, setWhatsAppHref] = useState('')
@@ -77,8 +78,9 @@ export default function ContactForm() {
   const messageRef = useRef<HTMLTextAreaElement | null>(null)
   const turnstileContainerRef = useRef<HTMLDivElement | null>(null)
   const widgetIdRef = useRef<string | null>(null)
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
-  const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+  // Garantir fallback seguro para env ausente
+  const turnstileSiteKey = typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY : ''
+  const whatsAppNumber = typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER.replace(/\D/g, '') : ''
   const hasTurnstile = Boolean(turnstileSiteKey)
   const lastAutoMessageRef = useRef('')
   const [selectedPackageSlug, setSelectedPackageSlug] = useState('')
@@ -186,17 +188,13 @@ export default function ContactForm() {
 
   const submit = async (e: any) => {
     e.preventDefault()
-    if (!hasTurnstile) {
-      setStatus('error')
-      setFeedback('Formulário temporariamente indisponível, use WhatsApp/e-mail.')
-      return
-    }
+    // Se não tem turnstile, permitimos continuar com fallback/honeypot
     if (!name.trim() || !email.trim() || !phone.trim() || !message.trim()) {
       setStatus('error')
       setFeedback('Ops, faltou preencher nome, email, telefone e mensagem.')
       return
     }
-    if (!turnstileToken) {
+    if (hasTurnstile && !turnstileToken) {
       setStatus('error')
       setFeedback('Ops, faltou confirmar o anti-spam.')
       return
@@ -223,6 +221,7 @@ export default function ContactForm() {
           phone,
           company,
           message,
+          honeypot,
           turnstileToken,
           utm_source: utmSource,
           utm_medium: utmMedium,
@@ -242,7 +241,7 @@ export default function ContactForm() {
       }
 
       setStatus('success')
-      setFeedback('Recebido. Retorno em até 24 horas.')
+      setFeedback('Recebido! Retornarei em até 24 horas úteis por e-mail ou WhatsApp.')
       trackEvent('submit_lead_success')
       const prefill = `Olá! Acabei de enviar o formulário pelo site. Meu nome é ${name} e gostaria de continuar o atendimento.`
       const href = whatsAppNumber
@@ -289,6 +288,10 @@ export default function ContactForm() {
         <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e => setEmail(e.target.value)} required /></label>
         <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e => setPhone(e.target.value)} required /></label>
         <label className="block mt-2">Empresa<input className="w-full border p-2" value={company} onChange={e => setCompany(e.target.value)} /></label>
+        {/* Campo Honeypot Oculto */}
+        <div style={{ display: 'none' }} aria-hidden="true">
+          <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" value={honeypot} onChange={e => setHoneypot(e.target.value)} />
+        </div>
         {selectedWorkSlug && (
           <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-black/40 bg-white px-3 py-1 text-xs">
             <span>Referencia: {selectedWorkLabel || selectedWorkSlug}</span>
@@ -302,15 +305,15 @@ export default function ContactForm() {
           {hasTurnstile ? (
             <div ref={turnstileContainerRef} />
           ) : (
-            <p id="turnstile-missing-help" className="text-sm text-red-700">Formulário temporariamente indisponível, use WhatsApp/e-mail.</p>
+            <p id="turnstile-missing-help" className="text-sm text-slate-500">
+              O anti-spam visual inteligente está indisponível, mas nosso sistema avaliará sua mensagem (fallback on).
+            </p>
           )}
         </div>
         <button
           className="mt-3 bg-accent text-white px-4 py-2 rounded disabled:opacity-70"
           type="submit"
-          disabled={status === 'loading' || !hasTurnstile}
-          aria-describedby={!hasTurnstile ? 'turnstile-missing-help' : undefined}
-          title={!hasTurnstile ? 'Formulário temporariamente indisponível, use WhatsApp/e-mail.' : undefined}
+          disabled={status === 'loading'}
         >
           {status === 'loading' ? 'Enviando...' : 'Enviar'}
         </button>
@@ -334,8 +337,8 @@ export default function ContactForm() {
         )}
         {status !== 'idle' && status !== 'success' && (
           <p className={`mt-3 rounded-md border px-3 py-2 text-sm ${status === 'error'
-              ? 'border-red-300 bg-red-50 text-red-800'
-              : 'border-slate-300 bg-white text-slate-700'
+            ? 'border-red-300 bg-red-50 text-red-800'
+            : 'border-slate-300 bg-white text-slate-700'
             }`}>
             {feedback}
           </p>
