@@ -11,6 +11,11 @@ export const PRICING = {
     prints: { price: 'a partir de R$ 290', prazo: '7 dias úteis + envio' },
     'licenca-editorial': { price: 'a partir de R$ 180', prazo: 'imediato' },
     'licenca-campanha': { price: 'sob consulta', prazo: 'a definir' }
+  },
+  services: {
+    'ensaio': { price: 'sob consulta', prazo: 'a definir' },
+    'campanha': { price: 'sob consulta', prazo: 'a definir' },
+    'evento': { price: 'sob consulta', prazo: 'a definir' }
   }
 }
 import { supabase } from './supabase/client'
