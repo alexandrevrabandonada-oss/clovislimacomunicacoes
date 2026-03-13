@@ -1,15 +1,15 @@
 "use client"
 
 type QuickOption = {
-  slug: 'charge-avulsa' | 'landing-rapida' | 'pwa'
+  slug: 'editorial' | 'licença' | 'tech'
   title: string
   button: string
 }
 
 const options: QuickOption[] = [
-  { slug: 'charge-avulsa', title: 'Charge avulsa', button: 'Quero uma charge' },
-  { slug: 'landing-rapida', title: 'Landing rapida', button: 'Quero landing' },
-  { slug: 'pwa', title: 'PWA', button: 'Quero PWA' }
+  { slug: 'editorial', title: 'Charges / Editorial', button: 'Charges / Editorial' },
+  { slug: 'licença', title: 'Prints / Licença', button: 'Prints / Licença' },
+  { slug: 'tech', title: 'Site / PWA', button: 'Site / PWA' }
 ]
 
 function goWithPackage(option: QuickOption) {

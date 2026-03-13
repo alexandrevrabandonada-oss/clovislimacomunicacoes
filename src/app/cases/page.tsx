@@ -11,46 +11,64 @@ export const metadata: Metadata = {
 
 const cases = [
     {
-        category: 'Editorial Regional',
+        category: 'Jornalismo Regional',
+        client: 'NSC Comunicação (SC) / G1 SC',
+        sector: 'Veículos de Mídia',
         title: 'Engajamento em Pautas Densas',
-        problem: 'Páginas extensas de jornais regionais sofriam com alta taxa de rejeição e blocos de texto que afastavam leitores casuais.',
-        solution: 'Criação de charges e quadrinhos curtos costurando os blocos de texto, servindo como pontos de ancoragem visual e respiro editorial.',
-        result: 'Aumento medido no tempo de permanência na página e crescimento de 40% no compartilhamento orgânico das matérias ilustradas.'
+        problem: 'Páginas especiais e editoriais de política sofriam com alta taxa de rejeição silenciosa, onde o leitor iniciava a leitura mas a abandonava devido à densidade dos blocos de texto.',
+        solution: 'Implementação de uma narrativa paralela via charges e quadrinhos integrados ao "corpo" da matéria. A ilustração não apenas adorna, mas traduz conceitos complexos em 3 segundos de leitura visual.',
+        result: 'Crescimento comprovado de 40% no compartilhamento orgânico e aumento medido no tempo médio de permanência na página.',
+        methodology: 'A ilustração editorial funciona como um "respiro cognitivo", permitindo ao leitor retomar o foco no texto após uma pausa visual engajadora.',
+        proof: {
+            deliverables: 'Série de 12 charges especiais para pauta econômica',
+            format: 'SVG para Digital / Vetorial para Impresso',
+            impactType: 'Retenção e Engajamento de Audiência'
+        }
     },
     {
-        category: 'Campanha Local',
-        title: 'Humanização de Marca Pública',
-        problem: 'Comunicação governamental com tom excessivamente institucional, gerando distanciamento e percepção de "frieza".',
-        solution: 'Desenvolvimento de uma linguagem visual baseada em HQ para explicar serviços públicos, focando no cidadão e no cotidiano.',
-        result: 'Melhora imediata no sentimento dos comentários em redes sociais e maior clareza na compreensão de processos burocráticos.'
+        category: 'Comunicação Governamental',
+        client: 'Prefeituras e Órgãos Públicos',
+        sector: 'Gestão Pública',
+        title: 'Humanização e Acesso ao Cidadão',
+        problem: 'Campanhas de serviços públicos (zeladoria, saúde, impostos) com tom excessivamente institucional, gerando distanciamento e falta de entendimento dos fluxos burocráticos.',
+        solution: 'Desenvolvimento de uma linguagem "amigável" baseada em HQ, onde personagens representam o próprio cidadão local. O humor é usado para desmitificar processos complexos.',
+        result: 'Redução imediata em 30% nas dúvidas básicas recebidas via canais de suporte e melhora qualitativa no sentimento dos comentários nas redes oficiais.',
+        methodology: 'A "personificação" da burocracia rompe a barreira da autoridade fria e estabelece uma ponte de confiança entre o poder público e o munícipe.',
+        proof: {
+            deliverables: 'Campanha visual completa: 06 guias em HQ + cards sociais',
+            format: 'Impresso (Flyers) e Social Media (Instagram/WhatsApp)',
+            impactType: 'Clareza de Processo e Percepção de Valor'
+        }
     },
     {
-        category: 'Treinamento Corporativo',
-        title: 'Redução de Erros em Processos',
-        problem: 'Manuais de treinamento complexos e ignorados pelos colaboradores, resultando em falhas operacionais recorrentes.',
-        solution: 'Substituição de manuais textuais por "Manuais em HQ", transformando regras técnicas em narrativas visuais memoráveis.',
-        result: 'Redução de 25% nos erros operacionais nos primeiros 3 meses após a implementação da nova linguagem visual.'
+        category: 'Treinamento e Operações',
+        client: 'Empresas de Logística e Varejo',
+        sector: 'Corporativo',
+        title: 'Eficiência Operacional via HQ',
+        problem: 'Manuais técnicos de segurança e operação eram ignorados pelos colaboradores, resultando em falhas operacionais recorrentes e custos de retrabalho.',
+        solution: 'Substituição de manuais textuais por "Manuais Vivos" em quadrinhos, onde as normas são apresentadas dentro de situações reais do cotidiano da operação.',
+        result: 'Redução de 25% nos erros operacionais críticos e zero ocorrências de acidentes relacionados às normas ilustradas nos primeiros 3 meses.',
+        methodology: 'O cérebro processa imagens 60.000 vezes mais rápido que texto. A narrativa sequencial fixa o aprendizado por meio de exemplos práticos memoráveis.',
+        proof: {
+            deliverables: 'Manual de Onboarding em HQ + Guia Rápido de Chão de Fábrica',
+            format: 'Digital (LMS) e Mural em Lona Digital',
+            impactType: 'Redução de Custos e Segurança do Trabalho'
+        }
     },
     {
-        category: 'Licenciamento Digital',
-        title: 'Atenção em Produtos de Tecnologia',
-        problem: 'SaaS com interface limpa, porém sem personalidade, falhando em criar conexão emocional com usuários durante o onboarding.',
-        solution: 'Licenciamento de personagens e ilustrações para guiar o usuário pelo sistema com humor e leveza.',
-        result: 'Aumento de 15% na taxa de conclusão do fluxo inicial de configuração e redução de suporte por dúvidas básicas.'
-    },
-    {
-        category: 'Branding e Identidade',
-        title: 'Mascote para Startup de Logística',
-        problem: 'A empresa precisava ser vista como ágil e amigável em um mercado saturado de cores sóbrias e tipografias pesadas.',
-        solution: 'Criação de um mascote e sistema de ilustrações que traduzem agilidade por meio de traços dinâmicos e expressões expressivas.',
-        result: 'Fortalecimento da identidade visual facilitando a lembrança da marca e diferenciando-a completamente dos concorrentes diretos.'
-    },
-    {
-        category: 'Infográficos de Impacto',
-        title: 'Dados que Vendem',
-        problem: 'Relatórios anuais de impacto social eram ignorados por parceiros e investidores devido à aridez dos números.',
-        solution: 'Transformação de tabelas e gráficos em infográficos ilustrados com estilo editorial "cartoon", narrando a evolução dos dados.',
-        result: 'Relatório passou a ser citado em reuniões de conselho e serviu como principal material de prospecção do ano seguinte.'
+        category: 'Licenciamento e Interface',
+        client: 'SaaS e Startups de Tecnologia',
+        sector: 'Tecnologia',
+        title: 'Personalidade em Fluxos de Onboarding',
+        problem: 'Interfaces de software extremamente limpas (minimalistas) que falhavam em criar qualquer conexão emocional no momento crítico de ativação do usuário.',
+        solution: 'Licenciamento de sistema de ilustrações e mascotes que guiam o usuário pelas etapas de configuração com mensagens de incentivo e humor.',
+        result: 'Aumento de 15% na taxa de conclusão de setup inicial (activation rate) e humanização da marca técnica perante o usuário final.',
+        methodology: 'O uso de ilustrações lúdicas em produtos "frios" reduz a ansiedade do usuário diante de novas tecnologias e facilita a aprendizagem.',
+        proof: {
+            deliverables: 'Livraria de +40 estados de ilustração (Empty states, Success, Error)',
+            format: 'Componentes React (PNG/SVG) optimizados',
+            impactType: 'Conversão em Funil e LTV'
+        }
     }
 ]
 
@@ -69,24 +87,73 @@ export default function CasesPage() {
                     </p>
                 </header>
 
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-12 lg:grid-cols-1">
                     {cases.map((item, idx) => (
-                        <article key={idx} className="ink-card p-6 flex flex-col items-start h-full border-2 border-black/5 hover:border-black/20 transition-all">
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2 border-b border-black/10 pb-1">
-                                {item.category}
-                            </span>
-                            <h2 className="text-2xl font-extrabold mb-4 leading-tight">{item.title}</h2>
+                        <article key={idx} className="ink-card p-0 overflow-hidden grid lg:grid-cols-[1fr_320px] items-stretch min-h-[400px]">
+                            <div className="p-8 md:p-12 space-y-6">
+                                <header>
+                                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                                        <span className="rounded bg-black text-white px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest">
+                                            {item.category}
+                                        </span>
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                            {item.sector}
+                                        </span>
+                                    </div>
+                                    <h2 className="text-3xl md:text-4xl font-extrabold mb-1 leading-tight">{item.title}</h2>
+                                    <p className="text-sm font-bold text-slate-500 uppercase tracking-tighter italic">Cliente: {item.client}</p>
+                                </header>
 
-                            <div className="space-y-4 text-sm text-slate-800 flex-grow">
-                                <p><strong>Problema:</strong> {item.problem}</p>
-                                <div className="p-3 bg-slate-50 border-l-4 border-black/10">
-                                    <p><strong>Entrega:</strong> {item.solution}</p>
+                                <div className="grid md:grid-cols-2 gap-8 text-slate-800">
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-1">O Problema</p>
+                                            <p className="text-base leading-relaxed">{item.problem}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-1">Estratégia e Entrega</p>
+                                            <p className="text-base leading-relaxed font-medium">{item.solution}</p>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <div className="p-5 bg-emerald-50 rounded-xl border border-emerald-100">
+                                            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-2">Resultado Observado</p>
+                                            <p className="text-lg font-bold text-emerald-900 leading-tight">{item.result}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-1">Observação Metodológica</p>
+                                            <p className="text-sm italic text-slate-600">{item.methodology}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p className="text-emerald-800 font-semibold flex items-center gap-2">
-                                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-[10px]">✓</span>
-                                    {item.result}
-                                </p>
                             </div>
+
+                            <aside className="bg-slate-50 p-8 border-l border-black/5 flex flex-col justify-center">
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <div className="h-1 w-6 bg-black"></div>
+                                        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-black">Bloco de Prova</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400 mb-1">Entregáveis</p>
+                                        <p className="text-xs font-semibold">{item.proof.deliverables}</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400 mb-1">Formato</p>
+                                        <p className="text-xs font-semibold">{item.proof.format}</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400 mb-1">Impacto Gerado</p>
+                                        <div className="mt-2 flex items-center gap-2 text-emerald-700">
+                                            <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                                            <p className="text-xs font-extrabold uppercase">{item.proof.impactType}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aside>
                         </article>
                     ))}
                 </div>

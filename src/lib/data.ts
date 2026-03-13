@@ -13,9 +13,9 @@ export const PRICING = {
     'licenca-campanha': { price: 'sob consulta', prazo: 'a definir' }
   },
   services: {
-    'ensaio': { price: 'sob consulta', prazo: 'a definir' },
-    'campanha': { price: 'sob consulta', prazo: 'a definir' },
-    'evento': { price: 'sob consulta', prazo: 'a definir' }
+    'editorial': { price: 'sob consulta', prazo: '3 a 5 dias úteis' },
+    'licença': { price: 'a partir de R$ 180', prazo: 'imediato (digital)' },
+    'tech': { price: 'a partir de R$ 900', prazo: '3 a 15 dias úteis' }
   }
 }
 import { supabase } from './supabase/client'

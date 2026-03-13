@@ -54,37 +54,22 @@ export default function Hero({ works }: HeroProps) {
           ))}
         </h1>
         <p className="mt-3 max-w-2xl text-base md:text-lg">
-          Ilustração autoral e sites/PWAs sob medida para transformar atenção em cliente.
+          Narrativa visual para editoriais, licenciamento de arte autoral e produtos digitais de alta performance.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <a
             href="#trabalhos"
-            onClick={() => trackEvent('click_cta_ver_trabalhos')}
+            onClick={() => trackEvent('click_cta_portfolio')}
             className="ink-button inline-block w-full sm:w-auto text-center bg-accent text-white px-5 py-2.5 font-semibold"
           >
-            Ver trabalhos
+            Explorar Acervo
           </a>
           <a
-            href="#contato"
-            onClick={(event) => {
-              event.preventDefault()
-              trackEvent('click_cta_site_pwa')
-              const message = 'Quero um site ou PWA com a identidade da minha marca.'
-              const url = new URL(window.location.href)
-              url.searchParams.set('prefill_message', message)
-              window.history.replaceState({}, '', `${url.pathname}${url.search}#contato`)
-              window.dispatchEvent(new CustomEvent('contact-prefill', { detail: { message } }))
-              document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              requestAnimationFrame(() => {
-                window.setTimeout(() => {
-                  const nameInput = document.querySelector<HTMLInputElement>('input[name="name"], input[name="nome"], #contact-name')
-                  nameInput?.focus()
-                }, 120)
-              })
-            }}
+            href="#servicos"
+            onClick={() => trackEvent('click_cta_servicos')}
             className="ink-button inline-block w-full sm:w-auto text-center px-5 py-2.5 font-semibold bg-white"
           >
-            Quero um site/PWA
+            Ver Soluções
           </a>
         </div>
         <p className="mt-2 text-sm text-slate-700">Resposta rapida por e-mail ou WhatsApp em ate 24h uteis.</p>

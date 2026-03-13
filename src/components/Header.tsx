@@ -10,9 +10,9 @@ type NavItem = {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Trabalhos', href: '#trabalhos' },
+  { label: 'Portfólio', href: '#trabalhos' },
   { label: 'Cases', href: '/cases', isPage: true },
-  { label: 'Serviços', href: '#servicos' },
+  { label: 'Soluções', href: '#servicos' },
   { label: 'Sobre', href: '#sobre' },
   { label: 'Contato', href: '#contato' }
 ]

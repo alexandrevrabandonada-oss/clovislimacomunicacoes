@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import { PRICING } from "../lib/data";
 
 type ServiceItem = {
-  slug: "ensaio" | "campanha" | "evento";
+  slug: "editorial" | "licença" | "tech";
   title: string;
   description: string;
   bullets: string[];
@@ -12,34 +12,34 @@ type ServiceItem = {
 
 const services: ServiceItem[] = [
   {
-    slug: "ensaio",
-    title: "Ensaio autoral",
+    slug: "editorial",
+    title: "Editorial & Charges",
     description:
-      "Retratos, editoriais e projetos pessoais com direção criativa.",
+      "Atenção e engajamento para veículos e pautas complexas através de humor e narrativa visual.",
     bullets: [
-      "Direção de arte inclusa",
-      "Locação e figurino sob consulta",
-      "Entrega digital em alta resolução",
+        "Direção de arte editorial",
+        "Storytelling visual para dados",
+        "Charges para impacto imediato",
     ],
   },
   {
-    slug: "campanha",
-    title: "Campanha comercial",
-    description: "Produção para marcas, lançamentos e publicidade.",
+    slug: "licença",
+    title: "Prints & Licenciamento",
+    description: "Arte autoral para acervos físicos e direitos de uso comercial para marcas.",
     bullets: [
-      "Equipe e casting sob medida",
-      "Pré-produção detalhada",
-      "Entrega para múltiplos canais",
+        "Licenças para campanhas e marcas",
+        "Prints fine-art sob demanda",
+        "Acervo exclusivo para licenciamento",
     ],
   },
   {
-    slug: "evento",
-    title: "Cobertura de evento",
-    description: "Registros de eventos, palestras e ativações de marca.",
+    slug: "tech",
+    title: "Sites & PWA",
+    description: "Desenvolvimento de produtos digitais com identidade visual única e alta conversão.",
     bullets: [
-      "Entrega rápida",
-      "Galeria online privada",
-      "Opção de fotos impressas",
+        "Interfaces personalizadas (UI/UX)",
+        "PWAs rápidos e instaláveis",
+        "Identidade visual integrada",
     ],
   },
 ];

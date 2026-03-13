@@ -9,36 +9,45 @@ export default function MicroCases() {
     const cases = [
         {
             title: 'Engajamento em Pautas Densas',
-            context: 'Editorial Regional',
-            problem: 'Páginas extensas de jornais regionais sofriam com alta taxa de rejeição e blocos de texto que afastavam leitores casuais.',
+            category: 'Jornalismo Regional',
+            client: 'Veículos NSC (Santa Catarina)',
+            context: 'Editorial de Grande Circulação',
+            problem: 'Páginas especiais de finais de semana sofriam com blocos de texto áridos, gerando baixa retenção em temas complexos.',
             entrega: [
-                'Charges e quadrinhos curtos costurando blocos de texto',
-                'Pontos de ancoragem visual e respiro editorial'
+                'Charges e quadrinhos curtos integrados ao fluxo do texto',
+                'Visual storytelling para explicar dados econômicos'
             ],
-            resultado: 'Aumento no tempo de permanência e crescimento de 40% no compartilhamento orgânico.',
-            metrica: 'Maior retenção'
+            resultado: 'Aumento de 40% no compartilhamento orgânico e maior tempo de leitura em pautas de política.',
+            metrica: 'Alta Retenção',
+            methodology: 'A ilustração serve como respiro cognitivo, permitindo ao leitor processar informações densas sem fadiga visual.'
         },
         {
             title: 'Humanização de Marca Pública',
-            context: 'Campanha Local',
-            problem: 'Comunicação governamental com tom excessivamente institucional, gerando distanciamento e percepção de frieza.',
+            category: 'Comunicação Governamental',
+            client: 'Administração Municipal',
+            context: 'Campanha de Serviços Públicos',
+            problem: 'Distanciamento do cidadão devido ao tom excessivamente institucional e burocrático da comunicação oficial.',
             entrega: [
-                'Linguagem visual baseada em HQ para explicar serviços',
-                'Foco no cidadão e cotidiano'
+                'Linguagem em HQ para explicar novos processos de zeladoria',
+                'Personagens baseados na demografia real da cidade'
             ],
-            resultado: 'Melhora imediata no sentimento dos comentários e maior clareza na compreensão de processos.',
-            metrica: 'Aprovação ágil'
+            resultado: 'Melhora no sentimento das interações sociais e redução de 30% em dúvidas básicas no SAC.',
+            metrica: 'Aprovação Ágil',
+            methodology: 'O uso do humor e da linguagem visual familiar quebra a barreira da autoridade, gerando conexão imediata.'
         },
         {
-            title: 'Redução de Erros em Processos',
-            context: 'Treinamento Corporativo',
-            problem: 'Manuais de treinamento complexos e ignorados, resultando em falhas operacionais recorrentes.',
+            title: 'Eficiência em Processos Internos',
+            category: 'Treinamento Corporativo',
+            client: 'Operações de Logística e Varejo',
+            context: 'Onboarding e Segurança',
+            problem: 'Manuais de treinamento ignorados, resultando em falhas operacionais e custos com retrabalho.',
             entrega: [
-                'Manuais em HQ transformando regras técnicas em narrativas visuais',
-                'Conteúdo memorável e engajador'
+                'Guia Visual de Operações em formato de "Manual Vivo" (HQ)',
+                'Tiras de segurança para murais e grupos de trabalho'
             ],
-            resultado: 'Redução de 25% nos erros operacionais nos primeiros 3 meses.',
-            metrica: '+clareza'
+            resultado: 'Redução de 25% nos erros operacionais críticos nos primeiros 90 dias.',
+            metrica: '+Produtividade',
+            methodology: 'A narrativa visual fixa conceitos técnicos de forma mnêmica, garantindo que o colaborador compreenda o "porquê" de cada etapa.'
         }
     ]
 
@@ -53,29 +62,41 @@ export default function MicroCases() {
 
             <div className="mt-6 grid gap-4 md:grid-cols-3 items-stretch">
                 {cases.map((item) => (
-                    <article key={item.title} className="ink-card p-5 flex flex-col justify-between">
+                    <article key={item.title} className="ink-card p-5 flex flex-col justify-between group">
                         <div>
-                            <div className="mb-2 inline-block rounded border border-black/20 bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-800">
-                                {item.context}
+                            <div className="mb-2 flex items-center justify-between">
+                                <span className="rounded bg-black/5 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-600">
+                                    {item.category}
+                                </span>
                             </div>
-                            <h3 className="text-xl font-extrabold text-black mb-2">{item.title}</h3>
-                            <p className="text-sm text-slate-800 mb-2"><strong>Problema:</strong> {item.problem}</p>
-                            <div className="mb-2">
-                                <strong>Entrega:</strong>
-                                <ul className="list-disc ml-5 mt-1 text-sm text-slate-800">
-                                    {item.entrega.map((e, i) => <li key={i}>{e}</li>)}
-                                </ul>
+                            <h3 className="text-xl font-extrabold text-black mb-1">{item.title}</h3>
+                            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-tight mb-3">Cliente: {item.client}</p>
+                            
+                            <div className="space-y-3 text-sm text-slate-800">
+                                <p><strong className="text-black/40 uppercase text-[10px] block">Desafio:</strong> {item.problem}</p>
+                                
+                                <div>
+                                    <strong className="text-black/40 uppercase text-[10px] block">Entrega:</strong>
+                                    <ul className="list-disc ml-4 mt-1 space-y-0.5 text-xs">
+                                        {item.entrega.map((e, i) => <li key={i}>{e}</li>)}
+                                    </ul>
+                                </div>
+                                
+                                <p className="p-2 bg-emerald-50 rounded border-l-2 border-emerald-500/30 italic text-xs leading-relaxed">
+                                    <strong className="text-emerald-800 not-italic block mb-0.5">Resultado:</strong> {item.resultado}
+                                </p>
                             </div>
-                            <p className="text-sm text-slate-800 mb-2"><strong>Resultado:</strong> {item.resultado}</p>
                         </div>
+                        
                         {item.metrica && (
-                            <div className="mt-4 pt-4 border-t border-black/10 flex items-center justify-between text-xs font-semibold text-emerald-800">
-                                <span className="flex items-center gap-1.5">
-                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <div className="mt-5 pt-3 border-t border-black/5 flex items-center justify-between">
+                                <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 uppercase">
+                                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                     </svg>
                                     {item.metrica}
                                 </span>
+                                <span className="text-[9px] font-medium text-slate-400">Ver detalhes →</span>
                             </div>
                         )}
                     </article>

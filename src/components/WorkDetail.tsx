@@ -6,14 +6,20 @@ export type WorkDetailData = {
   id: string
   slug: string
   title: string
+  subtitle: string | null
   type: string
   description: string | null
+  client: string | null
+  vehicle: string | null
+  available_for_print: boolean
+  available_for_license: boolean
+  featured: boolean
   cover_url: string | null
   cover_image_url: string | null
   content_warning: string | null
   created_at: string | null
   year: number | null
-  tags: string[]
+  tags: string[] | null
 }
 
 function isSensitive(contentWarning: string | null): boolean {
@@ -35,7 +41,8 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
   const cover = getCover(work)
   const year = work.year || (work.created_at ? new Date(work.created_at).getFullYear() : null)
   const tags = useMemo(() => {
-    const base = work.tags.length ? work.tags : [work.type]
+    const rawTags = work.tags || []
+    const base = rawTags.length ? rawTags : [work.type]
     return Array.from(new Set(base.filter(Boolean)))
   }, [work.tags, work.type])
 
@@ -85,17 +92,61 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
         </div>
 
         <div>
-          <h1 id="work-detail-title" className="text-3xl md:text-4xl font-extrabold leading-tight">
+          <h1 id="work-detail-title" className="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight">
             {work.title}
           </h1>
-          <div className="mt-3 flex flex-wrap gap-2 text-xs">
-            <span className="rounded-full border border-black/70 bg-white px-2 py-1">{work.type}</span>
-            {year && <span className="rounded-full border border-black/70 bg-white px-2 py-1">{year}</span>}
-            {tags.map((tag) => (
-              <span key={tag} className="rounded-full border border-black/40 bg-slate-50 px-2 py-1">
-                {tag}
-              </span>
-            ))}
+          {work.subtitle && (
+            <p className="mt-2 text-lg text-slate-600 italic font-medium">{work.subtitle}</p>
+          )}
+
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 border-y border-black/10 py-6">
+            <div className="space-y-4">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Contexto Editorial</p>
+                <p className="mt-1 text-sm font-semibold">{work.client || 'Acervo Vivo'} {work.vehicle ? ` / ${work.vehicle}` : ''}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Data de Produção</p>
+                <p className="mt-1 text-sm font-semibold">{year || '—'}</p>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Classificação</p>
+                <p className="mt-1 text-sm font-semibold capitalize">{work.type}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Tags</p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {tags.map((tag) => (
+                    <span key={tag} className="rounded-md border border-black/10 bg-slate-50 px-2 py-0.5 text-[10px] font-bold text-slate-600 uppercase">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            {work.available_for_print && (
+              <div className="flex items-center gap-3 rounded-xl border border-green-200 bg-green-50/50 p-4 flex-1 min-w-[200px]">
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+                <div>
+                  <p className="text-xs font-bold text-green-900 uppercase tracking-wide">Print Disponível</p>
+                  <p className="text-[11px] text-green-700 mt-1">Acabamento fine-art sob demanda</p>
+                </div>
+              </div>
+            )}
+            {work.available_for_license && (
+              <div className="flex items-center gap-3 rounded-xl border border-blue-200 bg-blue-50/50 p-4 flex-1 min-w-[200px]">
+                <div className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.6)]" />
+                <div>
+                  <p className="text-xs font-bold text-blue-900 uppercase tracking-wide">Licenciamento Aberto</p>
+                  <p className="text-[11px] text-blue-700 mt-1">Disponível para uso editorial e marcas</p>
+                </div>
+              </div>
+            )}
           </div>
 
           <p className="mt-5 leading-relaxed text-slate-800">

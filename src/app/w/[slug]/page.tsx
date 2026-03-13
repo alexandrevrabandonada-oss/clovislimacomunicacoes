@@ -20,6 +20,14 @@ function isSensitive(contentWarning: string | null): boolean {
 type ManifestItem = {
   file?: string
   title?: string
+  subtitle?: string
+  year?: number
+  client?: string
+  vehicle?: string
+  tags?: string[]
+  available_for_print?: boolean
+  available_for_license?: boolean
+  featured?: boolean
   type?: string
   content_warning?: boolean
   slug?: string
@@ -28,6 +36,14 @@ type ManifestItem = {
 type ManifestEntry = {
   slug: string
   title: string
+  subtitle: string
+  year: number | null
+  client: string | null
+  vehicle: string | null
+  tags: string[]
+  availableForPrint: boolean
+  availableForLicense: boolean
+  featured: boolean
   type: string
   file: string
   contentWarning: boolean
@@ -56,6 +72,14 @@ async function readManifestEntries(): Promise<ManifestEntry[]> {
         return {
           slug: value.slug || slugify(title) || slugify(file),
           title,
+          subtitle: value.subtitle || '',
+          year: value.year || null,
+          client: value.client || null,
+          vehicle: value.vehicle || null,
+          tags: Array.isArray(value.tags) ? value.tags : [],
+          availableForPrint: !!value.available_for_print,
+          availableForLicense: !!value.available_for_license,
+          featured: !!value.featured,
           type,
           file,
           contentWarning: value.content_warning === true
@@ -75,8 +99,14 @@ async function getWork(slug: string): Promise<WorkDetailData | null> {
     id: row.id,
     slug: row.slug,
     title: row.title,
+    subtitle: row.subtitle || null,
     type: row.type,
     description: row.description || null,
+    client: row.client || null,
+    vehicle: row.vehicle || null,
+    available_for_print: !!row.available_for_print,
+    available_for_license: !!row.available_for_license,
+    featured: !!row.featured,
     cover_url: row.cover_url || null,
     cover_image_url: row.cover_image_url || null,
     content_warning: row.content_warning || null,

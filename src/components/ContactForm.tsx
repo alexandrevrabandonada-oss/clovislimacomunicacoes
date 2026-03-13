@@ -15,19 +15,22 @@ declare global {
 }
 
 const PACKAGE_LABELS: Record<string, string> = {
+  editorial: 'Editorial / Charges',
   'charge-avulsa': 'Charge avulsa',
   'pacote-mensal': 'Pacote mensal',
-  'serie-especial': 'Serie / Especial',
-  'landing-rapida': 'Landing rapida',
-  'site-completo': 'Site completo',
+  'serie-especial': 'Série / Especial',
+  'licença': 'Prints / Licenciamento',
   prints: 'Print assinado',
-  'licenca-editorial': 'Licenca editorial',
-  'licenca-campanha': 'Licenca campanha',
+  'licenca-editorial': 'Licença editorial',
+  'licenca-campanha': 'Licença comercial',
+  tech: 'Sites / PWA',
+  'landing-rapida': 'Landing rápida',
+  'site-completo': 'Site completo',
   pwa: 'PWA'
 }
 
 function packageMessage(label: string): string {
-  return `Olá! Tenho interesse no pacote: ${label}. Meu objetivo é: [descreva brevemente]. Prazo ideal: [data ou período].`
+  return `Olá! Tenho interesse na trilha de ${label}. Meu objetivo é: [descreva brevemente]. Prazo ideal: [data ou período].`
 }
 
 function formatWorkLabel(slug: string): string {
@@ -47,8 +50,11 @@ function formatWorkLabel(slug: string): string {
 }
 
 function buildTemplate(packageSlug: string, packageLabel: string, workLabel: string): string {
-  if (['prints', 'licenca-editorial', 'licenca-campanha'].includes(packageSlug)) {
-    return `Ola! Quero valores e formatos (tamanho, tiragem, prazo) para ${packageLabel || packageSlug}.`
+  if (['prints', 'licenca-editorial', 'licenca-campanha', 'licença'].includes(packageSlug)) {
+    return `Olá! Quero valores e formatos (tamanho, tiragem, prazo) para ${packageLabel || packageSlug}.`
+  }
+  if (['editorial', 'tech'].includes(packageSlug)) {
+    return packageMessage(packageLabel)
   }
   if (packageLabel && workLabel) {
     return `Ola! Quero o pacote ${packageLabel} usando a referencia ${workLabel}. Prazo e valor?`
@@ -283,7 +289,55 @@ export default function ContactForm() {
         onLoad={() => setWidgetReady(true)}
       />
       <h2 ref={headingRef} className={`reveal-heading text-2xl font-bold ${revealed ? 'is-revealed' : ''}`}>Contato</h2>
-      <form className="mt-4" onSubmit={submit}>
+      
+      <div className="mt-2 mb-6 p-4 rounded-xl border border-black/5 bg-slate-50/50">
+        <div className="flex items-start gap-3">
+          <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black text-[10px] text-white font-bold">!</div>
+          <div className="space-y-1">
+            <p className="text-sm font-bold text-black">Retorno humanizado em até 24h úteis.</p>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              No primeiro contato, analisamos sua pauta e enviamos uma estimativa básica ou link de agenda para alinhamento.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">O que você busca?</p>
+        <div className="flex flex-wrap gap-2">
+          {[
+            { id: 'editorial', label: 'Charge Editorial' },
+            { id: 'licença', label: 'Licenciamento' },
+            { id: 'prints', label: 'Print Assinado' },
+            { id: 'tech', label: 'Site / PWA' },
+            { id: 'custom', label: 'Dúvida Geral' }
+          ].map((track) => (
+            <button
+              key={track.id}
+              type="button"
+              onClick={() => {
+                const label = track.label === 'Dúvida Geral' ? 'Dúvida Geral' : track.label
+                const slug = track.id === 'custom' ? '' : track.id
+                setSelectedPackageSlug(slug)
+                setSelectedPackageLabel(label)
+                const nextMessage = buildTemplate(slug, label, selectedWorkLabel)
+                setMessage(nextMessage)
+                lastAutoMessageRef.current = nextMessage
+                setTimeout(() => messageRef.current?.focus(), 100)
+              }}
+              className={`ink-button rounded-full border px-4 py-1.5 text-xs font-bold transition-all ${
+                selectedPackageLabel === track.label 
+                ? 'bg-black text-white border-black' 
+                : 'bg-white text-black border-black/20 hover:border-black'
+              }`}
+            >
+              {track.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <form onSubmit={submit}>
         <label className="block">Nome<input id="contact-name" name="name" className="w-full border p-2" value={name} onChange={e => setName(e.target.value)} required /></label>
         <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e => setEmail(e.target.value)} required /></label>
         <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e => setPhone(e.target.value)} required /></label>

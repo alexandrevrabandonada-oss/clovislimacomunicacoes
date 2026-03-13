@@ -9,9 +9,16 @@ import { useRevealOnView } from '../lib/useRevealOnView'
 type ManifestItem = {
   file: string
   title: string
+  subtitle?: string
+  year?: number
+  client?: string
+  vehicle?: string
+  tags?: string[]
+  available_for_print?: boolean
+  available_for_license?: boolean
+  featured?: boolean
   type?: string
   content_warning?: boolean
-  featured?: boolean
 }
 
 type ManifestData = {
@@ -25,6 +32,14 @@ type GalleryItem = {
   file: string
   src: string
   title: string
+  subtitle: string
+  year: number | null
+  client: string | null
+  vehicle: string | null
+  tags: string[]
+  availableForPrint: boolean
+  availableForLicense: boolean
+  featured: boolean
   type: string
   contentWarning: boolean
 }
@@ -58,14 +73,15 @@ type GalleryCardProps = {
 function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
   const tiltRef = useTilt<HTMLElement>(3)
   const [imageLoaded, setImageLoaded] = useState(false)
-  const sensitive = item.contentWarning
+  const [aspectRatio, setAspectRatio] = useState<'vertical' | 'horizontal' | 'square' | null>(null)
+  
   const tileClass = getTileClasses(index, total)
   const largeTile = total >= 6 && index % 6 === 0
 
   return (
     <article
       ref={tiltRef}
-      className={`ink-card p-3 md:p-3.5 ${tileClass}`}
+      className={`ink-card p-3 md:p-4 flex flex-col ${tileClass} group hover:shadow-xl transition-all duration-300`}
       role="button"
       tabIndex={0}
       aria-label={`Abrir obra ${item.title}`}
@@ -77,9 +93,12 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
         }
       }}
     >
-      <div className={`ink-frame relative ${largeTile ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}>
+      <div className={`ink-frame relative overflow-hidden rounded-lg bg-slate-50 border border-black/5 
+        ${largeTile ? 'aspect-[16/10]' : 'aspect-[4/5]'} 
+        ${aspectRatio === 'vertical' ? 'bg-[radial-gradient(circle,#f8fafc_0%,#f1f5f9_100%)]' : ''}
+      `}>
         {!imageLoaded && (
-          <div className="absolute inset-0 bg-[linear-gradient(160deg,#f5f5f5_0%,#ececec_100%)]" aria-hidden="true" />
+          <div className="absolute inset-0 bg-slate-100 animate-pulse" aria-hidden="true" />
         )}
         {item.src ? (
           <Image
@@ -87,30 +106,53 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
             alt={item.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            onLoadingComplete={() => setImageLoaded(true)}
-            className={`object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
+            onLoadingComplete={({ naturalWidth, naturalHeight }) => {
+              const ratio = naturalWidth / naturalHeight
+              if (ratio < 0.85) setAspectRatio('vertical')
+              else if (ratio > 1.2) setAspectRatio('horizontal')
+              else setAspectRatio('square')
+              setImageLoaded(true)
+            }}
+            className={`object-contain transition-all duration-500 
+              ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
+              ${aspectRatio === 'vertical' ? 'py-4' : 'px-4'}
+            `}
           />
         ) : (
-          <div className="h-full w-full bg-[linear-gradient(160deg,#f5f5f5_0%,#ececec_100%)]" />
+          <div className="h-full w-full halftone-bg opacity-10" />
         )}
       </div>
 
-      <div className="mt-3">
-        <h3 className="font-semibold leading-tight">{item.title}</h3>
-        <div className="mt-2 flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full border border-black/70 px-2 py-1 bg-white">{item.type}</span>
-          {sensitive && <span className="rounded-full border border-red-800/80 px-2 py-1 bg-red-50 text-red-900">sensível</span>}
-        </div>
-        <div className="mt-3">
-          <button
-            onClick={(event) => {
-              event.stopPropagation()
-              onOpen(item, event.currentTarget)
-            }}
-            className="ink-button px-3 py-1.5 bg-white text-sm font-medium"
-          >
-            Abrir obra
-          </button>
+      <div className="mt-4 flex flex-col flex-grow">
+        <header className="min-h-[3rem]">
+          <h3 className="font-extrabold leading-tight text-lg text-black group-hover:text-accent transition-colors">{item.title}</h3>
+          {item.subtitle && (
+            <p className="text-[11px] font-bold uppercase tracking-tight text-slate-400 mt-1 line-clamp-1">{item.subtitle}</p>
+          )}
+        </header>
+        
+        <div className="mt-auto pt-4 space-y-3">
+          <div className="flex flex-wrap gap-1.5 min-h-[1.5rem]">
+            {item.tags.slice(0, 2).map(tag => (
+              <span key={tag} className="text-[9px] uppercase tracking-widest font-bold text-slate-500 bg-slate-100/80 px-2 py-0.5 rounded border border-black/5">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between border-t border-black/5 pt-3">
+            <div className="flex gap-1.5">
+              {item.availableForPrint && (
+                <div title="Print Disponível" className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+              )}
+              {item.availableForLicense && (
+                <div title="Licença Disponível" className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.4)]" />
+              )}
+            </div>
+            <span className="text-[10px] font-bold text-black border-b border-black uppercase tracking-wider group-hover:border-accent group-hover:text-accent transition-all">
+              Detalhes →
+            </span>
+          </div>
         </div>
       </div>
     </article>
@@ -158,9 +200,16 @@ export default function Gallery() {
           file,
           src: `/portfolio/${encodeURIComponent(file)}`,
           title,
+          subtitle: value?.subtitle || '',
+          year: value?.year || null,
+          client: value?.client || null,
+          vehicle: value?.vehicle || null,
+          tags: Array.isArray(value?.tags) ? value.tags : [],
+          availableForPrint: !!value?.available_for_print,
+          availableForLicense: !!value?.available_for_license,
+          featured: !!value?.featured,
           type: (value?.type || defaultType).trim(),
-          contentWarning: normalizeWarning(value?.content_warning),
-          featured: (value as any)?.featured === true
+          contentWarning: normalizeWarning(value?.content_warning)
         }
       }).filter((item) => item.file)
       setItems(normalized)
@@ -352,14 +401,53 @@ export default function Gallery() {
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-black/30">
               <Image src={selected.src} alt={selected.title} fill sizes="90vw" className="object-contain max-h-[80vh]" />
             </div>
-            <h3 id="gallery-modal-title" className="mt-4 text-2xl font-bold">{selected.title}</h3>
-            <div className="mt-2 flex flex-wrap gap-2 text-xs">
-              <span className="rounded-full border border-black/70 px-2 py-1 bg-white">{selected.type || 'obra'}</span>
+            <h3 id="gallery-modal-title" className="mt-4 text-2xl font-extrabold">{selected.title}</h3>
+            {selected.subtitle && (
+              <p className="text-sm italic text-slate-600 mt-1">{selected.subtitle}</p>
+            )}
+
+            <div className="mt-4 grid grid-cols-2 gap-4 border-y border-black/10 py-4 text-sm">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Contexto</p>
+                <p className="mt-1 font-medium">{selected.client || 'Acervo Vivo'} {selected.vehicle ? ` / ${selected.vehicle}` : ''}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Ano / Tipo</p>
+                <p className="mt-1 font-medium">{selected.year || '—'} / <span className="capitalize">{selected.type}</span></p>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {selected.tags.map(tag => (
+                <span key={tag} className="rounded-full border border-black/20 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700">
+                  #{tag}
+                </span>
+              ))}
               {selected.contentWarning && (
-                <span className="rounded-full border border-red-800/80 px-2 py-1 bg-red-50 text-red-900">conteúdo sensível</span>
+                <span className="rounded-full border border-red-200 bg-red-50 px-2.5 py-1 text-xs font-bold text-red-900">Conteúdo Sensível</span>
               )}
             </div>
-            <p className="mt-3 text-sm text-slate-700">Arquivo: {selected.file}</p>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              {selected.availableForPrint && (
+                <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50/50 p-3 flex-1 min-w-[140px]">
+                  <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                  <div>
+                    <p className="text-[10px] font-bold text-green-800 uppercase leading-none">Print Disponível</p>
+                    <p className="text-[9px] text-green-700 mt-1 leading-none">Edição limitada sob demanda</p>
+                  </div>
+                </div>
+              )}
+              {selected.availableForLicense && (
+                <div className="flex items-center gap-2 rounded-lg border border-blue-200 bg-blue-50/50 p-3 flex-1 min-w-[140px]">
+                  <div className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+                  <div>
+                    <p className="text-[10px] font-bold text-blue-800 uppercase leading-none">Licenciável</p>
+                    <p className="text-[9px] text-blue-700 mt-1 leading-none">Uso em veículos e campanhas</p>
+                  </div>
+                </div>
+              )}
+            </div>
             <div className="mt-5 border-t border-black/15 pt-4">
               <h4 className="text-sm font-bold uppercase tracking-[0.08em] text-slate-700">Compartilhar</h4>
               <div className="mt-3 flex flex-wrap items-center gap-2">

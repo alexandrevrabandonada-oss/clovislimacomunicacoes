@@ -6,14 +6,20 @@ export type WorkRecord = {
   slug: string
   type: string
   description: string | null
+  subtitle: string | null
+  client: string | null
+  vehicle: string | null
+  year: number | null
+  tags: string[] | null
+  available_for_print: boolean
+  available_for_license: boolean
+  featured: boolean
   is_featured?: boolean | null
   cover_url: string | null
   cover_image_url: string | null
   content_warning: string | null
   created_at: string | null
   updated_at?: string | null
-  year?: number | null
-  tags?: string[] | null
 }
 
 function getPublicClient() {
@@ -29,7 +35,7 @@ export async function fetchPublishedWorks(): Promise<WorkRecord[]> {
 
   const extended = await supabase
     .from('works')
-    .select('id,title,slug,type,description,created_at,updated_at,is_featured,cover_url,cover_image_url,content_warning,year,tags')
+    .select('id,title,slug,type,description,subtitle,client,vehicle,year,tags,available_for_print,available_for_license,featured,created_at,updated_at,is_featured,cover_url,cover_image_url,content_warning')
     .eq('is_published', true)
     .order('created_at', { ascending: false })
 
@@ -51,7 +57,7 @@ export async function fetchPublishedWorkBySlug(slug: string): Promise<WorkRecord
 
   const extended = await supabase
     .from('works')
-    .select('id,title,slug,type,description,created_at,updated_at,cover_url,cover_image_url,content_warning,year,tags')
+    .select('id,title,slug,type,description,subtitle,client,vehicle,year,tags,available_for_print,available_for_license,featured,created_at,updated_at,cover_url,cover_image_url,content_warning')
     .eq('slug', slug)
     .eq('is_published', true)
     .maybeSingle()
