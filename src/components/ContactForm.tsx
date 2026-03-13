@@ -305,35 +305,37 @@ export default function ContactForm() {
           {hasTurnstile ? (
             <div ref={turnstileContainerRef} />
           ) : (
-            <p id="turnstile-missing-help" className="text-sm text-slate-500">
-              O anti-spam visual inteligente está indisponível, mas nosso sistema avaliará sua mensagem (fallback on).
-            </p>
+            <div className="rounded-xl border border-black/10 bg-slate-50 p-4 text-center flex flex-col items-center">
+              <p className="text-base font-semibold text-black mb-2">Contato rápido e direto</p>
+              <p className="text-sm text-slate-700 mb-4">Formulário simplificado: escolha WhatsApp ou E-mail e respondo pessoalmente.</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                <a
+                  href={fallbackWhatsAppHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ink-button inline-block rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white"
+                >
+                  Falar no WhatsApp
+                </a>
+                <a
+                  href={fallbackEmailHref}
+                  className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold text-black"
+                >
+                  Enviar por E-mail
+                </a>
+              </div>
+              <p className="mt-3 text-xs text-slate-500">Anti-spam visual desativado — atendimento humano garantido.</p>
+            </div>
           )}
         </div>
-        <button
-          className="mt-3 bg-accent text-white px-4 py-2 rounded disabled:opacity-70"
-          type="submit"
-          disabled={status === 'loading'}
-        >
-          {status === 'loading' ? 'Enviando...' : 'Enviar'}
-        </button>
-        {!hasTurnstile && (
-          <div className="mt-3 flex flex-wrap gap-2">
-            <a
-              href={fallbackWhatsAppHref}
-              target="_blank"
-              rel="noreferrer"
-              className="ink-button inline-block rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white"
-            >
-              WhatsApp
-            </a>
-            <a
-              href={fallbackEmailHref}
-              className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold text-black"
-            >
-              E-mail
-            </a>
-          </div>
+        {hasTurnstile && (
+          <button
+            className="mt-3 bg-accent text-white px-4 py-2 rounded disabled:opacity-70"
+            type="submit"
+            disabled={status === 'loading'}
+          >
+            {status === 'loading' ? 'Enviando...' : 'Enviar'}
+          </button>
         )}
         {status !== 'idle' && status !== 'success' && (
           <p className={`mt-3 rounded-md border px-3 py-2 text-sm ${status === 'error'

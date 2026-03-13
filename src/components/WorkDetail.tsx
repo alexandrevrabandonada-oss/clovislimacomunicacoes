@@ -61,7 +61,7 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
         <div className="ink-card p-3">
           <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-black/20 bg-slate-100">
             {showImage && cover ? (
-              <Image src={cover} alt={work.title} fill sizes="(max-width: 1024px) 100vw, 65vw" className="object-cover" />
+              <Image src={cover} alt={work.title} fill sizes="(max-width: 1024px) 100vw, 65vw" className="object-contain max-h-[70vh]" />
             ) : (
               <div className="h-full w-full bg-[linear-gradient(160deg,#f8fafc_0%,#e2e8f0_100%)]" />
             )}

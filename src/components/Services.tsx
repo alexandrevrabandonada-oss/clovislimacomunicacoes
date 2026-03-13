@@ -12,10 +12,19 @@ type PackageItem = {
     excludes: string[]
     timeframe: string
     revisions: string
+  import { PRICING } from '../lib/data'
   }
 }
 
 const artPackages: PackageItem[] = [
+              <div className="mb-2 text-xs text-slate-700">
+                  {PRICING.packages[item.slug]?.price && (
+                    <span className="inline-block mr-2">{PRICING.packages[item.slug].price}</span>
+                  )}
+                  {PRICING.packages[item.slug]?.prazo && (
+                    <span className="inline-block">prazo típico: {PRICING.packages[item.slug].prazo}</span>
+                  )}
+              </div>
   {
     slug: 'charge-avulsa',
     title: 'Charge avulsa',

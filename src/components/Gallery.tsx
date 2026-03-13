@@ -11,6 +11,7 @@ type ManifestItem = {
   title: string
   type?: string
   content_warning?: boolean
+  featured?: boolean
 }
 
 type ManifestData = {
@@ -87,7 +88,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             onLoadingComplete={() => setImageLoaded(true)}
-            className={`object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
+            className={`object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
           />
         ) : (
           <div className="h-full w-full bg-[linear-gradient(160deg,#f5f5f5_0%,#ececec_100%)]" />
@@ -122,6 +123,7 @@ export default function Gallery() {
   const [searchQuery, setSearchQuery] = useState('')
   const [typeFilter, setTypeFilter] = useState('all')
   const [items, setItems] = useState<GalleryItem[]>([])
+  const [featured, setFeatured] = useState<GalleryItem[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
   const [lastTrigger, setLastTrigger] = useState<HTMLElement | null>(null)
@@ -157,10 +159,14 @@ export default function Gallery() {
           src: `/portfolio/${encodeURIComponent(file)}`,
           title,
           type: (value?.type || defaultType).trim(),
-          contentWarning: normalizeWarning(value?.content_warning)
+          contentWarning: normalizeWarning(value?.content_warning),
+          featured: (value as any)?.featured === true
         }
       }).filter((item) => item.file)
       setItems(normalized)
+      // Seleciona até 6 featured, ou as 6 primeiras se não houver featured
+      const featuredItems = normalized.filter((item) => (item as any).featured).slice(0, 6)
+      setFeatured(featuredItems.length > 0 ? featuredItems : normalized.slice(0, 6))
       setStatus('ready')
     } catch {
       setStatus('error')
@@ -254,6 +260,19 @@ export default function Gallery() {
     <div className="pt-2">
       <h2 ref={headingRef} className={`reveal-heading text-3xl md:text-4xl font-extrabold ${revealed ? 'is-revealed' : ''}`}>Galeria de Charges</h2>
       <p className="mt-2 text-sm md:text-base text-slate-700">Explore as últimas produções, licenciamentos e rascunhos em destaque.</p>
+
+      {/* Destaques */}
+      {status === 'ready' && featured.length > 0 && (
+        <section className="mt-8 mb-8">
+          <h3 className="text-xl font-bold mb-3">Destaques</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 md:gap-5">
+            {featured.map((item, index) => (
+              <GalleryCard key={item.id} item={item} index={index} total={featured.length} onOpen={openWorkModal} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <div className="text-xs font-bold uppercase tracking-[0.12em] text-slate-600 mr-1">Filtro</div>
         <div className="flex flex-wrap gap-2">
@@ -331,7 +350,7 @@ export default function Gallery() {
         {selected && (
           <div>
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-black/30">
-              <Image src={selected.src} alt={selected.title} fill sizes="90vw" className="object-cover" />
+              <Image src={selected.src} alt={selected.title} fill sizes="90vw" className="object-contain max-h-[80vh]" />
             </div>
             <h3 id="gallery-modal-title" className="mt-4 text-2xl font-bold">{selected.title}</h3>
             <div className="mt-2 flex flex-wrap gap-2 text-xs">

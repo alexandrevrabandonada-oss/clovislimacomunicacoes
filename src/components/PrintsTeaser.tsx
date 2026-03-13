@@ -95,27 +95,36 @@ export default function PrintsTeaser() {
                   </p>
                 ))}
               </div>
+              import { PRICING } from '../lib/data'
               <button
-                type="button"
-                onClick={() => setSelectedOffer(item)}
-                className="mt-3 text-xs font-semibold text-slate-800 underline underline-offset-4 hover:text-black"
-              >
-                Ver o que inclui
-              </button>
-            </div>
-            <button
-              type="button"
-              onClick={() => goToContact(item.slug, item.title)}
-              className="ink-button mt-4 rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white"
-            >
-              Quero isso
-            </button>
-          </article>
-        ))}
-      </div>
-
-      <Modal open={!!selectedOffer} onClose={() => setSelectedOffer(null)}>
-        {selectedOffer && (
+                return (
+                  <div className="mt-8 grid gap-6 md:grid-cols-3">
+                    {offers.map((offer) => (
+                      <article key={offer.slug} className="ink-card p-6 flex flex-col justify-between">
+                        <div>
+                          <h3 className="text-xl font-extrabold mb-2 text-black">{offer.title}</h3>
+                          <p className="mb-3 text-slate-700 text-sm">{offer.benefit}</p>
+                          <ul className="mb-4 list-disc ml-5 text-sm text-slate-800">
+                            {offer.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                          </ul>
+                          <div className="mb-2 text-xs text-slate-700">
+                            {PRICING.prints[offer.slug]?.price && (
+                              <span className="inline-block mr-2">{PRICING.prints[offer.slug].price}</span>
+                            )}
+                            {PRICING.prints[offer.slug]?.prazo && (
+                              <span className="inline-block">prazo típico: {PRICING.prints[offer.slug].prazo}</span>
+                            )}
+                          </div>
+                        </div>
+                        <button
+                          className="ink-button mt-4 bg-black text-white px-4 py-2 rounded-full font-bold"
+                          onClick={() => setSelectedOffer(offer)}
+                        >
+                          Quero este
+                        </button>
+                      </article>
+                    ))}
+                  </div>
           <div className="p-2">
             <h2 className="text-2xl font-extrabold">{selectedOffer.title}</h2>
             <p className="mt-2 text-sm text-slate-600 italic">Disponibilidade sob consulta e contrato.</p>
