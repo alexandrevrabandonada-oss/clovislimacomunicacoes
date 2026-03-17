@@ -35,12 +35,12 @@ const services: ServiceItem[] = [
   },
   {
     slug: "tech",
-    title: "Sites / PWA / Digital",
-    description: "Interfaces autorais e plataformas de autoridade com foco em performance técnica. Ex: APS Sustentabilidade.",
-    forWhom: "Startups, Instituicões e Projetos Editoriais que buscam excelência técnica e visual.",
-    deliverables: ["Sites Institucionais", "PWAs (WebApps)", "Landing Pages de Alta Conversão", "Branding Digital"],
+    title: "Engenharia de Presença / PWA",
+    description: "Sistemas web de alta performance e plataformas de autoridade técnica. Arquitetura orientada a Core Web Vitals e UX crítica.",
+    forWhom: "Organizações, Apps e Projetos Editoriais que exigem rapidez, soberania de dados e escala.",
+    deliverables: ["Arquitetura PWA Ready", "Performance (Core Web Vitals)", "Interfaces de Autoridade", "Deployment Automatizado"],
     timing: "5 a 15 dias úteis",
-    cta: "Análise Técnica"
+    cta: "Análise de Viabilidade"
   },
 ];
 

@@ -25,47 +25,65 @@ export default function MicroCases() {
 
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {cases.map((item) => (
-                    <article key={item.slug} className="ink-card p-6 flex flex-col justify-between bg-white border-2 border-black/5 hover:border-black/20 transition-all group">
+                    <article key={item.slug} className="ink-card p-6 flex flex-col justify-between bg-white border-2 border-black/5 hover:border-black/20 transition-all group relative overflow-hidden">
+                        {/* Digital/PWA Indicator */}
+                        {item.category.includes('Digital') && (
+                            <div className="absolute top-0 right-0 bg-accent text-white text-[8px] font-black px-3 py-1 uppercase tracking-[0.2em] shadow-sm">
+                                High Tech / PWA
+                            </div>
+                        )}
+                        
                         <div>
-                            <div className="flex items-center justify-between mb-4">
-                                <span className="stamp text-[9px] py-1 px-2 bg-slate-100 uppercase font-black tracking-widest text-slate-500">
-                                    {item.category}
+                            <div className="flex items-center justify-between mb-5">
+                                <span className="stamp text-[9px] py-1 px-2 bg-slate-100 uppercase font-black tracking-widest text-slate-500 border border-slate-200">
+                                    Report: {item.category}
                                 </span>
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
-                                    Observação de Resultado
-                                </span>
+                                <div className="flex gap-1">
+                                    <div className="w-1 h-1 rounded-full bg-slate-300" />
+                                    <div className="w-1 h-1 rounded-full bg-slate-300" />
+                                    <div className="w-1 h-1 rounded-full bg-slate-300" />
+                                </div>
                             </div>
                             
-                            <h3 className="text-xl font-black mb-3 leading-tight group-hover:text-accent transition-colors italic">&quot;{item.title}&quot;</h3>
+                            <h3 className="text-xl font-black mb-4 leading-tight group-hover:text-accent transition-colors italic">
+                                &quot;{item.title}&quot;
+                            </h3>
                             
-                            <div className="space-y-4 text-sm">
-                                <section>
-                                    <p className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">O Problema</p>
-                                    <p className="text-slate-700 leading-snug line-clamp-2">{item.problem}</p>
+                            <div className="space-y-5 text-sm">
+                                <section className="relative pl-4 border-l border-slate-200">
+                                    <p className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1.5 flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-slate-200" /> Desafio / Problema
+                                    </p>
+                                    <p className="text-slate-600 leading-snug line-clamp-2 italic">{item.problem}</p>
                                 </section>
                                 
-                                <section className="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-300">
-                                    <p className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">Efeito Percebido</p>
-                                    <p className="text-slate-900 font-bold leading-tight mb-2 italic">&quot;{item.result}&quot;</p>
-                                    <p className="text-[9px] font-black uppercase text-slate-400 tracking-[0.2em]">{item.evidence}</p>
+                                <div className="border-t border-dashed border-slate-200 w-full my-2" />
+
+                                <section className="p-4 bg-slate-50/50 border border-black/5 rounded-xl">
+                                    <p className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-1.5">Retorno Operacional</p>
+                                    <p className="text-slate-900 font-bold leading-tight mb-2 tracking-tight">&quot;{item.result}&quot;</p>
+                                    <div className="flex items-center gap-2">
+                                        <div className="h-px flex-grow bg-slate-200" />
+                                        <p className="text-[8px] font-black uppercase text-accent tracking-[0.2em] whitespace-nowrap">{item.evidence}</p>
+                                    </div>
                                 </section>
                             </div>
                         </div>
 
-                        <div className="mt-8 pt-6 border-t border-black/5 space-y-3">
+                        <div className="mt-8 space-y-3">
                             <Link 
                                 href={`/cases/${item.slug}`}
                                 onClick={() => trackEvent('click_microcase_detail', { slug: item.slug })}
-                                className="ink-button block w-full text-center py-2 bg-black text-white text-xs font-bold rounded-full"
+                                className="ink-button block w-full text-center py-2.5 bg-black text-white text-[10px] uppercase font-black tracking-widest rounded-full hover:bg-accent transition-all"
                             >
-                                Ver Report Completo
+                                Analisar Diagnóstico Completo →
                             </Link>
                             <Link 
                                 href="/#contato"
                                 onClick={() => trackEvent('click_microcase_cta', { slug: item.slug })}
-                                className="block w-full text-center text-[10px] font-black uppercase tracking-widest hover:text-accent transition-colors pt-2"
+                                className="block w-full text-center text-[9px] font-black uppercase tracking-[0.15em] hover:text-accent transition-colors pt-1"
                             >
-                                Iniciar projeto similar →
+                                Agendar Consultiva Sobre Este Formato
                             </Link>
                         </div>
                     </article>

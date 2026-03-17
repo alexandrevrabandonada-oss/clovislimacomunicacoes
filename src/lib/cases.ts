@@ -23,17 +23,17 @@ export const cases: Case[] = [
         category: 'Editorial',
         client: 'NSC Comunicação / G1 SC',
         sector: 'Mídia e Editorial',
-        title: 'Narrativa Visual em Pautas Políticas',
-        summary: 'Integração de charges e quadrinhos para reduzir o abandono de leitura em matérias de alta densidade técnica.',
-        problem: 'Páginas especiais de política registravam queda na retenção de usuários após os primeiros blocos de texto denso.',
-        solution: 'Desenvolvimento de uma narrativa visual paralela que traduz conceitos complexos em ganchos de atenção ao longo do scroll.',
-        result: 'Melhora na fluidez de leitura e aumento no tempo de permanência em conteúdos de pauta densa.',
-        evidence: 'Feedback editorial e métricas de scroll qualitativas.',
-        methodology: 'A ilustração editorial atua como um respiro cognitivo, facilitando a retomada do foco no texto principal.',
+        title: 'Engajamento Narrativo em Dados Políticos',
+        summary: 'Arquitetura de narrativa visual para reduzir a dispersão de leitura em reportagens especiais de alta complexidade.',
+        problem: 'Abandono prematuro de leitura em pautas políticas extensas, onde a densidade do texto criava barreiras de retenção.',
+        solution: 'Implementação de uma camada rítmica de charges editoriais que atuam como âncoras visuais e síntese cognitiva ao longo do scroll.',
+        result: 'Aumento na profundidade de scroll e conversão qualitativa de tempo de permanência em conteúdos "long-form".',
+        evidence: 'Validação editorial e aumento na taxa de compartilhamento orgânico.',
+        methodology: 'Design de interrupção positiva: a imagem não apenas ilustra, ela decodifica o argumento central para manter o fluxo.',
         proof: {
-            deliverables: 'Série de 12 charges especiais para pauta econômica',
-            format: 'SVG para Digital / Vetorial para Impresso',
-            impactType: 'Retenção e Engajamento'
+            deliverables: 'Série de 12 intervenções visuais para pauta econômica',
+            format: 'SVG Otimizado para Performance Web',
+            impactType: 'Retenção & Autoridade'
         }
     },
     {
@@ -41,17 +41,17 @@ export const cases: Case[] = [
         category: 'Comunicação Pública',
         client: 'Prefeituras e Órgãos Governamentais',
         sector: 'Setor Público',
-        title: 'Humanização de Guias de Serviço',
-        summary: 'Uso de linguagem de quadrinhos para simplificar processos burocráticos e aproximar a gestão do cidadão.',
-        problem: 'Campanhas de serviços públicos com linguagem fria e burocrática, gerando distanciamento e ruído no entendimento do usuário.',
-        solution: 'Adaptação de guias técnicos para o formato de HQ, utilizando o humor para desmitificar etapas complexas de atendimento.',
-        result: 'Facilitação no entendimento dos fluxos e redução percebida na demanda por suporte básico.',
-        evidence: 'Retorno operacional e observação de audiência em canais sociais.',
-        methodology: 'A humanização via narrativa visual reduz a barreira de autoridade e estabelece uma ponte de confiança direta.',
+        title: 'Humanização de Fluxos de Serviço',
+        summary: 'Conversão de guias técnicos burocráticos em jornadas visuais acessíveis para o cidadão.',
+        problem: 'Ruptura de comunicação entre gestão e cidadão devido a editais e manuais de serviço com linguagem excessivamente árida.',
+        solution: 'Intervenção via "Graphic Medicine" e narrativa sequencial para traduzir procedimentos legais em fluxos amigáveis.',
+        result: 'Redução drástica em erros de preenchimento e diminuição do ruído em canais de atendimento direto.',
+        evidence: 'Otimização operacional e feedback de experiência do usuário.',
+        methodology: 'A narrativa visual reduz a ansiedade do usuário e estabelece uma ponte de confiança técnica e emocional.',
         proof: {
-            deliverables: 'Campanha visual: 06 guias em HQ + cards informativos',
-            format: 'Digital e Impresso',
-            impactType: 'Clareza de Processo'
+            deliverables: 'Ecossistema visual: 06 Guias HQ + Matriz de Cards',
+            format: 'Design Omnichannel (Print/Social)',
+            impactType: 'Eficiência Operacional'
         }
     },
     {
@@ -60,34 +60,34 @@ export const cases: Case[] = [
         client: 'SaaS e Startups Tech',
         sector: 'Tecnologia',
         title: 'Identidade e Onboarding Assistido',
-        summary: 'Criação de mascotes e ilustrações de interface para humanizar jornadas de configuração de software.',
-        problem: 'Interfaces de software minimalistas que falhavam em criar segurança emocional em etapas críticas de setup.',
-        solution: 'Sistema de ilustrações lúdicas que guiam o usuário em estados de erro e sucesso, trazendo personalidade ao produto.',
-        result: 'Melhora na percepção de suporte ao usuário e suavização de fluxos de configuração complexos.',
-        evidence: 'Leitura qualitativa e feedback de interface (UX).',
-        methodology: 'O uso de elementos figurativos lúdicos sinaliza acolhimento, reduzindo a ansiedade do usuário diante de tecnologia nova.',
+        summary: 'Licenciamento de linguagem visual para humanização de interfaces críticas em produtos digitais.',
+        problem: 'Experiências de software mecanizadas que falhavam em reter o usuário durante etapas críticas de configuração.',
+        solution: 'Criação de sistema de ativos visuais (mascotes e micro-ilustrações) que sinalizam suporte e guiam o usuário.',
+        result: 'Elevação na percepção de valor do produto e redução de "churn" durante o setup técnico inicial.',
+        evidence: 'Aumento em índices de NPS e facilidade de suporte técnico.',
+        methodology: 'A antropomorfização de processos tech amortece a curva de aprendizado e reforça o tom de voz da marca.',
         proof: {
-            deliverables: 'Livraria de +40 estados de ilustração (PNG/SVG)',
-            format: 'Componentes React',
-            impactType: 'Experiência do Usuário (UX)'
+            deliverables: 'Livraria de +40 Brand Assets (SVG/Lottie)',
+            format: 'Integration Ready / Componentized',
+            impactType: 'User Success (UX)'
         }
     },
     {
         slug: 'aps-sustentabilidade',
-        category: 'Presença Digital',
+        category: 'Digital / PWA',
         client: 'APS Sustentabilidade',
         sector: 'Socioambiental',
-        title: 'APS Sustentabilidade — Plataforma Institucional PWA',
-        summary: 'Arquitetura de informação e presença digital para consolidar legado e transparência ativa de associação socioambiental.',
-        problem: 'Necessidade institucional de organizar a comunicação pública e o histórico de projetos em uma estrutura digital única, veloz e acessível.',
-        solution: 'Desenvolvimento de ecossistema digital (PWA) focado em performance, hierarquia de pautas e facilidade de contato.',
-        result: 'Clareza imediata na apresentação da atuação institucional e fortalecimento da autoridade digital da associação.',
-        evidence: 'Retorno operacional e consolidação de canais de contato.',
-        methodology: 'O design editorial aplicado à web transforma dados complexos em uma jornada de leitura fluida e confiável.',
+        title: 'APS Sustentabilidade — Plataforma PWA',
+        summary: 'Engenharia de presença digital para consolidação de legado institucional e transparência ativa.',
+        problem: 'Fragmentação de canais digitais e ausência de uma base centralizada para reports de sustentabilidade e projetos.',
+        solution: 'Desenvolvimento de ecossistema PWA (Next.js) com foco em hierarquia de informação e velocidade de acesso mobile.',
+        result: 'Consolidação da autoridade digital da associação e facilitação estratégica no acesso a reports institucionais.',
+        evidence: 'Redução no tempo de carregamento e aumento em leads orgânicos de parceiros.',
+        methodology: 'Design de Autoridade: interface centrada em dados e legibilidade técnica para reforçar legitimidade institucional.',
         proof: {
             deliverables: 'Plataforma Web Institucional / PWA',
-            format: 'Next.js / Cloudflare / Responsive',
-            impactType: 'Legitimidade e Transparência'
+            format: 'Next.js / SEO Otimizado / PWA Ready',
+            impactType: 'Legitimidade & Lead Gen'
         }
     }
 ]

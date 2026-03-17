@@ -21,6 +21,7 @@ type ManifestItem = {
   type?: string
   content_warning?: boolean
   external_link?: string
+  is_flagship?: boolean
 }
 
 type ManifestData = {
@@ -46,6 +47,7 @@ type GalleryItem = {
   type: string
   contentWarning: boolean
   externalLink?: string
+  isFlagship: boolean
 }
 
 function normalizeWarning(value: unknown): boolean {
@@ -105,7 +107,19 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
         }
       }}
     >
-      {item.tier === 'curated' && (
+      {item.isFlagship && (
+        <div className="absolute top-4 left-4 z-20 pointer-events-none">
+          <div className="relative group/flag">
+            <div className="absolute inset-0 bg-accent blur-md opacity-20 group-hover/flag:opacity-40 transition-opacity" />
+            <span className="relative bg-black text-white text-[8px] px-3 py-1 font-black tracking-[0.2em] uppercase rounded-sm border border-accent flex items-center gap-2 shadow-2xl">
+              <span className="w-1 h-1 rounded-full bg-accent animate-pulse" />
+              Flagship Capability
+            </span>
+          </div>
+        </div>
+      )}
+
+      {item.tier === 'curated' && !item.isFlagship && (
         <div className="absolute top-4 left-4 z-10 pointer-events-none flex flex-col gap-1">
           <span className="stamp text-[7px] px-2 py-0.5 bg-black text-white font-black tracking-[0.2em] uppercase rounded">Editorial Selection</span>
           {item.type === 'Sites / PWA' && (
@@ -225,7 +239,8 @@ export default function Gallery() {
           featured: !!value?.featured,
           type: (value?.type || defaultType).trim(),
           contentWarning: normalizeWarning(value?.content_warning),
-          externalLink: (value as any)?.external_link
+          externalLink: (value as any)?.external_link,
+          isFlagship: !!(value as any)?.is_flagship
         }
       }).filter((item) => item.file)
 
@@ -520,12 +535,20 @@ export default function Gallery() {
 
             <div className="mt-4 grid grid-cols-2 gap-4 border-y border-black/10 py-4 text-sm">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Contexto</p>
-                <p className="mt-1 font-medium">{selected.client || 'Acervo Vivo'} {selected.vehicle ? ` / ${selected.vehicle}` : ''}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                  {selected.type === 'Sites / PWA' ? 'Architecture' : 'Contexto'}
+                </p>
+                <p className="mt-1 font-medium italic">
+                  {selected.type === 'Sites / PWA' ? 'High-Performance PWA' : (selected.client || 'Acervo Vivo')}
+                </p>
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Ano / Tipo</p>
-                <p className="mt-1 font-medium">{selected.year || '—'} / <span className="capitalize">{selected.type}</span></p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                   {selected.type === 'Sites / PWA' ? 'Tech Stack' : 'Ano / Tipo'}
+                </p>
+                <p className="mt-1 font-medium">
+                  {selected.type === 'Sites / PWA' ? 'Next.js / Cloudflare / PWA' : `${selected.year || '—'} / ${selected.type}`}
+                </p>
               </div>
             </div>
 

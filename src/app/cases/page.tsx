@@ -42,43 +42,69 @@ export default function CasesPage() {
                     </p>
                 </header>
 
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {cases.map((item) => (
                         <article 
                             key={item.slug} 
-                            className="ink-card p-0 overflow-hidden flex flex-col group hover:border-black/20 transition-all"
+                            className="ink-card p-0 overflow-hidden flex flex-col group hover:border-black/20 transition-all relative"
                         >
-                            <div className="p-8 flex flex-col flex-grow">
-                                <header className="mb-6">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <span className="rounded bg-black text-white px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest">
-                                            {item.category}
-                                        </span>
+                            {/* Category Badge */}
+                            <div className="absolute top-4 left-4 z-10">
+                                <span className="bg-black text-white px-2 py-0.5 text-[8px] font-black uppercase tracking-[0.2em] rounded-sm">
+                                    {item.category}
+                                </span>
+                            </div>
+
+                            <div className="p-8 flex flex-col flex-grow bg-white">
+                                <header className="mt-4 mb-6">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-accent" />
                                         <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
-                                            {item.sector}
+                                            Sector: {item.sector}
                                         </span>
                                     </div>
-                                    <h2 className="text-2xl font-black mb-2 leading-tight group-hover:text-accent transition-colors">
-                                        {item.title}
+                                    <h2 className="text-2xl font-black mb-2 leading-tight group-hover:text-accent transition-colors italic">
+                                        &quot;{item.title}&quot;
                                     </h2>
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter italic">
-                                        Cliente: {item.client}
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                                        ID: {item.client}
                                     </p>
                                 </header>
 
-                                <div className="space-y-4 text-sm text-slate-700 flex-grow">
-                                    <p className="leading-relaxed font-medium line-clamp-3">
-                                        {item.summary}
-                                    </p>
+                                <div className="space-y-6 text-sm text-slate-700 flex-grow">
+                                    <section className="relative pl-4 border-l-2 border-slate-100">
+                                        <p className="text-[10px] font-black uppercase text-slate-300 tracking-widest mb-1.5">Contexto & Desafio</p>
+                                        <p className="leading-relaxed font-medium line-clamp-3 italic">
+                                            {item.problem}
+                                        </p>
+                                    </section>
+
+                                    <section className="p-4 bg-slate-50 border border-black/5 rounded-2xl">
+                                        <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-2">Intervenção Técnica</p>
+                                        <p className="text-slate-800 font-bold leading-tight mb-3">
+                                            {item.result}
+                                        </p>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-[8px] font-black uppercase text-accent tracking-widest">
+                                                {item.evidence}
+                                            </span>
+                                            <div className="flex gap-0.5">
+                                                {[1,2,3].map(i => <div key={i} className="w-1 h-1 bg-slate-300 rounded-full" />)}
+                                            </div>
+                                        </div>
+                                    </section>
                                 </div>
 
                                 <div className="mt-8 pt-6 border-t border-black/5">
                                     <Link 
                                         href={`/cases/${item.slug}`}
-                                        className="ink-button block w-full text-center py-3 bg-black text-white text-xs font-bold rounded-full group-hover:bg-accent transition-colors"
+                                        className="ink-button block w-full text-center py-3 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-full group-hover:bg-accent transition-all"
                                     >
-                                        Ver Estudo de Caso →
+                                        Analisar Case Completo →
                                     </Link>
+                                    <p className="mt-3 text-center text-[9px] font-bold text-slate-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                                        Metodologia: {item.methodology.split(':')[0]}
+                                    </p>
                                 </div>
                             </div>
                         </article>
