@@ -3,15 +3,19 @@
 import { useEffect, useMemo, useState } from 'react'
 
 type SectionItem = {
-  id: 'hero' | 'trabalhos' | 'servicos' | 'sobre' | 'contato'
+  id: 'hero' | 'trabalhos' | 'prints-licenciamento' | 'servicos' | 'faq' | 'sobre' | 'clientes' | 'resultados' | 'contato'
   label: string
 }
 
 const sections: SectionItem[] = [
-  { id: 'hero', label: 'Hero' },
-  { id: 'trabalhos', label: 'Trabalhos' },
-  { id: 'servicos', label: 'Servicos' },
+  { id: 'hero', label: 'Início' },
+  { id: 'trabalhos', label: 'Portfólio' },
+  { id: 'prints-licenciamento', label: 'Prints' },
+  { id: 'servicos', label: 'Soluções' },
+  { id: 'faq', label: 'FAQ' },
   { id: 'sobre', label: 'Sobre' },
+  { id: 'clientes', label: 'Clientes' },
+  { id: 'resultados', label: 'Cases' },
   { id: 'contato', label: 'Contato' }
 ]
 

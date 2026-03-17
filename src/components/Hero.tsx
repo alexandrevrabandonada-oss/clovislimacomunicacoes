@@ -31,12 +31,12 @@ export default function Hero({ works }: HeroProps) {
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const featuredSafeWork = works.find((work) => work.is_featured === true && !isSensitive(work.content_warning))
   const featuredImage = featuredSafeWork?.cover_url || featuredSafeWork?.cover_image_url || null
-  const titleWords = ['Humor', 'que', 'comunica.', 'Design', 'que', 'converte.']
+  const titleWords = ['Comunicação', 'visual', 'que', 'vira', 'resultado.']
 
   return (
     <div className="min-h-[56vh] md:min-h-[58vh] grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
       <div>
-        <p className="stamp">Ilustração + Produto Digital</p>
+        <p className="stamp">Charges | Licenciamento | Tech</p>
         <h1
           ref={headingRef}
           className={`hero-kinetic-title mt-3 text-4xl md:text-6xl font-extrabold leading-tight ${revealed ? 'is-revealed' : ''}`}
@@ -54,7 +54,7 @@ export default function Hero({ works }: HeroProps) {
           ))}
         </h1>
         <p className="mt-3 max-w-2xl text-base md:text-lg">
-          Narrativa visual para editoriais, licenciamento de arte autoral e produtos digitais de alta performance.
+          Criação visual, campanhas, editorial, identidade e projetos sob demanda com foco em estratégia e alta performance.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <a
@@ -62,14 +62,14 @@ export default function Hero({ works }: HeroProps) {
             onClick={() => trackEvent('click_cta_portfolio')}
             className="ink-button inline-block w-full sm:w-auto text-center bg-accent text-white px-5 py-2.5 font-semibold"
           >
-            Explorar Acervo
+            Ver projetos
           </a>
           <a
             href="#servicos"
             onClick={() => trackEvent('click_cta_servicos')}
             className="ink-button inline-block w-full sm:w-auto text-center px-5 py-2.5 font-semibold bg-white"
           >
-            Ver Soluções
+            Quero um orçamento
           </a>
         </div>
         <p className="mt-2 text-sm text-slate-700">Resposta rapida por e-mail ou WhatsApp em ate 24h uteis.</p>
@@ -99,7 +99,7 @@ export default function Hero({ works }: HeroProps) {
               <circle cx="126" cy="98" r="44" fill="none" stroke="#0f172a" strokeWidth="6" />
               <circle cx="126" cy="98" r="7" fill="#0f172a" />
               <path d="M94 146 C 120 162, 140 162, 164 146" fill="none" stroke="#0f172a" strokeWidth="6" strokeLinecap="round" />
-              <text x="190" y="314" fontSize="42" fill="#0f172a" fontFamily="Georgia, serif" transform="rotate(-6 190 314)">Clóvis Lima</text>
+              <text x="190" y="314" fontSize="42" fill="#0f172a" fontFamily="Georgia, serif" transform="rotate(-6 190 314)">ESBOÇO</text>
             </svg>
           </div>
         )}

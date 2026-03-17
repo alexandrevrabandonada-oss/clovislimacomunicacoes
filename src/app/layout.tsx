@@ -6,10 +6,10 @@ import Header from '../components/Header'
 import { getSiteUrl } from '../lib/site'
 
 const siteUrl = getSiteUrl()
-const siteName = 'Clóvis Lima Comunicações'
-const defaultTitle = 'Clóvis Lima | Humor que comunica. Design que converte.'
+const siteName = 'ESBOÇO criação & arte'
+const defaultTitle = 'ESBOÇO criação & arte | Humor que comunica. Design que converte.'
 const defaultDescription =
-  'Charges, ilustração editorial, design e desenvolvimento de sites/PWA com identidade autoral.'
+  'Charges, ilustração editorial, design e desenvolvimento de sites/PWA. Branding, estratégia e arte autoral.'
 const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || ''
 const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || ''
 const umamiScriptUrl = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || 'https://cloud.umami.is/script.js'
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: '/og.png',
         width: 1200,
         height: 630,
-        alt: 'Clóvis Lima Comunicações'
+        alt: 'ESBOÇO criação & arte'
       }
     ]
   },
@@ -48,6 +48,10 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true
+  },
+  icons: {
+    icon: '/brand/logo-seal.png',
+    apple: '/brand/logo-seal.png',
   }
 }
 
@@ -58,11 +62,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const personSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Clóvis Lima',
-    jobTitle: 'Cartunista, Jornalista, Designer',
+    '@type': 'Organization',
+    name: 'ESBOÇO criação & arte',
     url: siteUrl,
-    areaServed: 'Brasil',
+    logo: `${siteUrl}/brand/logo-horizontal.png`,
+    founder: {
+      '@type': 'Person',
+      name: 'Clóvis Lima'
+    },
     sameAs: []
   }
 

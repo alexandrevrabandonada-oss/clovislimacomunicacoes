@@ -23,7 +23,7 @@ export default function FAQ() {
   ]
 
   return (
-    <section>
+    <div>
       <h2 className="text-3xl font-extrabold">FAQ</h2>
       <div className="mt-4 space-y-3">
         {items.map((item) => (
@@ -40,6 +40,6 @@ export default function FAQ() {
       <a href="#contato" className="ink-button mt-4 inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
         Ainda com duvida? Fala comigo
       </a>
-    </section>
+    </div>
   )
 }

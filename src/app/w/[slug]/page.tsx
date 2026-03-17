@@ -8,6 +8,7 @@ import WorkDetail, { WorkDetailData } from '../../../components/WorkDetail'
 import WorkShareBlock from '../../../components/WorkShareBlock'
 import { fetchPublishedWorkBySlug } from '../../../lib/works'
 import { getSiteUrl } from '../../../lib/site'
+import { trackEvent } from '../../../lib/analytics'
 
 function isSensitive(contentWarning: string | null): boolean {
   if (contentWarning === null || contentWarning === undefined) return false
@@ -125,7 +126,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   if (manifestCurrent) {
     const title = `${manifestCurrent.title} | Mini-case`
-    const description = `Mini-case de ${manifestCurrent.title} (${manifestCurrent.type}) no portfolio de Clovis Lima.`
+    const description = `Mini-case de ${manifestCurrent.title} (${manifestCurrent.type}) no portfolio da ESBOÇO.`
     const image = `${siteUrl}/portfolio/${encodeURIComponent(manifestCurrent.file)}`
     return {
       title,
@@ -176,7 +177,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     work.description ||
     (sensitive
       ? 'Obra marcada como conteúdo sensível.'
-      : 'Obra do portfólio de Clóvis Lima com linguagem autoral.')
+      : 'Obra do acervo da ESBOÇO criação & arte.')
   const image = sensitive
     ? `${siteUrl}/w/${encodeURIComponent(work.slug)}/opengraph-image`
     : `${siteUrl}/w/${encodeURIComponent(work.slug)}/opengraph-image`
@@ -274,8 +275,7 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
     genre: work.type,
     datePublished: work.created_at || undefined,
     description:
-      work.description ||
-      (sensitive ? 'Obra marcada como conteúdo sensível.' : 'Obra do portfólio de Clóvis Lima.'),
+      (sensitive ? 'Obra marcada como conteúdo sensível.' : 'Obra do acervo da ESBOÇO criação & arte.'),
     inLanguage: 'pt-BR',
     image: sensitive
       ? `${siteUrl}/w/${work.slug}/opengraph-image`
@@ -346,13 +346,25 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
             Ative esta obra como print ou licenca, com orientacao de formato e uso.
           </p>
           <div className="mt-4 flex flex-col gap-2">
-            <Link href={printsHref} className="ink-button block text-center rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white">
+            <Link 
+              href={printsHref} 
+              onClick={() => trackEvent('click_work_print_assinado', { slug: work.slug })}
+              className="ink-button block text-center rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white"
+            >
               Quero print assinado
             </Link>
-            <Link href={editorialHref} className="ink-button block text-center rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+            <Link 
+              href={editorialHref} 
+              onClick={() => trackEvent('click_work_licenca_editorial', { slug: work.slug })}
+              className="ink-button block text-center rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold"
+            >
               Licenca editorial
             </Link>
-            <Link href={campaignHref} className="ink-button block text-center rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+            <Link 
+              href={campaignHref} 
+              onClick={() => trackEvent('click_work_licenca_campanha', { slug: work.slug })}
+              className="ink-button block text-center rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold"
+            >
               Quero usar em campanha
             </Link>
           </div>

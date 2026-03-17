@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import { PRICING } from "../lib/data";
+import { trackEvent } from "../lib/analytics";
 
 type ServiceItem = {
   slug: "editorial" | "licença" | "tech";
@@ -13,9 +14,9 @@ type ServiceItem = {
 const services: ServiceItem[] = [
   {
     slug: "editorial",
-    title: "Editorial & Charges",
+    title: "Charges / Editorial",
     description:
-      "Atenção e engajamento para veículos e pautas complexas através de humor e narrativa visual.",
+      "Atenção e engajamento para veículos e pautas complexas através de humor e narrativa visual autoral.",
     bullets: [
         "Direção de arte editorial",
         "Storytelling visual para dados",
@@ -24,8 +25,8 @@ const services: ServiceItem[] = [
   },
   {
     slug: "licença",
-    title: "Prints & Licenciamento",
-    description: "Arte autoral para acervos físicos e direitos de uso comercial para marcas.",
+    title: "Prints / Licenciamento",
+    description: "Arte autoral para acervos físicos e direitos de uso comercial para marcas e campanhas.",
     bullets: [
         "Licenças para campanhas e marcas",
         "Prints fine-art sob demanda",
@@ -34,8 +35,8 @@ const services: ServiceItem[] = [
   },
   {
     slug: "tech",
-    title: "Sites & PWA",
-    description: "Desenvolvimento de produtos digitais com identidade visual única e alta conversão.",
+    title: "Sites / PWA",
+    description: "Desenvolvimento de produtos digitais com identidade visual única e foco em conversão.",
     bullets: [
         "Interfaces personalizadas (UI/UX)",
         "PWAs rápidos e instaláveis",
@@ -56,6 +57,7 @@ function goToContact(slug: string, title: string) {
   window.dispatchEvent(
     new CustomEvent("contact-package", { detail: { slug, title } })
   );
+  trackEvent('click_service_package_selected', { package: slug });
   document.getElementById("contato")?.scrollIntoView({
     behavior: "smooth",
     block: "start",
@@ -66,7 +68,7 @@ export default function Services() {
   const [selected, setSelected] = useState<ServiceItem | null>(null);
 
   return (
-    <div className="relative z-10 w-full">
+    <div className="w-full">
       <h2 className="text-3xl font-extrabold">Serviços</h2>
       <div className="mt-4 grid gap-4 md:grid-cols-3">
         {services.map((item) => (
@@ -102,7 +104,10 @@ export default function Services() {
             </div>
             <button
               className="ink-button mt-4 bg-black text-white px-4 py-2 rounded-full font-bold"
-              onClick={() => setSelected(item)}
+              onClick={() => {
+                trackEvent('click_service_card', { package: item.slug })
+                setSelected(item)
+              }}
             >
               Quero este
             </button>

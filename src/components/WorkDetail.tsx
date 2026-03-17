@@ -150,7 +150,7 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
           </div>
 
           <p className="mt-5 leading-relaxed text-slate-800">
-            {work.description || 'Obra do portfólio com direção visual autoral e foco em impacto editorial.'}
+            {work.description || 'Obra do acervo da ESBOÇO criação & arte com direção visual autoral e foco em impacto editorial.'}
           </p>
 
           <div className="mt-7 flex flex-wrap gap-2">

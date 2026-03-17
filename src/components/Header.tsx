@@ -1,6 +1,7 @@
 "use client"
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 
 type NavItem = {
@@ -59,8 +60,17 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur z-40 border-b">
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
         <div className="flex items-center gap-3">
-          <Link href="#hero" className="text-xl font-bold">Clóvis Lima</Link>
-          <span className="stamp">Cartunista</span>
+          <Link href="#hero" className="flex items-center gap-2">
+            <Image 
+              src="/brand/logo-horizontal.png" 
+              alt="ESBOÇO criação & arte" 
+              width={140} 
+              height={40} 
+              className="h-8 w-auto object-contain"
+              priority
+            />
+          </Link>
+          <span className="stamp">Brand Studio</span>
         </div>
         <div className="flex items-center gap-4">
           {navItems.map((item) => {

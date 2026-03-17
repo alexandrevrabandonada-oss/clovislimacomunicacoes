@@ -15,18 +15,9 @@ declare global {
 }
 
 const PACKAGE_LABELS: Record<string, string> = {
-  editorial: 'Editorial / Charges',
-  'charge-avulsa': 'Charge avulsa',
-  'pacote-mensal': 'Pacote mensal',
-  'serie-especial': 'Série / Especial',
+  editorial: 'Charges / Editorial',
   'licença': 'Prints / Licenciamento',
-  prints: 'Print assinado',
-  'licenca-editorial': 'Licença editorial',
-  'licenca-campanha': 'Licença comercial',
-  tech: 'Sites / PWA',
-  'landing-rapida': 'Landing rápida',
-  'site-completo': 'Site completo',
-  pwa: 'PWA'
+  tech: 'Sites / PWA'
 }
 
 function packageMessage(label: string): string {
@@ -51,21 +42,21 @@ function formatWorkLabel(slug: string): string {
 
 function buildTemplate(packageSlug: string, packageLabel: string, workLabel: string): string {
   if (['prints', 'licenca-editorial', 'licenca-campanha', 'licença'].includes(packageSlug)) {
-    return `Olá! Quero valores e formatos (tamanho, tiragem, prazo) para ${packageLabel || packageSlug}.`
+    return `Olá! Tenho interesse em adquirir ou licenciar uma obra. Gostaria de saber mais sobre valores e formatos para ${packageLabel || 'impressão/licença'}.`
   }
   if (['editorial', 'tech'].includes(packageSlug)) {
-    return packageMessage(packageLabel)
+    return `Olá! Gostaria de conversar sobre um projeto de ${packageLabel}. Meu objetivo principal é: [descreva brevemente].`
   }
   if (packageLabel && workLabel) {
-    return `Ola! Quero o pacote ${packageLabel} usando a referencia ${workLabel}. Prazo e valor?`
+    return `Olá! Vi a referência "${workLabel}" e gostaria de algo similar no pacote de ${packageLabel}. Podemos falar sobre prazos?`
   }
   if (workLabel) {
-    return `Ola! Quero falar sobre a obra ${workLabel} (licenciamento/print/publicacao).`
+    return `Olá! Gostaria de conversar sobre a obra "${workLabel}" (licenciamento ou print assinado).`
   }
   if (packageLabel) {
-    return packageMessage(packageLabel)
+    return `Olá! Tenho interesse na trilha de ${packageLabel}. Como podemos começar?`
   }
-  return 'Olá! Quero conversar sobre um projeto. Meu objetivo é: [descreva o projeto]. Canal de preferência: [WhatsApp/E-mail].'
+  return 'Olá! Gostaria de conversar sobre um projeto de comunicação. Meu objetivo é: [descreva o projeto].'
 }
 
 export default function ContactForm() {
@@ -73,49 +64,55 @@ export default function ContactForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [company, setCompany] = useState('')
   const [message, setMessage] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
   const [honeypot, setHoneypot] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [feedback, setFeedback] = useState('')
-  const [whatsAppHref, setWhatsAppHref] = useState('')
   const [widgetReady, setWidgetReady] = useState(false)
+  const [turnstileStatus, setTurnstileStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const messageRef = useRef<HTMLTextAreaElement | null>(null)
   const turnstileContainerRef = useRef<HTMLDivElement | null>(null)
   const widgetIdRef = useRef<string | null>(null)
-  // Garantir fallback seguro para env ausente
-  const turnstileSiteKey = typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY : ''
-  const whatsAppNumber = typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER.replace(/\D/g, '') : ''
+  
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+  const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+  const leadEmail = 'contato@clovislimacomunicacoes.com.br' // Fallback fix
   const hasTurnstile = Boolean(turnstileSiteKey)
   const lastAutoMessageRef = useRef('')
-  const [selectedPackageSlug, setSelectedPackageSlug] = useState('')
   const [selectedPackageLabel, setSelectedPackageLabel] = useState('')
   const [selectedWorkSlug, setSelectedWorkSlug] = useState('')
   const [selectedWorkLabel, setSelectedWorkLabel] = useState('')
 
-  const fallbackTemplate = buildTemplate(selectedPackageSlug, selectedPackageLabel, selectedWorkLabel)
-  const contactText = (message || '').trim() || fallbackTemplate
-  const fallbackWhatsAppHref = whatsAppNumber
-    ? `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(contactText)}`
-    : `https://wa.me/?text=${encodeURIComponent(contactText)}`
-  const fallbackEmailHref = `mailto:?subject=${encodeURIComponent('Contato pelo site - Clovis Lima')}&body=${encodeURIComponent(contactText)}`
+  const whatsappLink = whatsAppNumber
+    ? `https://wa.me/${whatsAppNumber}`
+    : `https://wa.me/`
 
   const mountTurnstile = useCallback(() => {
     if (!hasTurnstile) return
     if (!turnstileContainerRef.current || !window.turnstile) return
     if (widgetIdRef.current) return
 
-    widgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
-      sitekey: turnstileSiteKey,
-      callback: (token: string) => setTurnstileToken(token),
-      'expired-callback': () => setTurnstileToken(''),
-      'error-callback': () => {
-        setTurnstileToken('')
-        setStatus('error')
-        setFeedback('Ops, faltou validar o anti-spam. Tente novamente.')
-      }
-    })
+    try {
+      widgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+        sitekey: turnstileSiteKey,
+        callback: (token: string) => {
+          setTurnstileToken(token)
+          setTurnstileStatus('success')
+        },
+        'expired-callback': () => {
+          setTurnstileToken('')
+          setTurnstileStatus('idle')
+        },
+        'error-callback': () => {
+          setTurnstileToken('')
+          setTurnstileStatus('error')
+        }
+      })
+    } catch (e) {
+      console.error('Turnstile render error:', e)
+      setTurnstileStatus('error')
+    }
   }, [hasTurnstile, turnstileSiteKey])
 
   useEffect(() => {
@@ -125,16 +122,15 @@ export default function ContactForm() {
       const obra = (params.get('obra') || '').trim().toLowerCase()
       const packageLabel = pacote ? (PACKAGE_LABELS[pacote] || pacote) : ''
       const workLabel = obra ? formatWorkLabel(obra) : ''
-      setSelectedPackageSlug(pacote)
+      const prefill = params.get('prefill_message')
+      
       setSelectedPackageLabel(packageLabel)
       setSelectedWorkSlug(obra)
       setSelectedWorkLabel(workLabel)
 
-      const prefill = params.get('prefill_message')
       if (prefill && (!message.trim() || message === lastAutoMessageRef.current)) {
-        const nextMessage = prefill.trim()
-        setMessage(nextMessage)
-        lastAutoMessageRef.current = nextMessage
+        setMessage(prefill)
+        lastAutoMessageRef.current = prefill
         return
       }
 
@@ -154,266 +150,202 @@ export default function ContactForm() {
       setTimeout(() => messageRef.current?.focus(), 100)
     }
 
-    const onPackage = (event: Event) => {
-      const custom = event as CustomEvent<{ slug?: string; title?: string }>
-      const slug = (custom.detail?.slug || '').trim().toLowerCase()
-      const title = custom.detail?.title?.trim() || ''
-      const label = title || PACKAGE_LABELS[slug] || slug
-      if (!label) return
-      setSelectedPackageSlug(slug)
-      setSelectedPackageLabel(label)
-      const nextMessage = buildTemplate(slug, label, selectedWorkLabel)
-      setMessage(nextMessage)
-      lastAutoMessageRef.current = nextMessage
-      setTimeout(() => messageRef.current?.focus(), 100)
-    }
-
     prefillFromQuery()
     window.addEventListener('contact-prefill', onPrefill)
-    window.addEventListener('contact-package', onPackage)
     window.addEventListener('popstate', prefillFromQuery)
     return () => {
       window.removeEventListener('contact-prefill', onPrefill)
-      window.removeEventListener('contact-package', onPackage)
       window.removeEventListener('popstate', prefillFromQuery)
     }
-  }, [message, selectedWorkLabel])
+  }, [message])
 
   useEffect(() => {
     if (!widgetReady) return
     mountTurnstile()
   }, [widgetReady, mountTurnstile])
 
-  useEffect(() => {
-    return () => {
-      if (widgetIdRef.current && window.turnstile) {
-        window.turnstile.remove(widgetIdRef.current)
-      }
-    }
-  }, [])
-
-  const submit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Se não tem turnstile, permitimos continuar com fallback/honeypot
-    if (!name.trim() || !email.trim() || !phone.trim() || !message.trim()) {
+    if (!name.trim() || !email.trim() || !message.trim()) {
       setStatus('error')
-      setFeedback('Ops, faltou preencher nome, email, telefone e mensagem.')
-      return
-    }
-    if (hasTurnstile && !turnstileToken) {
-      setStatus('error')
-      setFeedback('Ops, faltou confirmar o anti-spam.')
+      setFeedback('Por favor, preencha todos os campos obrigatórios.')
       return
     }
 
     setStatus('loading')
-    setFeedback('Enviando...')
-
-    const params = new URLSearchParams(window.location.search)
-    const utmSource = params.get('utm_source') || ''
-    const utmMedium = params.get('utm_medium') || ''
-    const utmCampaign = params.get('utm_campaign') || ''
-    const pageUrl = window.location.href
-    const referrer = document.referrer || ''
-    const userAgent = navigator.userAgent || ''
-
     try {
       const response = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          company,
-          message,
-          honeypot,
-          turnstileToken,
-          utm_source: utmSource,
-          utm_medium: utmMedium,
-          utm_campaign: utmCampaign,
-          referrer,
-          page_url: pageUrl,
-          user_agent: userAgent
-        })
+        body: JSON.stringify({ name, email, phone, message, honeypot, turnstileToken })
       })
-      const data = await response.json()
-      if (!response.ok) {
-        setStatus('error')
-        setFeedback(data?.error || 'Ops, faltou algo no envio. Revise e tente novamente.')
-        if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current)
-        setTurnstileToken('')
-        return
-      }
-
+      
+      if (!response.ok) throw new Error('Falha no envio')
+      
       setStatus('success')
-      setFeedback('Recebido! Retornarei em até 24 horas úteis por e-mail ou WhatsApp.')
-      trackEvent('submit_lead_success')
-      const prefill = `Olá! Acabei de enviar o formulário pelo site. Meu nome é ${name} e gostaria de continuar o atendimento.`
-      const href = whatsAppNumber
-        ? `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(prefill)}`
-        : `https://wa.me/?text=${encodeURIComponent(prefill)}`
-      setWhatsAppHref(href)
-      setName('')
-      setEmail('')
-      setPhone('')
-      setCompany('')
-      setMessage('')
-      setTurnstileToken('')
-      if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current)
+      trackEvent('submit_lead_success', { package: selectedPackageLabel })
     } catch {
       setStatus('error')
-      setFeedback('Ops, faltou conexão para enviar agora. Tente novamente em instantes.')
-    }
-  }
-
-  const removeWorkReference = () => {
-    setSelectedWorkSlug('')
-    setSelectedWorkLabel('')
-    const url = new URL(window.location.href)
-    url.searchParams.delete('obra')
-    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`)
-
-    if (!message.trim() || message === lastAutoMessageRef.current) {
-      const nextMessage = buildTemplate(selectedPackageSlug, selectedPackageLabel, '')
-      setMessage(nextMessage)
-      lastAutoMessageRef.current = nextMessage
+      setFeedback('Não foi possível enviar agora. Tente novamente ou use o WhatsApp.')
     }
   }
 
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-2xl bg-white p-8 md:p-12 rounded-[2rem] border-2 border-black/5 shadow-sm">
       <Script
         src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
         strategy="afterInteractive"
         onLoad={() => setWidgetReady(true)}
       />
-      <h2 ref={headingRef} className={`reveal-heading text-2xl font-bold ${revealed ? 'is-revealed' : ''}`}>Contato</h2>
       
-      <div className="mt-2 mb-6 p-4 rounded-xl border border-black/5 bg-slate-50/50">
-        <div className="flex items-start gap-3">
-          <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black text-[10px] text-white font-bold">!</div>
-          <div className="space-y-1">
-            <p className="text-sm font-bold text-black">Retorno humanizado em até 24h úteis.</p>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              No primeiro contato, analisamos sua pauta e enviamos uma estimativa básica ou link de agenda para alinhamento.
-            </p>
-          </div>
-        </div>
+      <header className="mb-8">
+        <h2 ref={headingRef} className={`reveal-heading text-3xl font-black ${revealed ? 'is-revealed' : ''}`}>
+          Vamos iniciar seu projeto?
+        </h2>
+        <p className="mt-2 text-slate-600">
+          Atendimento consultivo e estratégico para marcas que buscam autoridade visual.
+        </p>
+      </header>
+      
+      <div className="mb-10 p-6 bg-slate-50 border border-black/5 rounded-2xl relative overflow-hidden group">
+        <h3 className="text-sm font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
+          <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+          Expectativas de Atendimento:
+        </h3>
+        <ul className="space-y-4">
+          <li className="flex gap-3">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">01</span>
+            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Resposta em 24h:</strong> Analisamos pessoalmente cada briefing para garantir aderência à nossa técnica e estética.</p>
+          </li>
+          <li className="flex gap-3">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">02</span>
+            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Alinhamento Expert:</strong> Definimos juntos a narrativa, o tom e os objetivos comerciais do seu projeto.</p>
+          </li>
+          <li className="flex gap-3">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">03</span>
+            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Envio de Proposta:</strong> Você recebe um report técnico com solução, cronograma e investimento.</p>
+          </li>
+        </ul>
       </div>
 
-      <div className="mb-6">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">O que você busca?</p>
-        <div className="flex flex-wrap gap-2">
-          {[
-            { id: 'editorial', label: 'Charge Editorial' },
-            { id: 'licença', label: 'Licenciamento' },
-            { id: 'prints', label: 'Print Assinado' },
-            { id: 'tech', label: 'Site / PWA' },
-            { id: 'custom', label: 'Dúvida Geral' }
-          ].map((track) => (
-            <button
-              key={track.id}
-              type="button"
-              onClick={() => {
-                const label = track.label === 'Dúvida Geral' ? 'Dúvida Geral' : track.label
-                const slug = track.id === 'custom' ? '' : track.id
-                setSelectedPackageSlug(slug)
-                setSelectedPackageLabel(label)
-                const nextMessage = buildTemplate(slug, label, selectedWorkLabel)
-                setMessage(nextMessage)
-                lastAutoMessageRef.current = nextMessage
-                setTimeout(() => messageRef.current?.focus(), 100)
-              }}
-              className={`ink-button rounded-full border px-4 py-1.5 text-xs font-bold transition-all ${
-                selectedPackageLabel === track.label 
-                ? 'bg-black text-white border-black' 
-                : 'bg-white text-black border-black/20 hover:border-black'
-              }`}
-            >
-              {track.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <form onSubmit={submit}>
-        <label className="block">Nome<input id="contact-name" name="name" className="w-full border p-2" value={name} onChange={e => setName(e.target.value)} required /></label>
-        <label className="block mt-2">Email<input type="email" className="w-full border p-2" value={email} onChange={e => setEmail(e.target.value)} required /></label>
-        <label className="block mt-2">Telefone<input className="w-full border p-2" value={phone} onChange={e => setPhone(e.target.value)} required /></label>
-        <label className="block mt-2">Empresa<input className="w-full border p-2" value={company} onChange={e => setCompany(e.target.value)} /></label>
-        {/* Campo Honeypot Oculto */}
-        <div style={{ display: 'none' }} aria-hidden="true">
-          <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" value={honeypot} onChange={e => setHoneypot(e.target.value)} />
-        </div>
-        {selectedWorkSlug && (
-          <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-black/40 bg-white px-3 py-1 text-xs">
-            <span>Referencia: {selectedWorkLabel || selectedWorkSlug}</span>
-            <button type="button" onClick={removeWorkReference} className="ink-button rounded-full border border-black bg-white px-2 py-0.5 text-[11px] font-semibold">
-              remover
-            </button>
-          </div>
-        )}
-        <label className="block mt-2">Mensagem<textarea ref={messageRef} className="w-full border p-2" value={message} onChange={e => setMessage(e.target.value)} required /></label>
-        <div className="mt-3">
-          {hasTurnstile ? (
-            <div ref={turnstileContainerRef} />
-          ) : (
-            <div className="rounded-xl border border-black/10 bg-slate-50 p-4 text-center flex flex-col items-center">
-              <p className="text-base font-semibold text-black mb-2">Contato rápido e direto</p>
-              <p className="text-sm text-slate-700 mb-4">Formulário simplificado: escolha WhatsApp ou E-mail e respondo pessoalmente.</p>
-              <div className="flex flex-wrap justify-center gap-2">
-                <a
-                  href={fallbackWhatsAppHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ink-button inline-block rounded-full border border-black bg-black px-4 py-2 text-sm font-semibold text-white"
-                >
-                  Falar no WhatsApp
-                </a>
-                <a
-                  href={fallbackEmailHref}
-                  className="ink-button inline-block rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold text-black"
-                >
-                  Enviar por E-mail
-                </a>
+      {status !== 'success' ? (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Seu Nome / Marca</label>
+                <input 
+                  required 
+                  placeholder="Como gostaria de ser chamado?" 
+                  className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
+                  value={name} 
+                  onChange={e => setName(e.target.value)} 
+                />
               </div>
-              <p className="mt-3 text-xs text-slate-500">Anti-spam visual desativado — atendimento humano garantido.</p>
+              <div className="space-y-1">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">E-mail de Contato</label>
+                <input 
+                  type="email" 
+                  required 
+                  placeholder="seu@email.com" 
+                  className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
+                  value={email} 
+                  onChange={e => setEmail(e.target.value)} 
+                />
+              </div>
             </div>
-          )}
-        </div>
-        {hasTurnstile && (
-          <button
-            className="mt-3 bg-accent text-white px-4 py-2 rounded disabled:opacity-70"
-            type="submit"
-            disabled={status === 'loading'}
-          >
-            {status === 'loading' ? 'Enviando...' : 'Enviar'}
-          </button>
-        )}
-        {status !== 'idle' && status !== 'success' && (
-          <p className={`mt-3 rounded-md border px-3 py-2 text-sm ${status === 'error'
-            ? 'border-red-300 bg-red-50 text-red-800'
-            : 'border-slate-300 bg-white text-slate-700'
-            }`}>
-            {feedback}
+
+            <div className="space-y-1">
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Seu Desafio / Briefing</label>
+              <textarea 
+                ref={messageRef} 
+                required 
+                rows={5} 
+                placeholder="Conte-me um pouco sobre o que você busca..." 
+                className="w-full h-full min-h-[125px] rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium resize-none" 
+                value={message} 
+                onChange={e => setMessage(e.target.value)} 
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'none' }} aria-hidden="true">
+            <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" value={honeypot} onChange={e => setHoneypot(e.target.value)} />
+          </div>
+
+          <div className="space-y-4 pt-2">
+            <div className="min-h-[65px]">
+              {turnstileStatus === 'error' ? (
+                <div className="bg-amber-50 p-4 rounded-xl border border-amber-100">
+                  <p className="text-xs text-amber-900 font-bold">Verificando segurança...</p>
+                  <p className="text-[10px] text-amber-700 mt-1">Se o verificador demorar, você pode usar o <a href={whatsappLink} onClick={() => trackEvent('click_contact_fallback_whatsapp')} className="underline font-bold">WhatsApp</a> ou o <a href={`mailto:${leadEmail}`} onClick={() => trackEvent('click_contact_fallback_email')} className="underline font-bold">E-mail</a>.</p>
+                </div>
+              ) : (
+                <div ref={turnstileContainerRef} className="flex justify-center md:justify-start" />
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={status === 'loading' || (hasTurnstile && !turnstileToken)}
+              className="w-full bg-black text-white py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-accent hover:scale-[1.01] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === 'loading' ? 'Enviando pauta...' : 'Solicitar Atendimento Expert →'}
+            </button>
+            
+            {status === 'error' && (
+              <p className="text-center text-[10px] font-bold text-red-500 uppercase tracking-widest">{feedback}</p>
+            )}
+          </div>
+        </form>
+      ) : (
+        <div className="py-12 text-center animate-in fade-in zoom-in-95 duration-500">
+          <div className="w-20 h-20 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-200">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <h3 className="text-3xl font-black text-black mb-4 italic">&quot;Tudo certo.&quot;</h3>
+          <p className="text-slate-600 max-w-sm mx-auto mb-10 leading-relaxed font-serif text-lg">
+            Sua mensagem está sendo processada. Iniciei a curadoria de referências para nosso papo.
           </p>
-        )}
-        {status === 'success' && (
-          <div className="mt-4 rounded-2xl border-2 border-emerald-300 bg-[linear-gradient(135deg,#f0fdf4_0%,#ecfeff_100%)] p-4 shadow-sm">
-            <p className="text-emerald-900 font-semibold">{feedback}</p>
-            <p className="mt-1 text-sm text-emerald-800">Se preferir, continue agora pelo WhatsApp.</p>
-            <a
-              href={whatsAppHref}
+          
+          <div className="max-w-xs mx-auto text-left space-y-4 mb-12 bg-slate-50 p-6 rounded-2xl border border-black/5">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Próximos Passos:</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-white text-[10px]">✓</div>
+              <p className="text-xs font-bold text-slate-800">Briefing recebido</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-5 rounded-full border-2 border-emerald-500 flex items-center justify-center text-emerald-500 animate-pulse font-bold text-[10px]">⋯</div>
+              <p className="text-xs font-bold text-slate-800">Análise técnica (Em andamento)</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-5 rounded-full border-2 border-slate-200" />
+              <p className="text-xs font-medium text-slate-400">Primeiro contato (Até 24h)</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+             <button
+              onClick={() => setStatus('idle')}
+              className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors"
+            >
+              Enviar nova mensagem
+            </button>
+            <div className="hidden sm:block h-4 w-px bg-slate-200" />
+            <a 
+              href={whatsappLink}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-block rounded-full border border-emerald-800 bg-emerald-700 px-4 py-2 text-sm font-semibold text-white"
+              onClick={() => trackEvent('click_contact_success_whatsapp')}
+              className="group flex items-center gap-2 text-xs font-black uppercase tracking-widest text-accent hover:scale-105 transition-transform"
             >
-              Continuar no WhatsApp
+              Acelerar via WhatsApp ⚡
             </a>
           </div>
-        )}
-      </form>
+        </div>
+      )}
     </div>
   )
 }

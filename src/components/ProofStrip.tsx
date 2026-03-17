@@ -21,12 +21,12 @@ function ProofPill({ text }: { text: string }) {
 
 export default function ProofStrip() {
   return (
-    <section aria-label="Provas de confianca" className="mt-6">
+    <div aria-label="Provas de confianca">
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {proofItems.map((item) => (
           <ProofPill key={item} text={item} />
         ))}
       </div>
-    </section>
+    </div>
   )
 }

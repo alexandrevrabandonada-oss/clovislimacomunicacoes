@@ -4,21 +4,36 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import { Metadata } from 'next'
 
+const title = 'Cases de Sucesso | ESBOÇO criação & arte - Humor que comunica'
+const description = 'Estudos de caso reais de como o desenho e o humor transformam a comunicação de veículos e marcas.'
+
 export const metadata: Metadata = {
-    title: 'Cases | Clóvis Lima - Humor que comunica',
-    description: 'Estudos de caso reais de como o desenho e o humor transformam a comunicação de veículos e marcas.',
+  title,
+  description,
+  alternates: {
+    canonical: '/cases'
+  },
+  openGraph: {
+    type: 'article',
+    url: '/cases',
+    title,
+    description,
+    images: [{ url: '/og-cases.png', width: 1200, height: 630, alt: 'Cases ESBOÇO' }]
+  }
 }
 
 const cases = [
     {
-        category: 'Jornalismo Regional',
+        slug: 'jornalismo-nsc',
+        category: 'Charges / Editorial',
         client: 'NSC Comunicação (SC) / G1 SC',
         sector: 'Veículos de Mídia',
-        title: 'Engajamento em Pautas Densas',
-        problem: 'Páginas especiais e editoriais de política sofriam com alta taxa de rejeição silenciosa, onde o leitor iniciava a leitura mas a abandonava devido à densidade dos blocos de texto.',
-        solution: 'Implementação de uma narrativa paralela via charges e quadrinhos integrados ao "corpo" da matéria. A ilustração não apenas adorna, mas traduz conceitos complexos em 3 segundos de leitura visual.',
+        title: 'O Fim da Rejeição Silenciosa',
+        problem: 'Páginas especiais e editoriais de política sofriam com alta taxa de rejeição silenciosa: o leitor iniciava, mas abandonava devido à densidade dos blocos de texto.',
+        abordagem: 'Inclusão estratégica de "respiros cognitivos" via charges que traduzem dados em narrativa visual, mantendo o interesse ativo entre os parágrafos.',
+        solution: 'Implementação de uma narrativa paralela via charges e quadrinhos integrados ao "corpo" da matéria. A ilustração traduz conceitos complexos em 3 segundos.',
         result: 'Crescimento comprovado de 40% no compartilhamento orgânico e aumento medido no tempo médio de permanência na página.',
-        methodology: 'A ilustração editorial funciona como um "respiro cognitivo", permitindo ao leitor retomar o foco no texto após uma pausa visual engajadora.',
+        methodology: 'A ilustração editorial funciona como um gatilho de dopamina visual, permitindo ao leitor retomar o foco no texto após uma pausa engajadora.',
         proof: {
             deliverables: 'Série de 12 charges especiais para pauta econômica',
             format: 'SVG para Digital / Vetorial para Impresso',
@@ -26,47 +41,36 @@ const cases = [
         }
     },
     {
-        category: 'Comunicação Governamental',
+        slug: 'comunicacao-publica',
+        category: 'Charges / Editorial',
         client: 'Prefeituras e Órgãos Públicos',
         sector: 'Gestão Pública',
-        title: 'Humanização e Acesso ao Cidadão',
-        problem: 'Campanhas de serviços públicos (zeladoria, saúde, impostos) com tom excessivamente institucional, gerando distanciamento e falta de entendimento dos fluxos burocráticos.',
-        solution: 'Desenvolvimento de uma linguagem "amigável" baseada em HQ, onde personagens representam o próprio cidadão local. O humor é usado para desmitificar processos complexos.',
-        result: 'Redução imediata em 30% nas dúvidas básicas recebidas via canais de suporte e melhora qualitativa no sentimento dos comentários nas redes oficiais.',
-        methodology: 'A "personificação" da burocracia rompe a barreira da autoridade fria e estabelece uma ponte de confiança entre o poder público e o munícipe.',
+        title: 'Humanização que Gera Acesso',
+        problem: 'Campanhas de serviços públicos com tom excessivamente institucional, gerando distanciamento e sobrecarga nos canais de suporte técnico/presencial.',
+        abordagem: 'Substituição da "voz burocrática" por uma linguagem de HQ amigável, onde personagens personificam as dúvidas reais do munícipe médio.',
+        solution: 'Desenvolvimento de uma linguagem baseada em HQ. O humor é usado para desmitificar processos complexos e reduzir a fricção emocional do cidadão.',
+        result: 'Redução imediata em 30% nas dúvidas básicas recebidas via SAC e melhora qualitativa no sentimento dos comentários nas redes sociais.',
+        methodology: 'A "personificação" da burocracia rompe a barreira da autoridade fria e estabelece uma ponte de confiança direta com o cidadão.',
         proof: {
             deliverables: 'Campanha visual completa: 06 guias em HQ + cards sociais',
-            format: 'Impresso (Flyers) e Social Media (Instagram/WhatsApp)',
+            format: 'Impresso (Flyers) e Social Media',
             impactType: 'Clareza de Processo e Percepção de Valor'
         }
     },
     {
-        category: 'Treinamento e Operações',
-        client: 'Empresas de Logística e Varejo',
-        sector: 'Corporativo',
-        title: 'Eficiência Operacional via HQ',
-        problem: 'Manuais técnicos de segurança e operação eram ignorados pelos colaboradores, resultando em falhas operacionais recorrentes e custos de retrabalho.',
-        solution: 'Substituição de manuais textuais por "Manuais Vivos" em quadrinhos, onde as normas são apresentadas dentro de situações reais do cotidiano da operação.',
-        result: 'Redução de 25% nos erros operacionais críticos e zero ocorrências de acidentes relacionados às normas ilustradas nos primeiros 3 meses.',
-        methodology: 'O cérebro processa imagens 60.000 vezes mais rápido que texto. A narrativa sequencial fixa o aprendizado por meio de exemplos práticos memoráveis.',
-        proof: {
-            deliverables: 'Manual de Onboarding em HQ + Guia Rápido de Chão de Fábrica',
-            format: 'Digital (LMS) e Mural em Lona Digital',
-            impactType: 'Redução de Custos e Segurança do Trabalho'
-        }
-    },
-    {
-        category: 'Licenciamento e Interface',
+        slug: 'tech-licensing',
+        category: 'Sites / PWA',
         client: 'SaaS e Startups de Tecnologia',
         sector: 'Tecnologia',
-        title: 'Personalidade em Fluxos de Onboarding',
-        problem: 'Interfaces de software extremamente limpas (minimalistas) que falhavam em criar qualquer conexão emocional no momento crítico de ativação do usuário.',
-        solution: 'Licenciamento de sistema de ilustrações e mascotes que guiam o usuário pelas etapas de configuração com mensagens de incentivo e humor.',
-        result: 'Aumento de 15% na taxa de conclusão de setup inicial (activation rate) e humanização da marca técnica perante o usuário final.',
-        methodology: 'O uso de ilustrações lúdicas em produtos "frios" reduz a ansiedade do usuário diante de novas tecnologias e facilita a aprendizagem.',
+        title: 'Conexão em Ambientes Frios',
+        problem: 'Interfaces de software extremamente limpas que falhavam em criar conexão emocional no onboarding, gerando desistência em fluxos cruciais de setup.',
+        abordagem: 'Uso de ilustrações lúdicas e mascotes personalizados para guiar o usuário pelos estados de erro e sucesso, humanizando a marca técnica.',
+        solution: 'Licenciamento de sistema de ilustrações que guiam o usuário pelas etapas de configuração com mensagens de incentivo e humor pontual.',
+        result: 'Aumento de 15% na taxa de ativação (activation rate) e redução de suporte relacionado a processos mal compreendidos pelo usuário.',
+        methodology: 'O cérebro processa imagens lúdicas como sinais de segurança, reduzindo a ansiedade do usuário diante de novas tecnologias.',
         proof: {
-            deliverables: 'Livraria de +40 estados de ilustração (Empty states, Success, Error)',
-            format: 'Componentes React (PNG/SVG) optimizados',
+            deliverables: 'Livraria de +40 estados de ilustração (PNG/SVG)',
+            format: 'Componentes React optimizados',
             impactType: 'Conversão em Funil e LTV'
         }
     }
@@ -89,7 +93,11 @@ export default function CasesPage() {
 
                 <div className="grid gap-12 lg:grid-cols-1">
                     {cases.map((item, idx) => (
-                        <article key={idx} className="ink-card p-0 overflow-hidden grid lg:grid-cols-[1fr_320px] items-stretch min-h-[400px]">
+                        <article 
+                            key={idx} 
+                            id={`case-${item.slug}`}
+                            className="ink-card p-0 overflow-hidden grid lg:grid-cols-[1fr_320px] items-stretch min-h-[400px]"
+                        >
                             <div className="p-8 md:p-12 space-y-6">
                                 <header>
                                     <div className="flex flex-wrap items-center gap-3 mb-4">

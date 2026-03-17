@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react'
+import { trackEvent } from '../lib/analytics'
 
 const DEFAULT_TEXT = 'Ola! Quero conversar sobre um projeto.'
 
@@ -49,21 +50,30 @@ export default function MobileCTABar() {
       <div className="mx-auto grid max-w-6xl grid-cols-3 gap-2">
         <button
           type="button"
-          onClick={openWhatsApp}
+          onClick={() => {
+            trackEvent('click_mobile_whatsapp')
+            openWhatsApp()
+          }}
           className="ink-button rounded-full border border-black bg-black px-2 py-2 text-xs font-semibold text-white"
         >
           WhatsApp
         </button>
         <button
           type="button"
-          onClick={() => goTo('contato', true)}
+          onClick={() => {
+            trackEvent('click_mobile_budget')
+            goTo('contato', true)
+          }}
           className="ink-button rounded-full border border-black bg-white px-2 py-2 text-xs font-semibold text-black"
         >
           Orcamento
         </button>
         <button
           type="button"
-          onClick={() => goTo('trabalhos')}
+          onClick={() => {
+            trackEvent('click_mobile_works')
+            goTo('trabalhos')
+          }}
           className="ink-button rounded-full border border-black bg-accent px-2 py-2 text-xs font-semibold text-white"
         >
           Trabalhos

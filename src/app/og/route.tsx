@@ -20,16 +20,18 @@ export async function GET() {
         }}
       >
         <div style={{ display: 'flex', gap: 18, alignItems: 'center' }}>
-          <div
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${new URL('/brand/logo-seal.png', 'https://esboco.design')}`}
+            alt=""
             style={{
-              width: 26,
-              height: 26,
+              width: 60,
+              height: 60,
               borderRadius: 999,
-              background: '#ef4444',
               border: '3px solid #111827'
             }}
           />
-          <div style={{ fontSize: 32, fontWeight: 700 }}>Clóvis Lima Comunicações</div>
+          <div style={{ fontSize: 32, fontWeight: 700 }}>ESBOÇO criação & arte</div>
         </div>
         <div style={{ fontSize: 72, lineHeight: 1.03, fontWeight: 900, letterSpacing: -1 }}>
           Humor que comunica.

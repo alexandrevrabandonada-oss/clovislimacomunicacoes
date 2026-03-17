@@ -16,52 +16,86 @@ import SectionRail from '../components/SectionRail'
 import MobileCTABar from '../components/MobileCTABar'
 import { fetchPublishedWorks } from '../lib/works'
 
+const siteUrl = 'https://esboco.design' // URL sugerida para a nova marca
+const defaultTitle = 'ESBOÇO criação & arte | Humor que comunica. Design que converte.'
+const defaultDescription = 'Charges, ilustração editorial, design e desenvolvimento de sites/PWA. Branding, estratégia e arte autoral.'
+
 export const metadata: Metadata = {
+  title: defaultTitle,
+  description: defaultDescription,
   alternates: {
     canonical: '/'
+  },
+  openGraph: {
+    type: 'website',
+    url: '/',
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'ESBOÇO criação & arte' }]
   }
 }
+
+import SectionShell from '../components/SectionShell'
 
 export default async function Page() {
   const works = await fetchPublishedWorks()
 
   return (
-    <div className="pb-20 md:pb-0">
+    <div className="pb-20 md:pb-0 isolate">
       <SectionRail />
       <MobileCTABar />
+      
+      {/* 1. Hero */}
       <section id="hero">
         <Hero works={works} />
       </section>
-      <ProofStrip />
-      <div id="works" className="sr-only" aria-hidden="true" />
-      <section id="trabalhos" className="mt-16">
+
+      {/* 2. Proof Strip */}
+      <SectionShell noPadding className="mt-8 md:mt-12">
+        <ProofStrip />
+      </SectionShell>
+
+      {/* 3. Trabalhos / Galeria */}
+      <SectionShell id="trabalhos">
         <Gallery />
-      </section>
-      <section id="prints-licenciamento" className="relative z-0 overflow-hidden mt-16">
-        {/* Fundo decorativo da seção — fica dentro do wrapper para evitar sobreposição da galeria */}
-        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
+      </SectionShell>
+
+      {/* 4. Prints & Licenciamento */}
+      <SectionShell id="prints-licenciamento">
         <PrintsTeaser />
-      </section>
-      <div id="services" className="sr-only" aria-hidden="true" />
-      <section id="servicos" className="mt-16">
+      </SectionShell>
+
+      {/* 5. Serviços */}
+      <SectionShell id="servicos">
         <Services />
-      </section>
-      <section id="faq" className="mt-16">
+      </SectionShell>
+
+      {/* 6. FAQ */}
+      <SectionShell id="faq">
         <FAQ />
-      </section>
-      <div id="about" className="sr-only" aria-hidden="true" />
-      <section id="sobre" className="mt-16 space-y-16">
+      </SectionShell>
+
+      {/* 7. Sobre / Timeline */}
+      <SectionShell id="sobre">
         <Timeline />
+      </SectionShell>
+
+      {/* 8. Clientes */}
+      <SectionShell id="clientes">
         <Clients />
-      </section>
-      <section id="resultados" className="mt-16">
+      </SectionShell>
+
+      {/* 9. Cases */}
+      <SectionShell id="resultados">
         <MicroCases />
-      </section>
-      <div id="contact" className="sr-only" aria-hidden="true" />
-      <section id="contato" className="mt-16 space-y-4">
+      </SectionShell>
+
+      {/* 10. Orçamento Rápido & 11. Contato */}
+      <SectionShell id="contato" className="space-y-4">
         <QuickQuote />
         <ContactForm />
-      </section>
+      </SectionShell>
+
       <Footer />
     </div>
   )
