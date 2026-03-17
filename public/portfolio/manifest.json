@@ -112,6 +112,23 @@
       "tier": "archive",
       "type": "charge",
       "content_warning": false
+    },
+    "aps-sustentabilidade.png": {
+      "file": "aps-sustentabilidade.png",
+      "slug": "aps-sustentabilidade",
+      "title": "APS Sustentabilidade",
+      "subtitle": "Plataforma institucional para atuação socioambiental",
+      "year": 2024,
+      "client": "APS Sustentabilidade",
+      "vehicle": "Digital / Web",
+      "tags": ["sustentabilidade", "institucional", "tech"],
+      "available_for_print": false,
+      "available_for_license": false,
+      "featured": true,
+      "tier": "curated",
+      "type": "Sites / PWA",
+      "external_link": "https://apsustentabilidade.org/",
+      "content_warning": false
     }
   }
 }

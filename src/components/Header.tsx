@@ -11,7 +11,7 @@ type NavItem = {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Portfólio', href: '#trabalhos' },
+  { label: 'Acervo', href: '#trabalhos' },
   { label: 'Cases', href: '/cases', isPage: true },
   { label: 'Soluções', href: '#servicos' },
   { label: 'Sobre', href: '#sobre' },
@@ -19,7 +19,7 @@ const navItems: NavItem[] = [
 ]
 
 export default function Header() {
-  const [activeHash, setActiveHash] = useState<string>('#trabalhos')
+  const [activeHash, setActiveHash] = useState<string>('#hero')
   const sectionIds = useMemo(
     () => navItems.map((item) => item.href.replace('#', '')),
     []
@@ -33,7 +33,7 @@ export default function Header() {
         return
       }
 
-      let current = '#trabalhos'
+      let current = '#hero'
       let bestTop = Number.NEGATIVE_INFINITY
       for (const id of sectionIds) {
         const section = document.getElementById(id)
@@ -70,7 +70,7 @@ export default function Header() {
               priority
             />
           </Link>
-          <span className="stamp">Brand Studio</span>
+          <span className="stamp">Estratégia & Design</span>
         </div>
         <div className="flex items-center gap-4">
           {navItems.map((item) => {

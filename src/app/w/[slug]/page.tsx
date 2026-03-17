@@ -113,7 +113,8 @@ async function getWork(slug: string): Promise<WorkDetailData | null> {
     content_warning: row.content_warning || null,
     created_at: row.created_at || null,
     year: row.year || null,
-    tags: Array.isArray(row.tags) ? row.tags : row.type ? [row.type] : []
+    tags: Array.isArray(row.tags) ? row.tags : row.type ? [row.type] : [],
+    external_link: (row as any).external_link || null
   }
 }
 
@@ -328,7 +329,7 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
                         alt={item.title}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover"
+                        className="object-contain p-2"
                       />
                     </div>
                     <h3 className="mt-3 font-semibold leading-tight">{item.title}</h3>

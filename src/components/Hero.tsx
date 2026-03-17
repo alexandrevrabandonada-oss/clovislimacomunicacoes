@@ -36,7 +36,7 @@ export default function Hero({ works }: HeroProps) {
   return (
     <div className="min-h-[56vh] md:min-h-[58vh] grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
       <div>
-        <p className="stamp">Charges | Licenciamento | Tech</p>
+        <p className="stamp">Estúdio de Estratégia e Impacto Visual</p>
         <h1
           ref={headingRef}
           className={`hero-kinetic-title mt-3 text-4xl md:text-6xl font-extrabold leading-tight ${revealed ? 'is-revealed' : ''}`}

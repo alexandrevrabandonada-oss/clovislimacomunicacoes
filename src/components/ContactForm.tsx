@@ -200,30 +200,30 @@ export default function ContactForm() {
       
       <header className="mb-8">
         <h2 ref={headingRef} className={`reveal-heading text-3xl font-black ${revealed ? 'is-revealed' : ''}`}>
-          Vamos iniciar seu projeto?
+          Iniciar Atendimento Consultivo
         </h2>
-        <p className="mt-2 text-slate-600">
-          Atendimento consultivo e estratégico para marcas que buscam autoridade visual.
+        <p className="mt-2 text-slate-600 font-medium">
+          Sua mensagem será analisada sob uma ótica estratégica e narrativa.
         </p>
       </header>
       
-      <div className="mb-10 p-6 bg-slate-50 border border-black/5 rounded-2xl relative overflow-hidden group">
-        <h3 className="text-sm font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
-          <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-          Expectativas de Atendimento:
+      <div className="mb-10 p-6 bg-slate-50 border-l-4 border-black rounded-r-2xl relative overflow-hidden group">
+        <h3 className="text-[10px] font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+          Como funciona nossa curadoria:
         </h3>
         <ul className="space-y-4">
           <li className="flex gap-3">
             <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">01</span>
-            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Resposta em 24h:</strong> Analisamos pessoalmente cada briefing para garantir aderência à nossa técnica e estética.</p>
+            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Análise de Pauta:</strong> Avaliamos pessoalmente cada briefing para garantir aderência técnica e estética ao estúdio.</p>
           </li>
           <li className="flex gap-3">
             <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">02</span>
-            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Alinhamento Expert:</strong> Definimos juntos a narrativa, o tom e os objetivos comerciais do seu projeto.</p>
+            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Alinhamento Expert:</strong> Definimos juntos a narrativa, o tom e os objetivos comerciais da sua entrega.</p>
           </li>
           <li className="flex gap-3">
             <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">03</span>
-            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Envio de Proposta:</strong> Você recebe um report técnico com solução, cronograma e investimento.</p>
+            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Diagnóstico & Proposta:</strong> Você recebe um report técnico com solução, cronograma e investimento.</p>
           </li>
         </ul>
       </div>
@@ -233,36 +233,46 @@ export default function ContactForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Seu Nome / Marca</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nome ou Empresa</label>
                 <input 
                   required 
-                  placeholder="Como gostaria de ser chamado?" 
+                  placeholder="Ex: João da Silva / Jornal X" 
                   className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
                   value={name} 
                   onChange={e => setName(e.target.value)} 
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">E-mail de Contato</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">E-mail Profissional</label>
                 <input 
                   type="email" 
                   required 
-                  placeholder="seu@email.com" 
+                  placeholder="seu@contato.com.br" 
                   className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
                   value={email} 
                   onChange={e => setEmail(e.target.value)} 
                 />
               </div>
+              <div className="space-y-1">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Telefone (WhatsApp)</label>
+                <input 
+                  type="tel" 
+                  placeholder="(00) 00000-0000" 
+                  className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
+                  value={phone} 
+                  onChange={e => setPhone(e.target.value)} 
+                />
+              </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Seu Desafio / Briefing</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Briefing do Projeto</label>
               <textarea 
                 ref={messageRef} 
                 required 
                 rows={5} 
-                placeholder="Conte-me um pouco sobre o que você busca..." 
-                className="w-full h-full min-h-[125px] rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium resize-none" 
+                placeholder="Descreva seu desafio de comunicação, prazos ou objetivos específicos..." 
+                className="w-full h-full min-h-[195px] rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium resize-none shadow-inner" 
                 value={message} 
                 onChange={e => setMessage(e.target.value)} 
               />
@@ -278,20 +288,31 @@ export default function ContactForm() {
               {turnstileStatus === 'error' ? (
                 <div className="bg-amber-50 p-4 rounded-xl border border-amber-100">
                   <p className="text-xs text-amber-900 font-bold">Verificando segurança...</p>
-                  <p className="text-[10px] text-amber-700 mt-1">Se o verificador demorar, você pode usar o <a href={whatsappLink} onClick={() => trackEvent('click_contact_fallback_whatsapp')} className="underline font-bold">WhatsApp</a> ou o <a href={`mailto:${leadEmail}`} onClick={() => trackEvent('click_contact_fallback_email')} className="underline font-bold">E-mail</a>.</p>
+                  <p className="text-[10px] text-amber-700 mt-1">Se o verificador demorar, você pode usar o <a href={whatsappLink} onClick={() => trackEvent('click_contact_fallback_whatsapp')} className="underline font-bold">WhatsApp Direto</a> ou o <a href={`mailto:${leadEmail}`} onClick={() => trackEvent('click_contact_fallback_email')} className="underline font-bold">E-mail</a>.</p>
                 </div>
               ) : (
                 <div ref={turnstileContainerRef} className="flex justify-center md:justify-start" />
               )}
             </div>
 
-            <button
-              type="submit"
-              disabled={status === 'loading' || (hasTurnstile && !turnstileToken)}
-              className="w-full bg-black text-white py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-accent hover:scale-[1.01] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {status === 'loading' ? 'Enviando pauta...' : 'Solicitar Atendimento Expert →'}
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                type="submit"
+                disabled={status === 'loading' || (hasTurnstile && !turnstileToken)}
+                className="flex-grow bg-black text-white py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-accent hover:scale-[1.01] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                {status === 'loading' ? 'Enviando Pauta...' : 'Submeter para Análise Técnica →'}
+                </button>
+                <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent('click_contact_alternative_whatsapp')}
+                className="inline-flex items-center justify-center px-6 py-4 bg-emerald-50 text-emerald-700 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-emerald-100 transition-colors border border-emerald-200"
+                >
+                WhatsApp ⚡
+                </a>
+            </div>
             
             {status === 'error' && (
               <p className="text-center text-[10px] font-bold text-red-500 uppercase tracking-widest">{feedback}</p>
@@ -305,24 +326,24 @@ export default function ContactForm() {
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
-          <h3 className="text-3xl font-black text-black mb-4 italic">&quot;Tudo certo.&quot;</h3>
+          <h3 className="text-3xl font-black text-black mb-4 italic">&quot;Briefing Recebido.&quot;</h3>
           <p className="text-slate-600 max-w-sm mx-auto mb-10 leading-relaxed font-serif text-lg">
-            Sua mensagem está sendo processada. Iniciei a curadoria de referências para nosso papo.
+            Sua solicitação já está na mesa de curadoria. Iniciei a análise das referências pertinentes à sua demanda.
           </p>
           
           <div className="max-w-xs mx-auto text-left space-y-4 mb-12 bg-slate-50 p-6 rounded-2xl border border-black/5">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Próximos Passos:</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Linha do Tempo:</h4>
             <div className="flex items-center gap-3">
               <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-white text-[10px]">✓</div>
-              <p className="text-xs font-bold text-slate-800">Briefing recebido</p>
+              <p className="text-xs font-bold text-slate-800">Briefing em Análise</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-5 h-5 rounded-full border-2 border-emerald-500 flex items-center justify-center text-emerald-500 animate-pulse font-bold text-[10px]">⋯</div>
-              <p className="text-xs font-bold text-slate-800">Análise técnica (Em andamento)</p>
+              <p className="text-xs font-bold text-slate-800">Verificação de Aderência</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-5 h-5 rounded-full border-2 border-slate-200" />
-              <p className="text-xs font-medium text-slate-400">Primeiro contato (Até 24h)</p>
+              <p className="text-xs font-medium text-slate-400">Retorno Estratégico (Até 24h)</p>
             </div>
           </div>
 
@@ -331,7 +352,7 @@ export default function ContactForm() {
               onClick={() => setStatus('idle')}
               className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors"
             >
-              Enviar nova mensagem
+              Enviar novo briefing
             </button>
             <div className="hidden sm:block h-4 w-px bg-slate-200" />
             <a 
@@ -341,7 +362,7 @@ export default function ContactForm() {
               onClick={() => trackEvent('click_contact_success_whatsapp')}
               className="group flex items-center gap-2 text-xs font-black uppercase tracking-widest text-accent hover:scale-105 transition-transform"
             >
-              Acelerar via WhatsApp ⚡
+              Acelerar via Especialista ⚡
             </a>
           </div>
         </div>

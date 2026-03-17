@@ -20,6 +20,7 @@ type ManifestItem = {
   featured?: boolean
   type?: string
   content_warning?: boolean
+  external_link?: string
 }
 
 type ManifestData = {
@@ -44,6 +45,7 @@ type GalleryItem = {
   featured: boolean
   type: string
   contentWarning: boolean
+  externalLink?: string
 }
 
 function normalizeWarning(value: unknown): boolean {
@@ -157,7 +159,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
               )}
             </div>
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:text-black transition-colors">
-              Explorar →
+              Explorar Obra →
             </span>
         </div>
       </div>
@@ -219,7 +221,8 @@ export default function Gallery() {
           availableForLicense: !!value?.available_for_license,
           featured: !!value?.featured,
           type: (value?.type || defaultType).trim(),
-          contentWarning: normalizeWarning(value?.content_warning)
+          contentWarning: normalizeWarning(value?.content_warning),
+          externalLink: (value as any)?.external_link
         }
       }).filter((item) => item.file)
 
@@ -321,8 +324,8 @@ export default function Gallery() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-black/10 pb-6">
         <div>
           <h2 ref={headingRef} className={`reveal-heading text-4xl md:text-5xl font-black ${revealed ? 'is-revealed' : ''}`}>Acervo Curado</h2>
-          <p className="mt-2 text-base text-slate-600 max-w-2xl italic font-serif">
-            Uma seleção de charges e ilustrações que traduzem pautas complexas em impacto visual imediato.
+          <p className="mt-2 text-base text-slate-600 max-w-2xl italic font-serif leading-relaxed">
+            Uma seleção de charges e narrativas que traduzem pautas complexas em impacto visual autoral.
           </p>
         </div>
         
@@ -378,6 +381,51 @@ export default function Gallery() {
 
       {status === 'ready' && (
         <div className="space-y-16 mt-12">
+          {/* 0. Destaque do Acervo */}
+          {items.find(i => i.featured) && searchQuery === '' && typeFilter === 'all' && (
+            <section className="group cursor-pointer" onClick={() => {
+                const featured = items.find(i => i.featured);
+                if (featured) openWorkModal(featured);
+            }}>
+                <div className="flex items-center gap-3 mb-6">
+                    <span className="h-px w-8 bg-black/10" />
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-accent flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
+                        Destaque do Acervo
+                    </h3>
+                </div>
+                {(() => {
+                    const featured = items.find(i => i.featured);
+                    if (!featured) return null;
+                    return (
+                        <div className="grid md:grid-cols-2 gap-8 items-center bg-slate-50 p-6 md:p-10 rounded-[2.5rem] border border-black/5 hover:border-black/20 transition-all">
+                            <div className="ink-frame relative aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-2xl group-hover:scale-[1.01] transition-transform">
+                                <Image 
+                                    src={featured.src} 
+                                    alt={featured.title} 
+                                    fill 
+                                    className="object-contain p-4" 
+                                />
+                            </div>
+                            <div className="space-y-6">
+                                <div>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2 block">{featured.type}</span>
+                                    <h4 className="text-3xl md:text-5xl font-black leading-tight italic">&quot;{featured.title}&quot;</h4>
+                                    <p className="text-slate-600 font-serif italic text-lg mt-4 leading-relaxed">&quot;{featured.subtitle}&quot;</p>
+                                </div>
+                                <div className="pt-6 border-t border-black/10 flex flex-wrap gap-4 items-center">
+                                    <button className="bg-black text-white px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest hover:bg-accent transition-colors">
+                                        Explorar Destaque →
+                                    </button>
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{featured.client || 'Acervo Vivo'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })()}
+            </section>
+          )}
+
           {/* 1. Grade Editorial (Curated) */}
           {curated.length > 0 && searchQuery === '' && typeFilter === 'all' && (
             <section>
@@ -507,12 +555,25 @@ export default function Gallery() {
                 >
                   WhatsApp
                 </a>
+                {selected.externalLink && (
+                  <a
+                    href={selected.externalLink}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="ink-button bg-accent px-4 py-1.5 text-sm font-black uppercase tracking-widest text-white shadow-lg flex items-center gap-2"
+                  >
+                    Visitar Projeto
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                  </a>
+                )}
                 <button
                   type="button"
                   onClick={() => askForThisCharge(selected)}
                   className="ink-button bg-black px-3 py-1.5 text-sm font-semibold text-white"
                 >
-                  Quero esta charge
+                  Quero este projeto
                 </button>
                 <a
                   href={`/w/${selected.slug}`}

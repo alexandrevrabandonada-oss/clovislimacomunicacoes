@@ -20,6 +20,7 @@ export type WorkDetailData = {
   created_at: string | null
   year: number | null
   tags: string[] | null
+  external_link?: string | null
 }
 
 function isSensitive(contentWarning: string | null): boolean {
@@ -116,7 +117,7 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
                 <p className="mt-1 text-sm font-semibold capitalize">{work.type}</p>
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Tags</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Tags do Acervo</p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {tags.map((tag) => (
                     <span key={tag} className="rounded-md border border-black/10 bg-slate-50 px-2 py-0.5 text-[10px] font-bold text-slate-600 uppercase">
@@ -142,7 +143,7 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
               <div className="flex items-center gap-3 rounded-xl border border-blue-200 bg-blue-50/50 p-4 flex-1 min-w-[200px]">
                 <div className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.6)]" />
                 <div>
-                  <p className="text-xs font-bold text-blue-900 uppercase tracking-wide">Licenciamento Aberto</p>
+                  <p className="text-xs font-bold text-blue-900 uppercase tracking-wide">Licenciamento do Acervo</p>
                   <p className="text-[11px] text-blue-700 mt-1">Disponível para uso editorial e marcas</p>
                 </div>
               </div>
@@ -154,13 +155,26 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
           </p>
 
           <div className="mt-7 flex flex-wrap gap-2">
-            <button onClick={copyLink} className="rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+            {work.external_link && (
+               <a 
+                href={work.external_link} 
+                target="_blank" 
+                rel="noreferrer noopener" 
+                className="rounded-full bg-accent border-2 border-accent px-6 py-2.5 text-xs font-black uppercase tracking-widest text-white hover:opacity-90 transition-all shadow-xl flex items-center gap-2"
+               >
+                 Visitar Projeto Online
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+               </a>
+            )}
+            <button onClick={copyLink} className="rounded-full border-2 border-black bg-white px-6 py-2.5 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">
               Copiar link
             </button>
-            <a href={whatsappHref} target="_blank" rel="noreferrer" className="rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+            <a href={whatsappHref} target="_blank" rel="noreferrer" className="rounded-full border-2 border-black bg-white px-6 py-2.5 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">
               WhatsApp
             </a>
-            <a href={xHref} target="_blank" rel="noreferrer" className="rounded-full border border-black bg-white px-4 py-2 text-sm font-semibold">
+            <a href={xHref} target="_blank" rel="noreferrer" className="rounded-full border-2 border-black bg-white px-6 py-2.5 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">
               X
             </a>
           </div>

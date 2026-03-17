@@ -15,10 +15,10 @@ const options: QuickOption[] = [
 ]
 
 function packageMessage(option: QuickOption): string {
-  if (option.slug === 'editorial') return 'Olá! Gostaria de entender mais sobre seu processo de Charges e narrativa visual para engajar minha audiência. Como podemos começar?'
-  if (option.slug === 'licença') return 'Olá! Tenho interesse no Licenciamento de obras do acervo ESBOÇO para uma campanha/marca. Como funciona o tempo de uso e a exclusividade?'
-  if (option.slug === 'tech') return 'Olá! Gostaria de uma identidade visual autoral e estratégia tech da ESBOÇO para meu produto digital. Podemos conversar sobre orçamento?'
-  return 'Olá! Gostaria de um orçamento personalizado para um projeto especial de criação visual.'
+  if (option.slug === 'editorial') return 'Olá! Gostaria de entender como a narrativa visual e as charges estratégicas podem aumentar a autoridade e o engajamento da minha pauta/veículo. Podemos alinhar um diagnóstico?'
+  if (option.slug === 'licença') return 'Olá! Tenho interesse no licenciamento estratégico de obras do acervo ESBOÇO para fins editoriais ou comerciais. Como funciona a cessão de direitos e exclusividade para essa demanda?'
+  if (option.slug === 'tech') return 'Olá! Busco uma interface autoral (Site/PWA) que conecte estratégia técnica e design de impacto. Podemos conversar sobre o desafio do meu produto digital?'
+  return 'Olá! Gostaria de um orçamento personalizado para um projeto especial de criação visual e estratégia.'
 }
 
 function goWithPackage(option: QuickOption) {
