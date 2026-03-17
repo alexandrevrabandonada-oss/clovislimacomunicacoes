@@ -9,7 +9,7 @@ const siteUrl = getSiteUrl()
 const siteName = 'ESBOÇO criação & arte'
 const defaultTitle = 'ESBOÇO criação & arte | Humor que comunica. Design que converte.'
 const defaultDescription =
-  'Estúdio de Estratégia e Impacto Visual. Charges, identidade e design autoral sob direção criativa de Clóvis Lima.'
+  'Estratégia & Design. Charges, identidade e impacto visual sob direção criativa de Clóvis Lima.'
 const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || ''
 const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || ''
 const umamiScriptUrl = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || 'https://cloud.umami.is/script.js'
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: defaultTitle,
-    template: '%s | Clóvis Lima Comunicações'
+    template: '%s | ESBOÇO criação & arte'
   },
   description: defaultDescription,
   alternates: {

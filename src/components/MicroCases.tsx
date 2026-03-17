@@ -12,10 +12,10 @@ export default function MicroCases() {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
                     <h2 ref={headingRef} className={`reveal-heading text-3xl font-extrabold ${revealed ? 'is-revealed' : ''}`}>
-                        Provas de Resultado
+                        Casos e Aplicações
                     </h2>
                     <p className="mt-2 text-slate-700 max-w-xl font-medium italic">
-                        Estratégias onde o desenho e a narrativa foram ferramentas de autoridade e conversão.
+                        Estratégias onde a narrativa visual foi ferramenta de autoridade e clareza.
                     </p>
                 </div>
                 <Link href="/cases" className="text-xs font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-accent hover:border-accent transition-colors">
@@ -31,9 +31,8 @@ export default function MicroCases() {
                                 <span className="stamp text-[9px] py-1 px-2 bg-slate-100 uppercase font-black tracking-widest text-slate-500">
                                     {item.category}
                                 </span>
-                                <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest flex items-center gap-1">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                    Evidência
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                                    Observação de Resultado
                                 </span>
                             </div>
                             
@@ -45,10 +44,10 @@ export default function MicroCases() {
                                     <p className="text-slate-700 leading-snug line-clamp-2">{item.problem}</p>
                                 </section>
                                 
-                                <section className="p-3 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
-                                    <p className="text-[10px] font-bold uppercase text-emerald-600 tracking-widest mb-1">Efeito Percebido</p>
-                                    <p className="text-emerald-900 font-bold leading-tight mb-2 italic">&quot;{item.result}&quot;</p>
-                                    <p className="text-[9px] font-black uppercase text-emerald-600/40 tracking-[0.2em]">{item.evidence}</p>
+                                <section className="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-300">
+                                    <p className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">Efeito Percebido</p>
+                                    <p className="text-slate-900 font-bold leading-tight mb-2 italic">&quot;{item.result}&quot;</p>
+                                    <p className="text-[9px] font-black uppercase text-slate-400 tracking-[0.2em]">{item.evidence}</p>
                                 </section>
                             </div>
                         </div>

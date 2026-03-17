@@ -31,14 +31,14 @@ export default function CasesPage() {
             <div className="max-w-6xl mx-auto px-6">
                 <header className="mb-12">
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="h-4 w-1 bg-accent rounded-full" />
-                        <span className="text-xs font-black uppercase tracking-widest text-slate-400">Resultados Comprovados</span>
+                        <div className="h-4 w-1 bg-slate-300 rounded-full" />
+                        <span className="text-xs font-black uppercase tracking-widest text-slate-400">Estratégia e Efeito</span>
                     </div>
                     <h1 className="text-4xl md:text-5xl font-extrabold text-black">
-                        Cases que <span className="stamp ml-2">Convertem</span>
+                        Casos e <span className="stamp ml-2">Resultado</span>
                     </h1>
                     <p className="mt-4 text-xl text-slate-700 max-w-2xl leading-relaxed font-serif italic">
-                        Transformamos informações complexas, pautas difíceis e fluxos áridos em autoridade visual.
+                        Análise de como a narrativa visual e o design estratégico resolvem desafios de clareza, retenção e autoridade.
                     </p>
                 </header>
 

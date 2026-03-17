@@ -103,7 +103,7 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 border-y border-black/10 py-6">
             <div className="space-y-4">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Contexto Editorial</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Contexto / Origem</p>
                 <p className="mt-1 text-sm font-semibold">{work.client || 'Acervo Vivo'} {work.vehicle ? ` / ${work.vehicle}` : ''}</p>
               </div>
               <div>
@@ -113,7 +113,7 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
             </div>
             <div className="space-y-4">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Classificação</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Editoria / Tipo</p>
                 <p className="mt-1 text-sm font-semibold capitalize">{work.type}</p>
               </div>
               <div>
@@ -171,11 +171,13 @@ export default function WorkDetail({ work }: { work: WorkDetailData }) {
             <button onClick={copyLink} className="rounded-full border-2 border-black bg-white px-6 py-2.5 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">
               Copiar link
             </button>
-            <a href={whatsappHref} target="_blank" rel="noreferrer" className="rounded-full border-2 border-black bg-white px-6 py-2.5 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">
-              WhatsApp
-            </a>
-            <a href={xHref} target="_blank" rel="noreferrer" className="rounded-full border-2 border-black bg-white px-6 py-2.5 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">
-              X
+            <a 
+              href={whatsappHref} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="rounded-full border-2 border-black bg-black text-white px-6 py-2.5 text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg"
+            >
+              Licenciar Obra ⚡
             </a>
           </div>
         </div>

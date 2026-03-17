@@ -11,7 +11,7 @@ function isSensitive(contentWarning: string | null): boolean {
   return true
 }
 
-export const alt = 'Obra do portfólio de Clóvis Lima'
+export const alt = 'Obra do acervo da ESBOÇO criação & arte'
 export const size = {
   width: 1200,
   height: 630

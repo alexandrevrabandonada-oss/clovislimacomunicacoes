@@ -31,12 +31,12 @@ export default function Hero({ works }: HeroProps) {
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
   const featuredSafeWork = works.find((work) => work.is_featured === true && !isSensitive(work.content_warning))
   const featuredImage = featuredSafeWork?.cover_url || featuredSafeWork?.cover_image_url || null
-  const titleWords = ['Comunicação', 'visual', 'que', 'vira', 'resultado.']
+  const titleWords = ['Criação,', 'arte', '&', 'direção', 'estratégica.']
 
   return (
     <div className="min-h-[56vh] md:min-h-[58vh] grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
       <div>
-        <p className="stamp">Estúdio de Estratégia e Impacto Visual</p>
+        <p className="stamp">Estratégia & Design</p>
         <h1
           ref={headingRef}
           className={`hero-kinetic-title mt-3 text-4xl md:text-6xl font-extrabold leading-tight ${revealed ? 'is-revealed' : ''}`}
@@ -44,7 +44,7 @@ export default function Hero({ works }: HeroProps) {
           {titleWords.map((word, index) => (
             <Fragment key={`${word}-${index}`}>
               <span
-                className={`hero-kinetic-word ${word === 'converte.' ? 'hero-ink-underline' : ''}`}
+                className={`hero-kinetic-word ${word === 'estratégica.' ? 'hero-ink-underline' : ''}`}
                 style={{ ['--d' as string]: index }}
               >
                 {word}
@@ -54,7 +54,7 @@ export default function Hero({ works }: HeroProps) {
           ))}
         </h1>
         <p className="mt-3 max-w-2xl text-base md:text-lg">
-          Criação visual, campanhas, editorial, identidade e projetos sob demanda com foco em estratégia e alta performance.
+          Atendimento consultivo em direção de arte, branding e soluções digitais sob medida com foco em autoridade e impacto.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <a
@@ -62,19 +62,19 @@ export default function Hero({ works }: HeroProps) {
             onClick={() => trackEvent('click_cta_portfolio')}
             className="ink-button inline-block w-full sm:w-auto text-center bg-accent text-white px-5 py-2.5 font-semibold"
           >
-            Ver projetos
+            Explorar Repertório
           </a>
           <a
             href="#servicos"
             onClick={() => trackEvent('click_cta_servicos')}
             className="ink-button inline-block w-full sm:w-auto text-center px-5 py-2.5 font-semibold bg-white"
           >
-            Quero um orçamento
+            Agendar Diagnóstico
           </a>
         </div>
-        <p className="mt-2 text-sm text-slate-700">Resposta rapida por e-mail ou WhatsApp em ate 24h uteis.</p>
+        <p className="mt-2 text-xs text-slate-500 font-medium italic opacity-80">Resposta estratégica por e-mail ou WhatsApp em ate 24h uteis.</p>
       </div>
-      <div className="relative h-[280px] sm:h-[320px] md:h-[360px] rounded-[22px] overflow-hidden border-2 border-black bg-white">
+      <div className="relative h-[280px] sm:h-[320px] md:h-[360px] rounded-[22px] overflow-hidden border-2 border-black bg-slate-50">
         {featuredImage ? (
           <>
             <Image
@@ -83,23 +83,17 @@ export default function Hero({ works }: HeroProps) {
               fill
               priority
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
+              className="object-contain p-4 transition-transform duration-700 hover:scale-[1.02]"
             />
-            <div className="absolute bottom-4 left-4 right-4 rounded-xl bg-black/70 text-white px-3 py-2 text-sm">
-              <strong>Destaque:</strong> {featuredSafeWork?.title}
+            <div className="absolute bottom-4 left-4 right-4 rounded-xl bg-black/80 text-white px-3 py-2 text-[10px] font-black uppercase tracking-widest backdrop-blur-sm">
+              <span className="opacity-50">Destaque:</span> {featuredSafeWork?.title}
             </div>
           </>
         ) : (
           <div className="h-full w-full halftone-bg flex items-center justify-center p-6">
-            <svg viewBox="0 0 520 340" className="w-full h-full" role="img" aria-label="Ilustração de assinatura e pena em estilo HQ">
-              <path d="M34 244 C 108 170, 206 166, 286 224 C 334 258, 384 264, 486 226" fill="none" stroke="#0f172a" strokeWidth="6" strokeLinecap="round" />
-              <path d="M80 280 C 164 228, 256 226, 356 270" fill="none" stroke="#0f172a" strokeWidth="4" strokeLinecap="round" />
-              <path d="M322 86 C 350 70, 380 62, 424 60 C 422 104, 416 136, 388 166 C 362 194, 336 204, 304 214 C 304 178, 304 138, 322 86 Z" fill="#111827" />
-              <path d="M350 116 C 362 128, 372 140, 382 154" fill="none" stroke="#f8fafc" strokeWidth="3" strokeLinecap="round" />
-              <circle cx="126" cy="98" r="44" fill="none" stroke="#0f172a" strokeWidth="6" />
-              <circle cx="126" cy="98" r="7" fill="#0f172a" />
-              <path d="M94 146 C 120 162, 140 162, 164 146" fill="none" stroke="#0f172a" strokeWidth="6" strokeLinecap="round" />
-              <text x="190" y="314" fontSize="42" fill="#0f172a" fontFamily="Georgia, serif" transform="rotate(-6 190 314)">ESBOÇO</text>
+            <svg viewBox="0 0 520 340" className="w-64 h-auto opacity-20 grayscale" role="img" aria-label="Assinatura minimalista ESBOÇO">
+              <path d="M100 200 C 150 180, 250 180, 420 200" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <text x="100" y="180" fontSize="60" fontWeight="900" fontFamily="system-ui" letterSpacing="0.1em">ESBOÇO</text>
             </svg>
           </div>
         )}

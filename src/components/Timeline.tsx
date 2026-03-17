@@ -28,7 +28,7 @@ export default function Timeline(){
     <div>
       <h2 ref={headingRef} className={`reveal-heading text-2xl font-bold ${revealed ? 'is-revealed' : ''}`}>Sobre / Direção Criativa</h2>
       <p className="mt-4 text-slate-700 max-w-3xl leading-relaxed">
-        A ESBOÇO é a consolidação de mais de 30 anos de experiência de Clóvis Lima em narrativa visual e estratégia editorial. Como Diretor Criativo, Clóvis lidera o estúdio transformando acervos históricos e desafios de comunicação em soluções visuais de alto impacto.
+        A ESBOÇO criação & arte é a consolidação de mais de 30 anos de experiência de Clóvis Lima em narrativa visual e estratégia editorial. Como Diretor Criativo, Clóvis lidera o estúdio transformando acervos históricos e desafios de comunicação em projetos de Estratégia & Design de alto impacto.
       </p>
       <div className="relative mt-8 text-sm">
         <div className="absolute left-4 top-0 h-full w-[3px] rounded-full bg-black/70 md:left-1/2 md:-translate-x-1/2" />

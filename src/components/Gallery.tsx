@@ -106,8 +106,11 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
       }}
     >
       {item.tier === 'curated' && (
-        <div className="absolute top-4 left-4 z-10 pointer-events-none">
-          <span className="stamp text-[8px] px-2 py-0.5 bg-black text-white font-black tracking-widest uppercase rounded">Editorial Selection</span>
+        <div className="absolute top-4 left-4 z-10 pointer-events-none flex flex-col gap-1">
+          <span className="stamp text-[7px] px-2 py-0.5 bg-black text-white font-black tracking-[0.2em] uppercase rounded">Editorial Selection</span>
+          {item.type === 'Sites / PWA' && (
+            <span className="stamp text-[7px] px-2 py-0.5 bg-accent text-white font-black tracking-[0.2em] uppercase rounded shadow-lg">Digital / PWA</span>
+          )}
         </div>
       )}
 
@@ -159,7 +162,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
               )}
             </div>
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:text-black transition-colors">
-              Explorar Obra →
+              Ver Detalhes & Estratégia →
             </span>
         </div>
       </div>
@@ -325,7 +328,7 @@ export default function Gallery() {
         <div>
           <h2 ref={headingRef} className={`reveal-heading text-4xl md:text-5xl font-black ${revealed ? 'is-revealed' : ''}`}>Acervo Curado</h2>
           <p className="mt-2 text-base text-slate-600 max-w-2xl italic font-serif leading-relaxed">
-            Uma seleção de charges e narrativas que traduzem pautas complexas em impacto visual autoral.
+            Repertório técnico e autoral aplicável a pautas editoriais, veículos de mídia e campanhas de impacto.
           </p>
         </div>
         
@@ -338,14 +341,14 @@ export default function Gallery() {
             className="w-full rounded-full border border-black/10 bg-slate-50 px-4 py-1.5 text-xs focus:ring-1 focus:ring-accent outline-none"
           />
           <div className="flex gap-2">
-             <select
+              <select
                 value={typeFilter}
                 onChange={(event) => setTypeFilter(event.target.value)}
                 className="flex-1 rounded-full border border-black/10 bg-slate-50 px-3 py-1 text-[10px] font-bold uppercase tracking-widest outline-none"
               >
                 {availableTypes.map((type) => (
                   <option key={type} value={type}>
-                    {type === 'all' ? 'Todos os Tipos' : type}
+                    {type === 'all' ? 'Categorias' : type}
                   </option>
                 ))}
               </select>
@@ -426,7 +429,23 @@ export default function Gallery() {
             </section>
           )}
 
-          {/* 1. Grade Editorial (Curated) */}
+          {/* 1. Vitrine Digital (Sites / PWA) */}
+          {items.some(i => i.type === 'Sites / PWA') && searchQuery === '' && typeFilter === 'all' && (
+            <section>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="h-px flex-1 bg-black/10" />
+                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Projetos Digitais & PWAs</h3>
+                <span className="h-px flex-1 bg-black/10" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+                {items.filter(i => i.type === 'Sites / PWA').map((item, index) => (
+                  <GalleryCard key={item.id} item={item} index={index} total={items.filter(i => i.type === 'Sites / PWA').length} onOpen={openWorkModal} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 2. Grade Editorial (Curated) */}
           {curated.length > 0 && searchQuery === '' && typeFilter === 'all' && (
             <section>
               <div className="flex items-center gap-3 mb-6">

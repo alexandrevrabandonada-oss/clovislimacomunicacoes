@@ -35,10 +35,10 @@ const services: ServiceItem[] = [
   },
   {
     slug: "tech",
-    title: "Sites / PWA",
-    description: "Interfaces autorais com foco em autoridade digital. Ex: APS Sustentabilidade.",
-    forWhom: "SaaS, Startups e Instituicões que buscam diferenciação visual.",
-    deliverables: ["Landing Pages de Impacto", "PWA (WebApps instaláveis)", "Branding Digital"],
+    title: "Sites / PWA / Digital",
+    description: "Interfaces autorais e plataformas de autoridade com foco em performance técnica. Ex: APS Sustentabilidade.",
+    forWhom: "Startups, Instituicões e Projetos Editoriais que buscam excelência técnica e visual.",
+    deliverables: ["Sites Institucionais", "PWAs (WebApps)", "Landing Pages de Alta Conversão", "Branding Digital"],
     timing: "5 a 15 dias úteis",
     cta: "Análise Técnica"
   },

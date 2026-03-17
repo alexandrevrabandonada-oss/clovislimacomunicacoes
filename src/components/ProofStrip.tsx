@@ -3,10 +3,10 @@
 import { useTilt } from '../lib/useTilt'
 
 const proofItems = [
-  '+15 anos de jornalismo e comunicacao visual',
-  'Trabalho sob demanda',
-  'Entrega com revisao',
-  'Foco em clareza e impacto'
+  '+15 anos de atuação em comunicação e design',
+  'Processo consultivo e pauta sob demanda',
+  'Entregas com rigor editorial e revisão',
+  'Foco em legibilidade e clareza visual'
 ]
 
 function ProofPill({ text }: { text: string }) {

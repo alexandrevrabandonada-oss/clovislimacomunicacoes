@@ -210,20 +210,20 @@ export default function ContactForm() {
       <div className="mb-10 p-6 bg-slate-50 border-l-4 border-black rounded-r-2xl relative overflow-hidden group">
         <h3 className="text-[10px] font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
           <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-          Como funciona nossa curadoria:
+          O que acontece após o envio:
         </h3>
-        <ul className="space-y-4">
-          <li className="flex gap-3">
-            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">01</span>
-            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Análise de Pauta:</strong> Avaliamos pessoalmente cada briefing para garantir aderência técnica e estética ao estúdio.</p>
+        <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <li className="flex flex-col gap-2">
+            <span className="w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">01</span>
+            <p className="text-[11px] text-slate-600 leading-tight font-medium"><strong className="text-black block mb-1">Análise de Pauta:</strong> Triagem estratégica do desafio técnico.</p>
           </li>
-          <li className="flex gap-3">
-            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">02</span>
-            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Alinhamento Expert:</strong> Definimos juntos a narrativa, o tom e os objetivos comerciais da sua entrega.</p>
+          <li className="flex flex-col gap-2">
+            <span className="w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">02</span>
+            <p className="text-[11px] text-slate-600 leading-tight font-medium"><strong className="text-black block mb-1">Alinhamento Expert:</strong> Verificação de viabilidade e impacto.</p>
           </li>
-          <li className="flex gap-3">
-            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">03</span>
-            <p className="text-xs text-slate-600 leading-relaxed"><strong className="text-black">Diagnóstico & Proposta:</strong> Você recebe um report técnico com solução, cronograma e investimento.</p>
+          <li className="flex flex-col gap-2">
+            <span className="w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">03</span>
+            <p className="text-[11px] text-slate-600 leading-tight font-medium"><strong className="text-black block mb-1">Proposta Técnica:</strong> Retorno estratégico em até 24h úteis.</p>
           </li>
         </ul>
       </div>
@@ -236,7 +236,7 @@ export default function ContactForm() {
                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nome ou Empresa</label>
                 <input 
                   required 
-                  placeholder="Ex: João da Silva / Jornal X" 
+                  placeholder="Seu nome ou Razão Social" 
                   className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
                   value={name} 
                   onChange={e => setName(e.target.value)} 
@@ -271,7 +271,7 @@ export default function ContactForm() {
                 ref={messageRef} 
                 required 
                 rows={5} 
-                placeholder="Descreva seu desafio de comunicação, prazos ou objetivos específicos..." 
+                placeholder="Qual o seu principal desafio de comunicação ou pauta atual?" 
                 className="w-full h-full min-h-[195px] rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium resize-none shadow-inner" 
                 value={message} 
                 onChange={e => setMessage(e.target.value)} 
@@ -301,7 +301,7 @@ export default function ContactForm() {
                 disabled={status === 'loading' || (hasTurnstile && !turnstileToken)}
                 className="flex-grow bg-black text-white py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-accent hover:scale-[1.01] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                {status === 'loading' ? 'Enviando Pauta...' : 'Submeter para Análise Técnica →'}
+                {status === 'loading' ? 'Processando pauta...' : 'Solicitar Diagnóstico Técnico →'}
                 </button>
                 <a 
                 href={whatsappLink}

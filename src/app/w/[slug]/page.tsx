@@ -178,7 +178,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     work.description ||
     (sensitive
       ? 'Obra marcada como conteúdo sensível.'
-      : 'Obra do acervo da ESBOÇO criação & arte.')
+      : 'Estratégia & Design no acervo da ESBOÇO criação & arte.')
   const image = sensitive
     ? `${siteUrl}/w/${encodeURIComponent(work.slug)}/opengraph-image`
     : `${siteUrl}/w/${encodeURIComponent(work.slug)}/opengraph-image`
@@ -276,7 +276,7 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
     genre: work.type,
     datePublished: work.created_at || undefined,
     description:
-      (sensitive ? 'Obra marcada como conteúdo sensível.' : 'Obra do acervo da ESBOÇO criação & arte.'),
+      (sensitive ? 'Obra marcada como conteúdo sensível.' : 'Estratégia & Design no acervo da ESBOÇO criação & arte.'),
     inLanguage: 'pt-BR',
     image: sensitive
       ? `${siteUrl}/w/${work.slug}/opengraph-image`

@@ -9,16 +9,16 @@ type QuickOption = {
 }
 
 const options: QuickOption[] = [
-  { slug: 'editorial', title: 'Charges / Editorial', button: 'Charges / Editorial' },
-  { slug: 'licença', title: 'Prints / Licenciamento', button: 'Licenciamento' },
+  { slug: 'editorial', title: 'Editorial / Charges', button: 'Charges / Editorial' },
+  { slug: 'licença', title: 'Licenciamento / Prints', button: 'Licenciamento / Prints' },
   { slug: 'tech', title: 'Sites / PWA', button: 'Sites / PWA' }
 ]
 
 function packageMessage(option: QuickOption): string {
-  if (option.slug === 'editorial') return 'Olá! Gostaria de entender como a narrativa visual e as charges estratégicas podem aumentar a autoridade e o engajamento da minha pauta/veículo. Podemos alinhar um diagnóstico?'
-  if (option.slug === 'licença') return 'Olá! Tenho interesse no licenciamento estratégico de obras do acervo ESBOÇO para fins editoriais ou comerciais. Como funciona a cessão de direitos e exclusividade para essa demanda?'
-  if (option.slug === 'tech') return 'Olá! Busco uma interface autoral (Site/PWA) que conecte estratégia técnica e design de impacto. Podemos conversar sobre o desafio do meu produto digital?'
-  return 'Olá! Gostaria de um orçamento personalizado para um projeto especial de criação visual e estratégia.'
+  if (option.slug === 'editorial') return 'Olá! Gostaria de entender como a narrativa visual e as charges estratégicas podem aumentar a autoridade e a legibilidade da minha pauta ou veículo. Podemos alinhar um diagnóstico técnico?'
+  if (option.slug === 'licença') return 'Olá! Tenho interesse no licenciamento estratégico de obras do acervo para fins editoriais ou comerciais. Como funciona a cessão de direitos e uso para minha demanda específica?'
+  if (option.slug === 'tech') return 'Olá! Busco uma interface autoral (Site/PWA) que conecte estratégia de informação e design de impacto. Podemos conversar sobre o desafio do meu produto digital?'
+  return 'Olá! Gostaria de iniciar um atendimento consultivo para um projeto especial de estratégia e criação visual.'
 }
 
 function goWithPackage(option: QuickOption) {

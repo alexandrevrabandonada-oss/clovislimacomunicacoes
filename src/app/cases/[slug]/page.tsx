@@ -116,20 +116,20 @@ export default function CaseDetailPage({ params }: Props) {
                                 Efeito Percebido
                             </h2>
                         </aside>
-                        <div className="bg-emerald-50 p-10 rounded-[2rem] border border-emerald-100 flex flex-col justify-center gap-6">
-                            <p className="text-3xl font-black text-emerald-900 leading-tight">
+                        <div className="bg-slate-50 p-10 rounded-[2rem] border border-slate-100 flex flex-col justify-center gap-6">
+                            <p className="text-3xl font-black text-slate-900 leading-tight">
                                 {item.result}
                             </p>
-                            <div className="flex items-center gap-4 pt-6 border-t border-emerald-200">
-                                <div className="p-3 bg-emerald-500 rounded-xl text-white">
+                            <div className="flex items-center gap-4 pt-6 border-t border-slate-200">
+                                <div className="p-3 bg-slate-800 rounded-xl text-white">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                                         <polyline points="22 4 12 14.01 9 11.01" />
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600 mb-1">Nível de Evidência</p>
-                                    <p className="text-sm font-bold text-emerald-800">{item.evidence}</p>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Tipo de Evidência</p>
+                                    <p className="text-sm font-bold text-slate-600">{item.evidence}</p>
                                 </div>
                             </div>
                         </div>
