@@ -15,6 +15,7 @@ import Footer from '../components/Footer'
 import SectionRail from '../components/SectionRail'
 import MobileCTABar from '../components/MobileCTABar'
 import { fetchPublishedWorks } from '../lib/works'
+import DigitalShowcase from '../components/DigitalShowcase'
 
 const siteUrl = 'https://esboco.design' // URL sugerida para a nova marca
 const defaultTitle = 'ESBOÇO criação & arte | Humor que comunica. Design que converte.'
@@ -55,38 +56,55 @@ export default async function Page() {
         <ProofStrip />
       </SectionShell>
 
-      {/* 3. Trabalhos / Galeria */}
+      {/* 3. Repertório Editorial / Galeria */}
       <SectionShell id="trabalhos">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="h-4 w-1 bg-accent rounded-full" />
+          <h2 className="text-3xl font-extrabold tracking-tight italic">Repertório Autoral & Editorial</h2>
+        </div>
         <Gallery />
       </SectionShell>
 
-      {/* 4. Prints & Licenciamento */}
+      {/* 4. Soluções Digitais & Tecnologia */}
+      <SectionShell id="digital" className="bg-slate-50/50">
+        <DigitalShowcase />
+      </SectionShell>
+
+      {/* 5. Prints & Licenciamento Strategic */}
       <SectionShell id="prints-licenciamento">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="h-4 w-1 bg-accent rounded-full" />
+          <h2 className="text-3xl font-extrabold tracking-tight italic">Prints & Licenciamento</h2>
+        </div>
         <PrintsTeaser />
       </SectionShell>
 
-      {/* 5. Serviços */}
+      {/* 6. Soluções & Atendimento */}
       <SectionShell id="servicos">
         <Services />
       </SectionShell>
 
-      {/* 6. FAQ */}
+      {/* 7. FAQ Técnico */}
       <SectionShell id="faq">
         <FAQ />
       </SectionShell>
 
-      {/* 7. Sobre / Timeline */}
+      {/* 8. Trajetória / Cronos */}
       <SectionShell id="sobre">
         <Timeline />
       </SectionShell>
 
-      {/* 8. Clientes */}
+      {/* 9. Clientes & Parceiros */}
       <SectionShell id="clientes">
         <Clients />
       </SectionShell>
 
-      {/* 9. Cases */}
+      {/* 10. Indicadores de Resultados */}
       <SectionShell id="resultados">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="h-4 w-1 bg-emerald-500 rounded-full" />
+          <h2 className="text-3xl font-extrabold tracking-tight italic">Indicadores de Resultados</h2>
+        </div>
         <MicroCases />
       </SectionShell>
 

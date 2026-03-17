@@ -199,31 +199,43 @@ export default function ContactForm() {
       />
       
       <header className="mb-8">
-        <h2 ref={headingRef} className={`reveal-heading text-3xl font-black ${revealed ? 'is-revealed' : ''}`}>
-          Iniciar Atendimento Consultivo
+        <h2 ref={headingRef} className={`reveal-heading text-4xl font-black italic tracking-tight ${revealed ? 'is-revealed' : ''}`}>
+          Onboarding <br/> <span className="text-accent underline decoration-slate-200">Consultivo</span>
         </h2>
-        <p className="mt-2 text-slate-600 font-medium">
-          Sua mensagem será analisada sob uma ótica estratégica e narrativa.
+        <p className="mt-4 text-slate-600 font-medium leading-relaxed max-w-md">
+          Inicie uma interlocução técnica sobre o seu desafio. Cada pauta é analisada sob uma ótica de estratégia de informação e impacto visual.
         </p>
       </header>
       
-      <div className="mb-10 p-6 bg-slate-50 border-l-4 border-black rounded-r-2xl relative overflow-hidden group">
-        <h3 className="text-[10px] font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-          O que acontece após o envio:
+      <div className="mb-10 p-8 bg-slate-900 text-white rounded-[2rem] relative overflow-hidden group shadow-2xl">
+        <div className="absolute top-0 right-0 p-6 opacity-10">
+           <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M12 2v20M2 12h20"/></svg>
+        </div>
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-6 flex items-center gap-2">
+          <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+          Protocolo de Triagem Estratégica:
         </h3>
-        <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <li className="flex flex-col gap-2">
-            <span className="w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">01</span>
-            <p className="text-[11px] text-slate-600 leading-tight font-medium"><strong className="text-black block mb-1">Análise de Pauta:</strong> Triagem estratégica do desafio técnico.</p>
+        <ul className="grid grid-cols-1 gap-6">
+          <li className="flex gap-4 items-start">
+            <span className="shrink-0 w-6 h-6 rounded-full bg-white/10 text-white text-[10px] flex items-center justify-center font-bold border border-white/20">01</span>
+            <div>
+               <p className="text-[12px] font-bold text-white mb-1 uppercase tracking-wider">Qualificação de Pauta</p>
+               <p className="text-[11px] text-slate-400 leading-tight font-medium">Análise técnica da demanda e verificação de aderência ao repertório do estúdio.</p>
+            </div>
           </li>
-          <li className="flex flex-col gap-2">
-            <span className="w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">02</span>
-            <p className="text-[11px] text-slate-600 leading-tight font-medium"><strong className="text-black block mb-1">Alinhamento Expert:</strong> Verificação de viabilidade e impacto.</p>
+          <li className="flex gap-4 items-start">
+            <span className="shrink-0 w-6 h-6 rounded-full bg-white/10 text-white text-[10px] flex items-center justify-center font-bold border border-white/20">02</span>
+            <div>
+               <p className="text-[12px] font-bold text-white mb-1 uppercase tracking-wider">Diagnóstico de Viabilidade</p>
+               <p className="text-[11px] text-slate-400 leading-tight font-medium">Dimensionamento estratégico de esforço, prazos e impacto narrativo esperado.</p>
+            </div>
           </li>
-          <li className="flex flex-col gap-2">
-            <span className="w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">03</span>
-            <p className="text-[11px] text-slate-600 leading-tight font-medium"><strong className="text-black block mb-1">Proposta Técnica:</strong> Retorno estratégico em até 24h úteis.</p>
+          <li className="flex gap-4 items-start">
+            <span className="shrink-0 w-6 h-6 rounded-full bg-white/10 text-white text-[10px] flex items-center justify-center font-bold border border-white/20">03</span>
+            <div>
+               <p className="text-[12px] font-bold text-white mb-1 uppercase tracking-wider">Retorno Consultivo</p>
+               <p className="text-[11px] text-slate-400 leading-tight font-medium">Proposta técnica enviada por e-mail ou WhatsApp em até 24h úteis.</p>
+            </div>
           </li>
         </ul>
       </div>

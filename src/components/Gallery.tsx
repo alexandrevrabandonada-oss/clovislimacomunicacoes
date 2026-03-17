@@ -64,7 +64,8 @@ function slugify(value: string): string {
 }
 
 function getTileClasses(index: number, total: number): string {
-  if (total < 6) return 'sm:col-span-1 lg:col-span-2'
+  if (total <= 2) return 'sm:col-span-1 lg:col-span-3'
+  if (total < 6) return 'sm:col-span-1 lg:col-span-3'
   if (index % 6 === 0) return 'sm:col-span-2 lg:col-span-3'
   return 'sm:col-span-1 lg:col-span-2'
 }

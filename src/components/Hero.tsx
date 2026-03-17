@@ -165,25 +165,13 @@ export default function Hero({ works }: HeroProps) {
             </div>
           </div>
 
-          {/* Floating Strategic Labels */}
+          {/* Floating Strategic Labels - Consolidated */}
           <div className="absolute -top-6 -right-6 z-30 bg-accent text-white border-2 border-black px-5 py-2 font-black text-[11px] uppercase tracking-widest shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] -rotate-3 transition-all hover:rotate-0 hover:scale-105">
-             {isAPS ? 'CASE REAL · APS SUSTENTABILIDADE' : 'CASE REAL · AUTORIDADE DIGITAL'}
+             {isAPS ? 'CASE REAL · APS SUSTENTABILIDADE' : 'PROVA REAL · AUTORIDADE DIGITAL'}
           </div>
           
           <div className="absolute -bottom-6 -left-6 z-30 bg-white border-2 border-black px-4 py-2 text-slate-900 font-bold text-[10px] uppercase tracking-[0.25em] shadow-xl rotate-2">
-            {isAPS ? 'PWA institucional / autoridade digital' : 'ESTÚDIO DE ESTRATÉGIA ⚡ 2026'}
-          </div>
-
-          {/* Technical Callouts */}
-          <div className="hidden xl:block absolute -right-24 top-1/2 -translate-y-1/2 space-y-4 pointer-events-none opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
-            <div className="bg-black/90 text-white p-3 border-l-4 border-emerald-500 rounded-r-lg shadow-2xl">
-              <p className="text-[8px] font-black uppercase tracking-widest text-emerald-400">Performance / Métricas</p>
-              <p className="text-[10px] font-bold">LCP: 0.8s (Otimização Real)</p>
-            </div>
-            <div className="bg-black/90 text-white p-3 border-l-4 border-accent rounded-r-lg shadow-2xl">
-               <p className="text-[8px] font-black uppercase tracking-widest text-accent">Tech / Arquitetura</p>
-               <p className="text-[10px] font-bold">Next.js + PWA / Soberania Digital</p>
-            </div>
+            {isAPS ? 'PWA INSTITUCIONAL / ESTRATÉGIA' : 'ESTÚDIO DE ESTRATÉGIA ⚡ 2026'}
           </div>
         </div>
       ) : null}
