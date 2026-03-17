@@ -1,5 +1,5 @@
-import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import { Metadata } from 'next'
@@ -56,6 +56,23 @@ export default function CasesPage() {
                             </div>
 
                             <div className="p-8 flex flex-col flex-grow bg-white">
+                                {/* Case Screenshot Thumbnail */}
+                                {item.screenshot_url && (
+                                    <div className="mb-8 relative aspect-video rounded-xl overflow-hidden border border-black/10 shadow-lg group-hover:scale-[1.03] transition-transform duration-700">
+                                        <div className="absolute top-0 inset-x-0 h-4 bg-slate-900 flex items-center px-2 gap-1 z-10">
+                                            <div className="w-1 h-1 rounded-full bg-red-400" />
+                                            <div className="w-1 h-1 rounded-full bg-amber-400" />
+                                            <div className="w-1 h-1 rounded-full bg-emerald-400" />
+                                        </div>
+                                        <Image 
+                                            src={item.screenshot_url} 
+                                            alt={item.title} 
+                                            fill 
+                                            className="object-cover object-top pt-4"
+                                        />
+                                    </div>
+                                )}
+
                                 <header className="mt-4 mb-6">
                                     <div className="flex items-center gap-2 mb-2">
                                         <div className="w-1.5 h-1.5 rounded-full bg-accent" />

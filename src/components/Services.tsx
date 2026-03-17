@@ -77,55 +77,48 @@ export default function Services() {
         <h2 className="text-3xl font-extrabold tracking-tight">Soluções & Estratégia</h2>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {services.map((item) => (
-          <article
-            key={item.slug}
-            className="ink-card p-8 flex flex-col justify-between group hover:border-black/20 transition-all"
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 relative z-10">
+        {services.map((service, index) => (
+          <div 
+            key={service.slug}
+            className="ink-card group/service p-8 flex flex-col h-full bg-white relative overflow-hidden"
           >
-            <div>
-              <header className="mb-6">
-                 <h3 className="text-2xl font-black mb-2 group-hover:text-accent transition-colors leading-tight">{item.title}</h3>
-                 <p className="text-slate-600 text-sm font-medium leading-relaxed">{item.description}</p>
-              </header>
+            {/* Tech Marker */}
+            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover/service:opacity-20 transition-opacity">
+              <span className="text-4xl font-black">0{index + 1}</span>
+            </div>
+
+            <div className="relative z-10 flex-grow">
+              <h3 className="text-xl font-black tracking-tight mb-4 group-hover/service:text-accent transition-colors italic">
+                {service.title}
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed mb-6 font-medium">
+                {service.description}
+              </p>
               
-              <div className="space-y-6 pt-6 border-t border-black/5">
-                <section>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Para quem é</p>
-                    <p className="text-xs font-bold text-slate-800">{item.forWhom}</p>
-                </section>
-
-                <section>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">O que entrega</p>
-                    <div className="flex flex-wrap gap-2">
-                        {item.deliverables.map(d => (
-                            <span key={d} className="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded font-bold">{d}</span>
-                        ))}
-                    </div>
-                </section>
-
-                <section>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Dinâmica</p>
-                    <p className="text-xs font-bold text-emerald-700 flex items-center gap-1">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                        </svg>
-                        {item.timing}
-                    </p>
-                </section>
+              <div className="space-y-3 mb-8">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Entrega Técnica:</p>
+                <ul className="space-y-2">
+                  {service.deliverables.map(item => (
+                    <li key={item} className="text-[11px] font-bold text-slate-800 flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full bg-accent" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
             <button
               className="ink-button mt-10 w-full bg-black text-white px-6 py-4 rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-accent hover:scale-[1.02] active:scale-95 transition-all shadow-lg"
               onClick={() => {
-                trackEvent('click_service_card', { package: item.slug })
-                setSelected(item)
+                trackEvent('click_service_card', { package: service.slug })
+                setSelected(service)
               }}
             >
-              Iniciar {item.cta} →
+              Iniciar {service.cta} →
             </button>
-          </article>
+          </div>
         ))}
       </div>
 

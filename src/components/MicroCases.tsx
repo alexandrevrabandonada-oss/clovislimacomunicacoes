@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image'
 import { useRevealOnView } from '../lib/useRevealOnView'
 import Link from 'next/link'
 import { trackEvent } from '../lib/analytics'
@@ -11,11 +12,11 @@ export default function MicroCases() {
         <div>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h2 ref={headingRef} className={`reveal-heading text-3xl font-extrabold ${revealed ? 'is-revealed' : ''}`}>
-                        Casos e Aplicações
+                    <h2 ref={headingRef} className={`reveal-heading text-4xl font-black ${revealed ? 'is-revealed' : ''}`}>
+                        Reports de <span className="italic">Impacto</span>
                     </h2>
-                    <p className="mt-2 text-slate-700 max-w-xl font-medium italic">
-                        Estratégias onde a narrativa visual foi ferramenta de autoridade e clareza.
+                    <p className="mt-2 text-slate-500 max-w-xl font-medium italic border-l-2 border-accent pl-4">
+                        Análise técnica de como transformamos pautas complexas em autoridade visual e resultados operacionais.
                     </p>
                 </div>
                 <Link href="/cases" className="text-xs font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-accent hover:border-accent transition-colors">
@@ -28,7 +29,7 @@ export default function MicroCases() {
                     <article key={item.slug} className="ink-card p-6 flex flex-col justify-between bg-white border-2 border-black/5 hover:border-black/20 transition-all group relative overflow-hidden">
                         {/* Digital/PWA Indicator */}
                         {item.category.includes('Digital') && (
-                            <div className="absolute top-0 right-0 bg-accent text-white text-[8px] font-black px-3 py-1 uppercase tracking-[0.2em] shadow-sm">
+                            <div className="absolute top-0 right-0 bg-accent text-white text-[8px] font-black px-3 py-1 uppercase tracking-[0.2em] shadow-sm z-20">
                                 High Tech / PWA
                             </div>
                         )}
@@ -44,6 +45,22 @@ export default function MicroCases() {
                                     <div className="w-1 h-1 rounded-full bg-slate-300" />
                                 </div>
                             </div>
+
+                            {/* Case Screenshot Thumbnail */}
+                            {item.screenshot_url && (
+                                <div className="mb-6 relative aspect-video rounded-lg overflow-hidden border border-black/10 shadow-inner group-hover:scale-[1.02] transition-transform duration-500">
+                                    <div className="absolute top-0 inset-x-0 h-3 bg-slate-100 flex items-center px-1.5 gap-0.5 z-10 border-b border-black/5">
+                                        <div className="w-1 h-1 rounded-full bg-slate-300" />
+                                        <div className="w-1 h-1 rounded-full bg-slate-300" />
+                                    </div>
+                                    <Image 
+                                        src={item.screenshot_url} 
+                                        alt={item.title} 
+                                        fill 
+                                        className="object-cover object-top pt-3"
+                                    />
+                                </div>
+                            )}
                             
                             <h3 className="text-xl font-black mb-4 leading-tight group-hover:text-accent transition-colors italic">
                                 &quot;{item.title}&quot;

@@ -132,6 +132,16 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
         ${containerAspect} 
         ${imageLoaded ? 'bg-[radial-gradient(circle_at_center,#ffffff_0%,#f8fafc_100%)]' : 'bg-slate-50'}
       `}>
+        {/* Browser Frame Header for Tech/Digital */}
+        {item.type === 'Sites / PWA' && (
+          <div className="absolute top-0 inset-x-0 h-6 bg-slate-900 flex items-center px-3 gap-1 z-20">
+            <div className="w-1 h-1 rounded-full bg-red-400" />
+            <div className="w-1 h-1 rounded-full bg-amber-400" />
+            <div className="w-1 h-1 rounded-full bg-emerald-400" />
+            <div className="ml-2 h-3 flex-grow bg-white/10 rounded-sm" />
+          </div>
+        )}
+
         {!imageLoaded && (
           <div className="absolute inset-0 bg-slate-100 animate-pulse" aria-hidden="true" />
         )}
@@ -149,7 +159,8 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
               else setAspectRatio('square')
               setImageLoaded(true)
             }}
-            className={`object-contain transition-all duration-700 p-3
+            className={`transition-all duration-700 
+              ${item.type === 'Sites / PWA' ? 'object-cover object-top pt-6' : 'object-contain p-3'}
               ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
             `}
           />
@@ -525,8 +536,15 @@ export default function Gallery() {
       <Modal open={!!selected} onClose={closeWorkModal} labelledById="gallery-modal-title">
         {selected && (
           <div>
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-black/30">
-              <Image src={selected.src} alt={selected.title} fill sizes="90vw" className="object-contain max-h-[80vh]" />
+            <div className={`relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-black/30 bg-white ${selected.type === 'Sites / PWA' ? 'pt-8 halftone-bg' : ''}`}>
+              {selected.type === 'Sites / PWA' && (
+                <div className="absolute top-0 inset-x-0 h-8 bg-slate-900 flex items-center px-4 gap-2 z-20">
+                  <div className="w-2 h-2 rounded-full bg-red-400" />
+                  <div className="w-2 h-2 rounded-full bg-amber-400" />
+                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                </div>
+              )}
+              <Image src={selected.src} alt={selected.title} fill sizes="90vw" className={selected.type === 'Sites / PWA' ? "object-cover object-top pt-8" : "object-contain max-h-[80vh]"} />
             </div>
             <h3 id="gallery-modal-title" className="mt-4 text-2xl font-extrabold">{selected.title}</h3>
             {selected.subtitle && (

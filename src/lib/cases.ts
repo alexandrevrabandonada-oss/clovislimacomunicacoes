@@ -15,6 +15,7 @@ export type Case = {
         format: string
         impactType: string
     }
+    screenshot_url?: string
 }
 
 export const cases: Case[] = [
@@ -88,7 +89,8 @@ export const cases: Case[] = [
             deliverables: 'Plataforma Web Institucional / PWA',
             format: 'Next.js / SEO Otimizado / PWA Ready',
             impactType: 'Legitimidade & Lead Gen'
-        }
+        },
+        screenshot_url: '/portfolio/aps-real-desktop.png'
     }
 ]
 

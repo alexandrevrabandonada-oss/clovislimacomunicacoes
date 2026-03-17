@@ -114,14 +114,14 @@
       "content_warning": false
     },
     "aps-sustentabilidade.png": {
-      "file": "aps-sustentabilidade.png",
+      "file": "aps-real-desktop.png",
       "slug": "aps-sustentabilidade",
       "title": "APS Sustentabilidade",
-      "subtitle": "Arquitetura de informação para transparência socioambiental",
+      "subtitle": "Engenharia de presença digital para impacto socioambiental",
       "year": 2024,
       "client": "APS Sustentabilidade",
-      "vehicle": "Plataforma Digital",
-      "tags": ["ESG", "institucional", "tech"],
+      "vehicle": "Institucional PWA",
+      "tags": ["ESG", "institucional", "pwa", "impacto"],
       "available_for_print": false,
       "available_for_license": false,
       "featured": true,
