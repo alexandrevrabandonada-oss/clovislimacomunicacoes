@@ -278,6 +278,7 @@ export default function Gallery() {
   const works = useMemo(() => {
     const q = searchQuery.trim().toLowerCase()
     return items.filter((w) => {
+      if (w.isFlagship) return false
       const byWarning = filter === 'all' || (w.contentWarning ? filter === 'sensitive' : filter === 'safe')
       const normalizedType = w.type.trim().toLowerCase()
       const byType = typeFilter === 'all' || normalizedType === typeFilter

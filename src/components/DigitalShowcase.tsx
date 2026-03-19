@@ -92,31 +92,57 @@ export default function DigitalShowcase() {
           </div>
         </div>
 
-        {/* Placeholder for Next Projects / Authority Block */}
+        {/* Digital Capability / Narrative Block */}
         <div className="lg:col-span-4 flex flex-col gap-6">
-          <div className="ink-card bg-slate-900 text-white p-8 flex-grow border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,0.05)]">
-            <h3 className="text-xl font-black mb-4 italic">“Design como <br/> Infraestrutura”</h3>
-            <p className="text-xs text-slate-400 font-medium leading-relaxed mb-8">
-              Na ESBOÇO, não fazemos apenas sites. Construímos ativos digitais que garantem a autoridade técnica da sua pauta.
-            </p>
-            <div className="p-4 bg-white/5 border border-white/10 rounded-xl mb-4">
-               <p className="text-[9px] font-black uppercase tracking-widest text-accent mb-2">Stack de Autoridade:</p>
-               <p className="text-[10px] font-bold text-slate-300">Next.js / Supabase / PWA / Edge Config / Meta-SEO</p>
+          <div className="ink-card bg-slate-900 text-white p-8 md:p-10 flex-grow border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,0.05)] relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-6 opacity-5">
+               <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
             </div>
-            <Link 
-                href="#contato"
-                className="inline-block mt-4 text-[10px] font-black uppercase tracking-widest border-b-2 border-accent pb-1 hover:text-accent transition-all"
-                onClick={() => trackEvent('click_digital_showcase_philosophy')}
-              >
-                Agendar Diagnóstico Técnico →
-              </Link>
+            <div className="relative z-10">
+              <h3 className="text-xl font-black mb-6 italic leading-tight">“A Interface como <br/> Ativo Soberano.”</h3>
+              <p className="text-xs text-slate-400 font-medium leading-relaxed mb-8 italic border-l-2 border-white/10 pl-4">
+                Não construímos apenas sites. Desenvolvemos infraestrutura de autoridade digital que garante independência narrativa e performance extrema.
+              </p>
+              
+              <div className="space-y-6">
+                <div>
+                   <p className="text-[9px] font-black uppercase tracking-[0.2em] text-accent mb-3">Core Stack / Autoridade:</p>
+                   <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+                      <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
+                        <span className="w-1 h-1 bg-white/20 rounded-full" /> Next.js 14
+                      </li>
+                      <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
+                        <span className="w-1 h-1 bg-white/20 rounded-full" /> PWA Native
+                      </li>
+                      <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
+                        <span className="w-1 h-1 bg-white/20 rounded-full" /> Supabase
+                      </li>
+                      <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
+                        <span className="w-1 h-1 bg-white/20 rounded-full" /> Edge Config
+                      </li>
+                   </ul>
+                </div>
+                
+                <div className="pt-4 border-t border-white/10">
+                   <p className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-3">Métricas de Sucesso:</p>
+                   <p className="text-[10px] font-bold text-slate-300 mb-1">LCP: &lt; 1.0s</p>
+                   <p className="text-[10px] font-bold text-slate-300 mb-1">SEO Health: 100/100</p>
+                </div>
+              </div>
+
+              <Link 
+                  href="#contato"
+                  className="inline-block mt-10 text-[10px] font-black uppercase tracking-widest border-b-2 border-accent pb-1 hover:text-accent transition-all"
+                  onClick={() => trackEvent('click_digital_showcase_capability')}
+                >
+                  Diagnóstico de Viabilidade Digital →
+                </Link>
+            </div>
           </div>
           
-          <div className="ink-card bg-white p-8 border-[3px] border-black border-dashed opacity-50 flex flex-col items-center justify-center text-center">
-             <div className="w-12 h-12 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-300 mb-4">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 5v14M5 12h14"/></svg>
-             </div>
-             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Próximos Projetos <br/> em Triagem</p>
+          <div className="ink-card bg-emerald-500 text-white p-8 border-[3px] border-black shadow-xl flex flex-col justify-center">
+             <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-3">Foco Atual:</p>
+             <p className="text-xl font-black italic tracking-tight leading-none">Soberania de Dados & Impacto Mobile First.</p>
           </div>
         </div>
       </div>
