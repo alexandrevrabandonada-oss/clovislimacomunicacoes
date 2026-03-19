@@ -95,54 +95,75 @@ export default function DigitalShowcase() {
         {/* Digital Capability / Narrative Block */}
         <div className="lg:col-span-4 flex flex-col gap-6">
           <div className="ink-card bg-slate-900 text-white p-8 md:p-10 flex-grow border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,0.05)] relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-6 opacity-5">
-               <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+            <div className="absolute top-0 right-0 p-6 opacity-5 invisible md:visible">
+               <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
             </div>
+            
             <div className="relative z-10">
-              <h3 className="text-xl font-black mb-6 italic leading-tight">“A Interface como <br/> Ativo Soberano.”</h3>
-              <p className="text-xs text-slate-400 font-medium leading-relaxed mb-8 italic border-l-2 border-white/10 pl-4">
-                Não construímos apenas sites. Desenvolvemos infraestrutura de autoridade digital que garante independência narrativa e performance extrema.
+              <h3 className="text-2xl font-black mb-6 italic leading-none tracking-tight">
+                Engenharia de <br/> <span className="text-slate-400">Presença & PWAs</span> 
+              </h3>
+              
+              <p className="text-xs text-slate-400 font-medium leading-relaxed mb-10 italic border-l-2 border-white/10 pl-4 max-w-sm">
+                Desenvolvemos infraestrutura de autoridade digital que garante soberania de dados, performance extrema e independência técnica para pautas críticas.
               </p>
               
-              <div className="space-y-6">
-                <div>
-                   <p className="text-[9px] font-black uppercase tracking-[0.2em] text-accent mb-3">Core Stack / Autoridade:</p>
-                   <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
-                      <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
-                        <span className="w-1 h-1 bg-white/20 rounded-full" /> Next.js 14
-                      </li>
-                      <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
-                        <span className="w-1 h-1 bg-white/20 rounded-full" /> PWA Native
-                      </li>
-                      <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
-                        <span className="w-1 h-1 bg-white/20 rounded-full" /> Supabase
-                      </li>
-                      <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
-                        <span className="w-1 h-1 bg-white/20 rounded-full" /> Edge Config
-                      </li>
-                   </ul>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div className="space-y-6">
+                   <div>
+                      <p className="text-[9px] font-black uppercase tracking-[0.2em] text-accent mb-3">Linha de Capabilidade:</p>
+                      <ul className="space-y-2">
+                         <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
+                           <span className="w-1 h-px bg-accent" /> Brand Hubs & Plataformas
+                         </li>
+                         <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
+                           <span className="w-1 h-px bg-accent" /> PWAs de Alto Impacto
+                         </li>
+                         <li className="text-[10px] font-bold text-slate-300 flex items-center gap-2">
+                           <span className="w-1 h-px bg-accent" /> Visualização de Dados
+                         </li>
+                      </ul>
+                   </div>
                 </div>
                 
-                <div className="pt-4 border-t border-white/10">
-                   <p className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-3">Métricas de Sucesso:</p>
-                   <p className="text-[10px] font-bold text-slate-300 mb-1">LCP: &lt; 1.0s</p>
-                   <p className="text-[10px] font-bold text-slate-300 mb-1">SEO Health: 100/100</p>
+                <div className="space-y-6">
+                   <div>
+                      <p className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-3">Performance Audit:</p>
+                      <div className="space-y-2">
+                         <div className="flex justify-between items-center bg-white/5 p-2 rounded border border-white/5">
+                            <span className="text-[9px] font-black uppercase text-slate-500">LCP</span>
+                            <span className="text-[10px] font-black text-emerald-400">&lt; 0.9s</span>
+                         </div>
+                         <div className="flex justify-between items-center bg-white/5 p-2 rounded border border-white/5">
+                            <span className="text-[9px] font-black uppercase text-slate-500">SEO</span>
+                            <span className="text-[10px] font-black text-emerald-400">100/100</span>
+                         </div>
+                      </div>
+                   </div>
                 </div>
               </div>
 
-              <Link 
+              <div className="flex flex-wrap gap-4 pt-6 border-t border-white/10">
+                <Link 
                   href="#contato"
-                  className="inline-block mt-10 text-[10px] font-black uppercase tracking-widest border-b-2 border-accent pb-1 hover:text-accent transition-all"
+                  className="flex-1 text-center bg-white text-black py-4 rounded font-black text-[10px] uppercase tracking-widest hover:bg-accent hover:text-white transition-all shadow-xl"
                   onClick={() => trackEvent('click_digital_showcase_capability')}
                 >
-                  Diagnóstico de Viabilidade Digital →
+                  Diagnóstico Técnico →
                 </Link>
+                <div className="flex-1 p-3 border border-white/10 rounded items-center justify-center flex">
+                   <p className="text-[8px] font-black uppercase tracking-widest text-slate-500 leading-tight">Soberania Técnica <br/> Garantida</p>
+                </div>
+              </div>
             </div>
           </div>
           
-          <div className="ink-card bg-emerald-500 text-white p-8 border-[3px] border-black shadow-xl flex flex-col justify-center">
-             <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-3">Foco Atual:</p>
-             <p className="text-xl font-black italic tracking-tight leading-none">Soberania de Dados & Impacto Mobile First.</p>
+          <div className="ink-card bg-emerald-500 text-white p-8 border-[3px] border-black shadow-xl flex flex-col justify-center relative overflow-hidden group">
+             <div className="absolute bottom-[-20px] right-[-20px] opacity-10 group-hover:scale-110 transition-transform">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+             </div>
+             <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-3 opacity-80">Meta / Outcome:</p>
+             <p className="text-xl font-black italic tracking-tight leading-none relative z-10">Interface como Ativo Estratégico & Design Soberano.</p>
           </div>
         </div>
       </div>

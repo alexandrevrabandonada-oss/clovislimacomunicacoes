@@ -66,44 +66,44 @@ export default async function Page() {
       </SectionShell>
 
       {/* 4. Soluções Digitais & Tecnologia */}
-      <SectionShell id="digital" className="bg-slate-50/50 -mt-8 md:-mt-12">
+      <SectionShell id="digital" className="bg-slate-50/50 -mt-12 md:-mt-20">
         <DigitalShowcase />
       </SectionShell>
 
       {/* 5. Prints & Licenciamento Strategic */}
-      <SectionShell id="prints-licenciamento" className="py-12 md:py-20">
-        <div className="flex items-center gap-3 mb-8">
+      <SectionShell id="prints-licenciamento" className="py-12 md:py-16">
+        <div className="flex items-center gap-3 mb-6">
           <div className="h-4 w-1 bg-accent rounded-full" />
-          <h2 className="text-3xl font-extrabold tracking-tight italic">Prints & Licenciamento</h2>
+          <h2 className="text-2xl font-black tracking-tight italic uppercase">Prints & Licenciamento</h2>
         </div>
         <PrintsTeaser />
       </SectionShell>
 
       {/* 6. Soluções & Atendimento */}
-      <SectionShell id="servicos" className="pb-16 md:pb-24">
+      <SectionShell id="servicos" className="pb-12 md:pb-16">
         <Services />
       </SectionShell>
 
       {/* 7. FAQ Técnico */}
-      <SectionShell id="faq" className="bg-slate-50/30 py-16">
+      <SectionShell id="faq" className="bg-slate-50/30 py-12 md:py-16">
         <FAQ />
       </SectionShell>
 
       {/* 8. Trajetória / Cronos */}
-      <SectionShell id="sobre" className="py-16 md:py-24">
+      <SectionShell id="sobre" className="py-12 md:py-16">
         <Timeline />
       </SectionShell>
 
       {/* 9. Clientes & Parceiros */}
-      <SectionShell id="clientes" className="bg-white py-12">
+      <SectionShell id="clientes" className="bg-white py-8 md:py-12 border-t border-slate-100">
         <Clients />
       </SectionShell>
 
       {/* 10. Indicadores de Resultados */}
-      <SectionShell id="resultados" className="py-16 md:py-24 border-t border-slate-100">
+      <SectionShell id="resultados" className="py-12 md:py-20 bg-slate-50/20">
         <div className="flex items-center gap-3 mb-8">
           <div className="h-4 w-1 bg-emerald-500 rounded-full" />
-          <h2 className="text-3xl font-extrabold tracking-tight italic">Relatórios de Impacto</h2>
+          <h2 className="text-2xl font-black tracking-tight italic uppercase">Relatórios de Impacto</h2>
         </div>
         <MicroCases />
       </SectionShell>

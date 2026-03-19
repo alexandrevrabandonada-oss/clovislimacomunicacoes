@@ -33,15 +33,15 @@ const services: ServiceItem[] = [
     timing: "Imediato (Digital) / 7 dias (Físico)",
     cta: "Consultar Acervo"
   },
-  {
-    slug: "tech",
-    title: "Engenharia de Presença / PWA",
-    description: "Sistemas web de alta performance e plataformas de autoridade técnica. Arquitetura orientada a Core Web Vitals e UX crítica.",
-    forWhom: "Organizações, Apps e Projetos Editoriais que exigem rapidez, soberania de dados e escala.",
-    deliverables: ["Arquitetura PWA Ready", "Performance (Core Web Vitals)", "Interfaces de Autoridade", "Deployment Automatizado"],
-    timing: "5 a 15 dias úteis",
-    cta: "Análise de Viabilidade"
-  },
+    {
+      slug: "tech",
+      title: "Engenharia de Presença / PWA",
+      description: "Sistemas web de alta performance e plataformas de autoridade técnica. Arquitetura orientada a Core Web Vitals e UX crítica.",
+      forWhom: "Organizações, Apps e Projetos Editoriais que exigem rapidez, soberania de dados e escala.",
+      deliverables: ["Arquitetura PWA Ready", "Performance (Core Web Vitals)", "Interfaces de Autoridade", "Soberania de Dados"],
+      timing: "5 a 15 dias úteis",
+      cta: "Análise de Viabilidade"
+    },
 ];
 
 function goToContact(slug: string, title: string) {
