@@ -76,8 +76,8 @@ export default function ContactForm() {
   const widgetIdRef = useRef<string | null>(null)
   
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
-  const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/\D/g, '')
-  const leadEmail = 'contato@clovislimacomunicacoes.com.br' // Fallback fix
+  const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5524992544760').replace(/\D/g, '')
+  const leadEmail = 'clovischarges@gmail.com'
   const hasTurnstile = Boolean(turnstileSiteKey)
   const lastAutoMessageRef = useRef('')
   const [selectedPackageLabel, setSelectedPackageLabel] = useState('')
