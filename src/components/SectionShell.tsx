@@ -24,7 +24,7 @@ export default function SectionShell({
   return (
     <section 
       id={id} 
-      className={`relative z-0 ${noPadding ? '' : 'mt-16 md:mt-24'} ${className}`}
+      className={`relative z-0 ${noPadding ? '' : 'mt-12 md:mt-16'} ${className}`}
     >
       {/* Anchor for navigation if id is provided */}
       {id && <div className="absolute -top-24" aria-hidden="true" />}
