@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { trackEvent } from '../lib/analytics';
 
 export default function PrintsTeaser() {
@@ -50,18 +51,18 @@ export default function PrintsTeaser() {
   return (
     <div className="space-y-12">
       {/* Editorial Header */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end border-b-2 border-slate-900 pb-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end border-b-[3px] border-black pb-10">
         <div className="lg:col-span-7">
           <div className="flex items-center gap-3 mb-4">
-            <span className="w-2 h-2 rounded-full bg-accent" />
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">Direitos Autoriais & Reprodução Técnica</p>
+            <span className="w-2.5 h-2.5 bg-accent" />
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Direitos Autorais & Reprodução Técnica</p>
           </div>
-          <h3 className="text-3xl md:text-5xl font-black italic tracking-tighter leading-none text-slate-900">
+          <h3 className="text-3xl md:text-6xl font-black italic tracking-tighter leading-[0.85] text-black">
             A obra como ativo de <br/> <span className="hero-ink-underline">Autoridade & Legado</span>
           </h3>
         </div>
         <div className="lg:col-span-5">
-          <p className="text-base text-slate-900 font-bold leading-tight italic border-l-4 border-slate-900 pl-6">
+          <p className="text-base text-black font-bold leading-tight italic border-l-[6px] border-black pl-8">
             O acervo ESBOÇO transita entre a agilidade editorial e a perenidade do fine-art. 
             Sistemas de licenciamento sob medida para veículos, marcas e acervos privados.
           </p>
@@ -69,42 +70,42 @@ export default function PrintsTeaser() {
       </div>
 
       {/* Product Tracks Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {productTracks.map((track) => (
           <div 
             key={track.id}
-            className={`ink-card p-0 flex flex-col border-[3px] border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[16px_16px_0px_0px_rgba(239,68,68,0.2)] transition-all ${track.featured ? 'md:scale-[1.05] z-10' : ''} ${track.color}`}
+            className={`ink-card p-0 flex flex-col border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all ${track.featured ? 'md:scale-[1.05] z-10' : ''} ${track.color}`}
           >
             {/* Card Header */}
-            <div className={`p-8 border-b-2 ${track.featured ? 'border-white/20' : 'border-black'}`}>
-              <div className="flex justify-between items-start mb-6">
-                <span className={`text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-sm ${track.featured ? 'bg-accent text-white' : 'bg-slate-900 text-white'}`}>
+            <div className={`p-10 border-b-[3px] ${track.featured ? 'border-white/20' : 'border-black'}`}>
+              <div className="flex justify-between items-start mb-8">
+                <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 border-2 ${track.featured ? 'bg-accent text-white border-white' : 'bg-black text-white border-black'}`}>
                   {track.badge}
                 </span>
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <span className={`text-[10px] font-black uppercase tracking-widest ${track.featured ? 'text-white/40' : 'text-black/30'}`}>
                   {track.priceHint}
                 </span>
               </div>
-              <h4 className="text-2xl font-black italic mb-3 tracking-tight">{track.title}</h4>
-              <p className={`text-sm font-bold leading-tight ${track.featured ? 'text-slate-400' : 'text-slate-600'}`}>
+              <h4 className="text-3xl font-black italic mb-4 tracking-tighter uppercase">{track.title}</h4>
+              <p className={`text-sm font-black leading-tight italic ${track.featured ? 'text-white/60' : 'text-black/50'}`}>
                 {track.headline}
               </p>
             </div>
 
             {/* Card Body */}
-            <div className="p-8 flex-grow">
-              <p className={`text-sm leading-relaxed mb-8 font-medium ${track.featured ? 'text-slate-300' : 'text-slate-700'}`}>
+            <div className="p-10 flex-grow">
+              <p className={`text-sm leading-relaxed mb-10 font-bold ${track.featured ? 'text-white/80' : 'text-black/80'}`}>
                 {track.description}
               </p>
               
-              <div className="space-y-4">
-                <p className={`text-[10px] font-black uppercase tracking-[0.3em] ${track.featured ? 'text-accent' : 'text-slate-400'}`}>
-                  Entrega Técnica:
+              <div className="space-y-6">
+                <p className={`text-[10px] font-black uppercase tracking-[0.4em] ${track.featured ? 'text-accent' : 'text-black/40'}`}>
+                  Especificação Técnica:
                 </p>
-                <ul className="space-y-2.5">
+                <ul className="space-y-3">
                   {track.specs.map((spec) => (
-                    <li key={spec} className={`flex items-center gap-3 text-[11px] font-bold ${track.featured ? 'text-slate-100' : 'text-slate-900'}`}>
-                      <div className={`w-1.5 h-1.5 rounded-full ${track.featured ? 'bg-accent' : 'bg-black'}`} />
+                    <li key={spec} className={`flex items-center gap-4 text-[11px] font-black ${track.featured ? 'text-white' : 'text-black'}`}>
+                      <div className={`w-2 h-2 ${track.featured ? 'bg-accent' : 'bg-black'}`} />
                       {spec}
                     </li>
                   ))}
@@ -113,13 +114,13 @@ export default function PrintsTeaser() {
             </div>
 
             {/* Card Footer */}
-            <div className="p-8 pt-0">
+            <div className="p-10 pt-0">
               <a 
                 href="#contato"
                 onClick={() => trackEvent('click_prints_track', { track: track.id })}
-                className={`inline-block w-full text-center py-5 font-black text-[11px] uppercase tracking-[0.2em] transition-all ink-button ${
+                className={`inline-block w-full text-center py-6 font-black text-[12px] uppercase tracking-[0.2em] transition-all ink-button ${
                   track.featured 
-                  ? 'bg-white text-black hover:bg-accent hover:text-white' 
+                  ? 'bg-white text-black hover:bg-black hover:text-white hover:border-black' 
                   : 'bg-black text-white hover:bg-accent'
                 }`}
               >
@@ -131,48 +132,95 @@ export default function PrintsTeaser() {
       </div>
 
       {/* Quality Standards Bar */}
-      <div className="bg-white border-[3px] border-black p-8 md:p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,0.05)] strategy-grid">
-        <div className="flex items-center gap-3 mb-10">
-          <span className="h-[2px] w-8 bg-slate-900" />
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900">Padrão de Qualidade ESBOÇO / MUSEUM GRADE</p>
+      <div className="bg-white border-[3px] border-black p-10 md:p-16 shadow-[24px_24px_0px_0px_rgba(0,0,0,1)]">
+        <div className="flex items-center gap-4 mb-12">
+          <div className="h-[3px] w-12 bg-black" />
+          <p className="text-[11px] font-black uppercase tracking-[0.4em] text-black">Certificação de Qualidade / MUSEUM GRADE ⚡</p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {qualityStandards.map((std) => (
-            <div key={std.label} className="group">
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-hover:text-accent transition-colors">{std.label}</p>
-              <p className="text-xl font-black text-black mb-1">{std.value}</p>
-              <p className="text-[10px] text-slate-600 font-bold leading-tight">{std.context}</p>
+            <div key={std.label} className="group/std">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 mb-3 group-hover/std:text-accent transition-colors">{std.label}</p>
+              <p className="text-3xl font-black text-black mb-2 tracking-tighter">{std.value}</p>
+              <p className="text-[11px] text-black/60 font-bold leading-tight italic">{std.context}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 pt-10 border-t-2 border-black/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-black text-white flex items-center justify-center rounded-full font-black text-lg border-2 border-accent">CL</div>
-            <p className="text-xs font-bold text-slate-900 max-w-[200px]">Curadoria e Assinatura Autoral de Clóvis Lima.</p>
+        <div className="mt-16 pt-12 border-t-[3px] border-black/10 flex flex-col md:flex-row items-center justify-between gap-10">
+          <div className="flex items-center gap-6">
+            <div className="w-16 h-16 bg-black text-white flex items-center justify-center font-black text-2xl border-[3px] border-accent shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">CL</div>
+            <p className="text-sm font-black text-black max-w-[240px] italic leading-tight uppercase tracking-tight">Curadoria, Assinatura e Selo de Autoridade Clóvis Lima.</p>
           </div>
-          <p className="text-[10px] text-slate-400 font-medium max-w-sm text-center md:text-right">
-            Certificados de autenticidade emitidos em papel antifraude com numeração única e registro em acervo proprietário.
-          </p>
+          <div className="max-w-md text-center md:text-right">
+            <p className="text-[10px] text-black/40 font-black uppercase tracking-widest mb-2">Segurança de Acervo / Proof of Origin</p>
+            <p className="text-[11px] text-black/50 font-bold leading-relaxed italic">
+              Certificados de autenticidade emitidos em papel antifraude com numeração única, registro em acervo proprietário e validação de direitos perpétuos.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Real Application Proof: UNIPAMPA */}
+      <div className="bg-black text-white border-[3px] border-accent p-10 md:p-16 shadow-[24px_24px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden group">
+        <div className="absolute inset-0 halftone-bg opacity-5 group-hover:opacity-10 transition-opacity" />
+        <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-3 h-3 bg-accent animate-pulse" />
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">Proof_of_Physical_Application // 001</p>
+            </div>
+            <h4 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.85] italic mb-8 uppercase">
+              Consistência visual em <br/> <span className="underline decoration-accent underline-offset-8">Suporte Têxtil</span>
+            </h4>
+            <div className="space-y-6 max-w-md">
+              <p className="text-base font-bold italic leading-tight text-white/80 border-l-[6px] border-accent pl-8">
+                &quot;O case UNIPAMPA demonstra a resiliência do sistema gráfico ESBOÇO em aplicações de alta complexidade física e institucional.&quot;
+              </p>
+              <ul className="space-y-3 pt-6 border-t border-white/10">
+                {[
+                  "Identidade aplicada em camisaria institucional",
+                  "Desdobramento gráfico para produção física",
+                  "Arte preparada para múltiplas versões e suportes"
+                ].map(item => (
+                  <li key={item} className="flex items-center gap-4 text-[11px] font-black uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
+                    <div className="w-1.5 h-1.5 bg-accent" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="ink-frame relative aspect-[16/10] border-[3px] border-white/20 bg-white overflow-hidden shadow-2xl group-hover:border-accent transition-colors">
+             <Image 
+                src="/portfolio/unipampa-manga-curta.jpg" 
+                alt="UNIPAMPA Camisaria Proof" 
+                fill 
+                className="object-contain p-6 grayscale hover:grayscale-0 transition-all duration-700"
+              />
+              <div className="absolute bottom-4 right-4 bg-black text-white text-[8px] font-black uppercase tracking-widest px-3 py-1 border border-white/20">
+                CASE::UNIPAMPA_2024
+              </div>
+          </div>
         </div>
       </div>
 
       {/* Process Rail */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-4 border-t border-black/5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-10 pt-10 border-t-[3px] border-black/5">
         {[
           { step: "01", label: "Consulta", desc: "Identificação da obra e modalidade" },
           { step: "02", label: "Proposta", desc: "Termos de cessão e orçamento" },
           { step: "03", label: "Aprovação", desc: "Contrato e documentação" },
           { step: "04", label: "Entrega", desc: "Arquivos + certificados" }
         ].map((item, index) => (
-          <div key={item.step} className="flex items-start gap-3 group/step">
-            <span className="text-xl font-black text-slate-200 group-hover/step:text-accent transition-colors">{item.step}</span>
+          <div key={item.step} className="flex items-start gap-4 group/step">
+            <span className="text-2xl font-black text-black/10 group-hover/step:text-accent transition-colors">{item.step}</span>
             <div>
-              <p className="text-xs font-black uppercase tracking-wider text-slate-900">{item.label}</p>
-              <p className="text-[10px] text-slate-500 font-medium leading-tight">{item.desc}</p>
+              <p className="text-sm font-black uppercase tracking-widest text-black">{item.label}</p>
+              <p className="text-[11px] text-black/40 font-bold leading-tight italic">{item.desc}</p>
             </div>
-            {index < 3 && <span className="hidden md:block ml-auto text-slate-300">→</span>}
+            {index < 3 && <span className="hidden md:block ml-auto text-black/10">/</span>}
           </div>
         ))}
       </div>

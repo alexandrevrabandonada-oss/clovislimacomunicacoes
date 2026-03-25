@@ -191,100 +191,107 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="max-w-2xl bg-white p-8 md:p-12 rounded-[2rem] border-2 border-black/5 shadow-sm">
+    <div className="max-w-4xl mx-auto bg-white p-12 md:p-20 border-[4px] border-black shadow-[32px_32px_0px_0px_rgba(0,0,0,1)]">
       <Script
         src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
         strategy="afterInteractive"
         onLoad={() => setWidgetReady(true)}
       />
       
-      <header className="mb-8">
-        <h2 ref={headingRef} className={`reveal-heading text-4xl font-black italic tracking-tight ${revealed ? 'is-revealed' : ''}`}>
-          Onboarding <br/> <span className="text-accent underline decoration-slate-200">Consultivo</span>
+      <header className="mb-12 border-b-[3px] border-black pb-10">
+        <div className="flex items-center gap-3 mb-6">
+            <div className="w-3 h-3 bg-accent animate-pulse" />
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Technical_Onboarding // Protocolo_2026</p>
+        </div>
+        <h2 ref={headingRef} className={`reveal-heading text-5xl md:text-8xl font-black italic tracking-tighter leading-[0.8] uppercase ${revealed ? 'is-revealed' : ''}`}>
+          Onboarding <br/> <span className="text-accent">Consultivo</span>
         </h2>
-        <p className="mt-4 text-slate-600 font-medium leading-relaxed max-w-md">
-          Inicie uma interlocução técnica sobre o seu desafio. Cada pauta é analisada sob uma ótica de estratégia de informação e impacto visual.
+        <p className="mt-8 text-xl text-black font-bold leading-tight max-w-2xl italic border-l-8 border-black pl-8">
+          Inicie uma interlocução técnica soberana. Cada pauta é submetida a um diagnóstico de viabilidade estratégia e impacto narrativo imediato.
         </p>
       </header>
       
-      <div className="mb-10 p-8 bg-slate-900 text-white rounded-[2rem] relative overflow-hidden group shadow-2xl">
-        <div className="absolute top-0 right-0 p-6 opacity-10">
-           <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M12 2v20M2 12h20"/></svg>
+      <div className="mb-16 p-10 bg-black text-white border-[3px] border-black relative overflow-hidden group shadow-[16px_16px_0px_0px_rgba(239,68,68,1)]">
+        <div className="absolute top-0 right-0 p-8 opacity-10">
+           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M12 2v20M2 12h20"/></svg>
         </div>
-        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-6 flex items-center gap-2">
-          <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-          Protocolo de Triagem Estratégica:
+        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-accent mb-10 flex items-center gap-3">
+          <span className="w-2.5 h-2.5 bg-accent animate-ping" />
+          Protocolo_Triagem_Estratégica ::
         </h3>
-        <ul className="grid grid-cols-1 gap-6">
-          <li className="flex gap-4 items-start">
-            <span className="shrink-0 w-6 h-6 rounded-full bg-white/10 text-white text-[10px] flex items-center justify-center font-bold border border-white/20">01</span>
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <li className="flex flex-col gap-6 items-start">
+            <span className="shrink-0 w-8 h-8 bg-white text-black text-[12px] flex items-center justify-center font-black border-2 border-white shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]">01</span>
             <div>
-               <p className="text-[12px] font-bold text-white mb-1 uppercase tracking-wider">Qualificação de Pauta</p>
-               <p className="text-[11px] text-slate-400 leading-tight font-medium">Análise técnica da demanda e verificação de aderência ao repertório do estúdio.</p>
+               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Qualificação_Pauta</p>
+               <p className="text-[11px] text-white/50 leading-tight font-bold uppercase tracking-tight">Análise técnica da demanda e verificação de aderência ao repertório soberano do estúdio.</p>
             </div>
           </li>
-          <li className="flex gap-4 items-start">
-            <span className="shrink-0 w-6 h-6 rounded-full bg-white/10 text-white text-[10px] flex items-center justify-center font-bold border border-white/20">02</span>
+          <li className="flex flex-col gap-6 items-start">
+            <span className="shrink-0 w-8 h-8 bg-white text-black text-[12px] flex items-center justify-center font-black border-2 border-white shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]">02</span>
             <div>
-               <p className="text-[12px] font-bold text-white mb-1 uppercase tracking-wider">Diagnóstico de Viabilidade</p>
-               <p className="text-[11px] text-slate-400 leading-tight font-medium">Dimensionamento estratégico de esforço, prazos e impacto narrativo esperado.</p>
+               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Diagnóstico_Viabilidade</p>
+               <p className="text-[11px] text-white/50 leading-tight font-bold uppercase tracking-tight">Dimensionamento de esforço técnico, prazos críticos e impacto narrativo esperado.</p>
             </div>
           </li>
-          <li className="flex gap-4 items-start">
-            <span className="shrink-0 w-6 h-6 rounded-full bg-white/10 text-white text-[10px] flex items-center justify-center font-bold border border-white/20">03</span>
+          <li className="flex flex-col gap-6 items-start">
+            <span className="shrink-0 w-8 h-8 bg-white text-black text-[12px] flex items-center justify-center font-black border-2 border-white shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]">03</span>
             <div>
-               <p className="text-[12px] font-bold text-white mb-1 uppercase tracking-wider">Retorno Consultivo</p>
-               <p className="text-[11px] text-slate-400 leading-tight font-medium">Proposta técnica enviada por e-mail ou WhatsApp em até 24h úteis.</p>
+               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Retorno_Técnico</p>
+               <p className="text-[11px] text-white/50 leading-tight font-bold uppercase tracking-tight">Proposta técnica enviada via canal oficial em até 24h úteis.</p>
             </div>
           </li>
         </ul>
       </div>
 
       {status !== 'success' ? (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nome ou Empresa</label>
+        <form onSubmit={handleSubmit} className="space-y-10">
+          <div className="grid grid-cols-1 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-2">
+                <label className="text-[11px] font-black uppercase tracking-[0.3em] text-black/40 ml-1">Entidade / Identidade</label>
                 <input 
                   required 
                   placeholder="Seu nome ou Razão Social" 
-                  className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
+                  className="w-full rounded-none border-[3px] border-black bg-white p-5 text-sm focus:border-accent focus:ring-0 focus:outline-none transition-all font-black uppercase tracking-tight placeholder:text-black/20" 
                   value={name} 
                   onChange={e => setName(e.target.value)} 
                 />
               </div>
-              <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">E-mail Profissional</label>
+              <div className="space-y-2">
+                <label className="text-[11px] font-black uppercase tracking-[0.3em] text-black/40 ml-1">E-mail_Institucional</label>
                 <input 
                   type="email" 
                   required 
                   placeholder="seu@contato.com.br" 
-                  className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
+                  className="w-full rounded-none border-[3px] border-black bg-white p-5 text-sm focus:border-accent focus:ring-0 focus:outline-none transition-all font-black uppercase tracking-tight placeholder:text-black/20" 
                   value={email} 
                   onChange={e => setEmail(e.target.value)} 
                 />
               </div>
-              <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Telefone (WhatsApp)</label>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
+              <div className="space-y-2">
+                <label className="text-[11px] font-black uppercase tracking-[0.3em] text-black/40 ml-1">Canal_WhatsApp</label>
                 <input 
                   type="tel" 
                   placeholder="(00) 00000-0000" 
-                  className="w-full rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium" 
+                  className="w-full rounded-none border-[3px] border-black bg-white p-5 text-sm focus:border-accent focus:ring-0 focus:outline-none transition-all font-black uppercase tracking-tight placeholder:text-black/20" 
                   value={phone} 
                   onChange={e => setPhone(e.target.value)} 
                 />
               </div>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Briefing do Projeto</label>
+            <div className="space-y-2">
+              <label className="text-[11px] font-black uppercase tracking-[0.3em] text-black/40 ml-1">Briefing_Técnico :: Diagnóstico_Necessário</label>
               <textarea 
                 ref={messageRef} 
                 required 
-                rows={5} 
-                placeholder="Qual o seu principal desafio de comunicação ou pauta atual?" 
-                className="w-full h-full min-h-[195px] rounded-xl border-2 border-black/5 bg-slate-50 p-3.5 text-sm focus:border-black/20 focus:outline-none transition-all font-medium resize-none shadow-inner" 
+                rows={6} 
+                placeholder="Qual o seu principal desafio de comunicação ou pauta atual? Descreva o impacto desejado." 
+                className="w-full rounded-none border-[3px] border-black bg-white p-5 text-sm focus:border-accent focus:ring-0 focus:outline-none transition-all font-black uppercase tracking-tight placeholder:text-black/20 resize-none min-h-[250px]" 
                 value={message} 
                 onChange={e => setMessage(e.target.value)} 
               />
@@ -295,86 +302,86 @@ export default function ContactForm() {
             <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" value={honeypot} onChange={e => setHoneypot(e.target.value)} />
           </div>
 
-          <div className="space-y-4 pt-2">
-            <div className="min-h-[65px]">
+          <div className="space-y-8 pt-4">
+            <div className="min-h-[70px]">
               {turnstileStatus === 'error' ? (
-                <div className="bg-amber-50 p-4 rounded-xl border border-amber-100">
-                  <p className="text-xs text-amber-900 font-bold">Verificando segurança...</p>
-                  <p className="text-[10px] text-amber-700 mt-1">Se o verificador demorar, você pode usar o <a href={whatsappLink} onClick={() => trackEvent('click_contact_fallback_whatsapp')} className="underline font-bold">WhatsApp Direto</a> ou o <a href={`mailto:${leadEmail}`} onClick={() => trackEvent('click_contact_fallback_email')} className="underline font-bold">E-mail</a>.</p>
+                <div className="bg-red-50 p-6 border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                  <p className="text-sm text-black font-black uppercase tracking-widest leading-none">Erro de Verificação</p>
+                  <p className="text-[11px] text-black/60 mt-3 font-bold uppercase tracking-tight">Utilize o <a href={whatsappLink} onClick={() => trackEvent('click_contact_fallback_whatsapp')} className="underline text-accent">WhatsApp_Gabinete</a> ou o <a href={`mailto:${leadEmail}`} onClick={() => trackEvent('click_contact_fallback_email')} className="underline text-accent">E-mail_Direto</a>.</p>
                 </div>
               ) : (
                 <div ref={turnstileContainerRef} className="flex justify-center md:justify-start" />
               )}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-6">
                 <button
                 type="submit"
                 disabled={status === 'loading' || (hasTurnstile && !turnstileToken)}
-                className="flex-grow bg-black text-white py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-accent hover:scale-[1.01] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-grow bg-accent text-white py-6 border-[3px] border-black font-black text-xs uppercase tracking-[0.3em] hover:bg-black transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] disabled:opacity-50 disabled:cursor-not-allowed group"
                 >
-                {status === 'loading' ? 'Processando pauta...' : 'Solicitar Diagnóstico Técnico →'}
+                {status === 'loading' ? 'PROCESSANDO_PROTOCOLO...' : 'Protocolar Diagnóstico Técnico →'}
                 </button>
                 <a 
                 href={whatsappLink}
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => trackEvent('click_contact_alternative_whatsapp')}
-                className="inline-flex items-center justify-center px-6 py-4 bg-emerald-50 text-emerald-700 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-emerald-100 transition-colors border border-emerald-200"
+                className="inline-flex items-center justify-center px-10 py-6 bg-white text-black border-[3px] border-black font-black text-xs uppercase tracking-[0.3em] hover:bg-black hover:text-white transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)]"
                 >
-                WhatsApp ⚡
+                WhatsApp_Fast
                 </a>
             </div>
             
             {status === 'error' && (
-              <p className="text-center text-[10px] font-bold text-red-500 uppercase tracking-widest">{feedback}</p>
+              <p className="text-center text-[11px] font-black text-red-600 uppercase tracking-[0.3em]">{feedback}</p>
             )}
           </div>
         </form>
       ) : (
-        <div className="py-12 text-center animate-in fade-in zoom-in-95 duration-500">
-          <div className="w-20 h-20 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-200">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <div className="py-20 text-center animate-in fade-in zoom-in-95 duration-500">
+          <div className="w-24 h-24 bg-accent text-white border-[4px] border-black flex items-center justify-center mx-auto mb-10 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
-          <h3 className="text-3xl font-black text-black mb-4 italic">&quot;Briefing Recebido.&quot;</h3>
-          <p className="text-slate-600 max-w-sm mx-auto mb-10 leading-relaxed font-serif text-lg">
-            Sua solicitação já está na mesa de curadoria. Iniciei a análise das referências pertinentes à sua demanda.
+          <h3 className="text-5xl font-black text-black mb-6 italic uppercase tracking-tighter">&quot;Briefing_Protocolado&quot;</h3>
+          <p className="text-xl text-black/60 max-w-lg mx-auto mb-12 leading-tight font-black italic uppercase tracking-tighter">
+            Sua solicitação está na mesa de curadoria técnica. Iniciando análise de ativos e aderência estratégica.
           </p>
           
-          <div className="max-w-xs mx-auto text-left space-y-4 mb-12 bg-slate-50 p-6 rounded-2xl border border-black/5">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Linha do Tempo:</h4>
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-white text-[10px]">✓</div>
-              <p className="text-xs font-bold text-slate-800">Briefing em Análise</p>
+          <div className="max-w-md mx-auto text-left space-y-6 mb-16 bg-white p-8 border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]">
+            <h4 className="text-[11px] font-black uppercase tracking-[0.5em] text-black/30 mb-4">Pipeline_Status:</h4>
+            <div className="flex items-center gap-4">
+              <div className="w-6 h-6 bg-accent border-2 border-black flex items-center justify-center text-white text-[12px] font-black italic">!</div>
+              <p className="text-sm font-black uppercase tracking-tight italic">Briefing em Analise_Surgical</p>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 rounded-full border-2 border-emerald-500 flex items-center justify-center text-emerald-500 animate-pulse font-bold text-[10px]">⋯</div>
-              <p className="text-xs font-bold text-slate-800">Verificação de Aderência</p>
+            <div className="flex items-center gap-4">
+              <div className="w-6 h-6 border-2 border-black flex items-center justify-center text-black animate-pulse font-black text-[12px]">⋯</div>
+              <p className="text-sm font-black uppercase tracking-tight italic">Verificação de Aderência_Capability</p>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 rounded-full border-2 border-slate-200" />
-              <p className="text-xs font-medium text-slate-400">Retorno Estratégico (Até 24h)</p>
+            <div className="flex items-center gap-4 opacity-30">
+              <div className="w-6 h-6 border-2 border-black/20" />
+              <p className="text-sm font-black uppercase tracking-tight italic">Retorno Estratégico :: T_24h</p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-10">
              <button
               onClick={() => setStatus('idle')}
-              className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors"
+              className="text-[11px] font-black uppercase tracking-[0.4em] text-black/40 hover:text-black transition-colors"
             >
-              Enviar novo briefing
+              Protocolar_Novo_Briefing
             </button>
-            <div className="hidden sm:block h-4 w-px bg-slate-200" />
+            <div className="hidden sm:block h-6 w-[2px] bg-black/10" />
             <a 
               href={whatsappLink}
               target="_blank"
               rel="noreferrer"
               onClick={() => trackEvent('click_contact_success_whatsapp')}
-              className="group flex items-center gap-2 text-xs font-black uppercase tracking-widest text-accent hover:scale-105 transition-transform"
+              className="group flex items-center gap-3 text-xs font-black uppercase tracking-[0.3em] text-accent hover:rotate-2 transition-transform"
             >
-              Acelerar via Especialista ⚡
+              Acelerar via Gabinete ⚡
             </a>
           </div>
         </div>

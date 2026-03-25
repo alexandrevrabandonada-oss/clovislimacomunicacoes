@@ -29,7 +29,7 @@ export default function SectionShell({
       {/* Anchor for navigation if id is provided */}
       {id && <div className="absolute -top-24" aria-hidden="true" />}
       
-      <div className="w-full">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         {children}
       </div>
     </section>

@@ -57,37 +57,49 @@ export default function Header() {
   }, [sectionIds])
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur z-40 border-b">
-      <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
-        <div className="flex items-center gap-3">
-          <Link href="#hero" className="flex items-center gap-2">
+    <header className="fixed top-0 left-0 right-0 bg-white z-50 border-b-[3px] border-black shadow-sm">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
+        <div className="flex items-center gap-6">
+          <Link href="#hero" className="flex items-center gap-2 group">
             <Image 
               src="/brand/logo-horizontal.png" 
               alt="ESBOÇO criação & arte" 
-              width={140} 
-              height={40} 
-              className="h-8 w-auto object-contain"
+              width={160} 
+              height={45} 
+              className="h-10 w-auto object-contain group-hover:invert-0 transition-all"
               priority
             />
           </Link>
-          <span className="stamp">Estratégia & Design</span>
+          <div className="hidden lg:flex items-center gap-3 bg-black text-white px-4 py-1 border border-black group">
+             <span className="w-1.5 h-1.5 bg-accent animate-pulse" />
+             <span className="text-[9px] font-black uppercase tracking-[0.3em]">Protocolo_2026 :: Estratégia & Design v3.4</span>
+          </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-8">
           {navItems.map((item) => {
             const isActive = activeHash === item.href
-            const baseClass = item.label === 'Contato'
-              ? 'btn border px-3 py-1 rounded'
-              : 'hover:underline'
-            const activeClass = isActive ? ' underline font-semibold' : ''
+            const isContact = item.label === 'Contato'
+            
+            const baseClass = isContact
+              ? 'bg-black text-white px-6 py-2 border-[3px] border-black text-[11px] font-black uppercase tracking-widest hover:bg-accent hover:border-accent transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)]'
+              : 'text-[11px] font-black uppercase tracking-[0.2em] text-black/40 hover:text-black transition-colors relative group'
+            
+            const activeClass = isActive && !isContact ? ' text-black' : ''
 
-            return item.isPage ? (
-              <Link key={item.href} href={item.href} className={`${baseClass}${activeClass}`}>
-                {item.label}
-              </Link>
-            ) : (
-              <a key={item.href} href={item.href} className={`${baseClass}${activeClass}`}>
-                {item.label}
-              </a>
+            return (
+                <div key={item.href} className="flex flex-col items-center">
+                    {item.isPage ? (
+                        <Link href={item.href} className={`${baseClass}${activeClass}`}>
+                            {item.label}
+                            {isActive && !isContact && <div className="absolute -bottom-1 left-0 right-0 h-[2px] bg-accent" />}
+                        </Link>
+                    ) : (
+                        <a href={item.href} className={`${baseClass}${activeClass}`}>
+                            {item.label}
+                            {isActive && !isContact && <div className="absolute -bottom-1 left-0 right-0 h-[2px] bg-accent" />}
+                        </a>
+                    )}
+                </div>
             )
           })}
         </div>

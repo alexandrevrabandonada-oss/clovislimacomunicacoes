@@ -130,6 +130,22 @@
       "external_link": "https://apsustentabilidade.org/",
       "is_flagship": true,
       "content_warning": false
+    },
+    "unipampa-manga-curta.jpg": {
+      "file": "unipampa-manga-curta.jpg",
+      "slug": "unipampa-camisaria",
+      "title": "UNIPAMPA — Camisaria Institucional",
+      "subtitle": "Sistema gráfico aplicado em camisetas institucionais para a Educação do Campo.",
+      "year": 2024,
+      "client": "UNIPAMPA",
+      "vehicle": "Aplicação Física / Prints",
+      "tags": ["institucional", "camisaria", "universidade", "aplicação física", "licenciamento"],
+      "available_for_print": true,
+      "available_for_license": true,
+      "featured": true,
+      "tier": "curated",
+      "type": "prints / institucional / aplicação física",
+      "content_warning": false
     }
   }
 }

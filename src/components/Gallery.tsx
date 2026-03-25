@@ -96,7 +96,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
   return (
     <article
       ref={tiltRef}
-      className={`ink-card p-2 md:p-3 flex flex-col ${tileClass} group hover:shadow-2xl transition-all duration-300 relative bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)] hover:shadow-[12px_12px_0px_0px_rgba(239,68,68,0.1)]`}
+      className={`ink-card p-3 md:p-4 flex flex-col ${tileClass} group transition-all duration-300 relative bg-white border-[3px] border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[16px_16px_0px_0px_var(--accent)]`}
       role="button"
       tabIndex={0}
       aria-label={`Abrir obra ${item.title}`}
@@ -112,7 +112,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
         <div className="absolute top-4 left-4 z-20 pointer-events-none">
           <div className="relative group/flag">
             <div className="absolute inset-0 bg-accent blur-md opacity-20 group-hover/flag:opacity-40 transition-opacity" />
-            <span className="relative bg-black text-white text-[8px] px-3 py-1 font-black tracking-[0.2em] uppercase rounded-sm border border-accent flex items-center gap-2 shadow-2xl">
+            <span className="relative bg-black text-white text-[8px] px-4 py-2 font-black tracking-[0.3em] uppercase border-2 border-accent flex items-center gap-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <span className="w-1 h-1 rounded-full bg-accent animate-pulse" />
               Flagship Capability
             </span>
@@ -122,24 +122,24 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
 
       {item.tier === 'curated' && !item.isFlagship && (
         <div className="absolute top-4 left-4 z-10 pointer-events-none flex flex-col gap-1">
-          <span className="stamp text-[7px] px-2 py-0.5 bg-black text-white font-black tracking-[0.2em] uppercase rounded">Editorial Selection</span>
+          <span className="stamp text-[8px] px-3 py-1 bg-black text-white font-black tracking-[0.2em] uppercase border border-white/20">Editorial Selection</span>
           {item.type === 'Sites / PWA' && (
-            <span className="stamp text-[7px] px-2 py-0.5 bg-accent text-white font-black tracking-[0.2em] uppercase rounded shadow-lg">Digital / PWA</span>
+            <span className="stamp text-[8px] px-3 py-1 bg-accent text-white font-black tracking-[0.2em] uppercase border border-black shadow-lg">Digital / PWA</span>
           )}
         </div>
       )}
 
-      <div className={`ink-frame relative overflow-hidden bg-slate-50 border-b-2 border-black transition-all duration-500
+      <div className={`ink-frame relative overflow-hidden bg-white border-b-[3px] border-black transition-all duration-500
         ${containerAspect} 
-        ${imageLoaded ? 'bg-[radial-gradient(circle_at_center,#ffffff_0%,#f8fafc_100%)]' : 'bg-slate-50'}
+        ${imageLoaded ? 'bg-white' : 'bg-white'}
       `}>
         {/* Browser Frame Header for Tech/Digital */}
         {item.type === 'Sites / PWA' && (
-          <div className="absolute top-0 inset-x-0 h-6 bg-slate-900 flex items-center px-3 gap-1 z-20">
-            <div className="w-1 h-1 rounded-full bg-red-400" />
-            <div className="w-1 h-1 rounded-full bg-amber-400" />
-            <div className="w-1 h-1 rounded-full bg-emerald-400" />
-            <div className="ml-2 h-3 flex-grow bg-white/10 rounded-sm" />
+          <div className="absolute top-0 inset-x-0 h-8 bg-black flex items-center px-4 gap-2 z-20">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <div className="ml-3 h-4 flex-grow bg-white/5 border border-white/10" />
           </div>
         )}
 
@@ -174,21 +174,21 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
         <header className="min-h-[3rem] flex flex-col justify-start">
           <h3 className="font-black leading-tight text-base text-black group-hover:text-accent transition-colors line-clamp-2">{item.title}</h3>
           {item.subtitle && (
-            <p className="text-[10px] font-medium text-slate-500 mt-0.5 line-clamp-1 italic">{item.subtitle}</p>
+            <p className="text-[10px] font-bold text-black/40 mt-1 line-clamp-1 italic tracking-tight">{item.subtitle}</p>
           )}
         </header>
         
-        <div className="mt-auto pt-3 flex items-center justify-between border-t border-black/5">
-             <div className="flex gap-1">
+        <div className="mt-auto pt-4 flex items-center justify-between border-t-[2px] border-black/10">
+             <div className="flex gap-2">
               {item.availableForPrint && (
-                <div title="Print Disponível" className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <div title="Print Disponível" className="h-2 w-2 bg-emerald-500" />
               )}
               {item.availableForLicense && (
-                <div title="Licença Disponível" className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                <div title="Licença Disponível" className="h-2 w-2 bg-accent shadow-[0_0_8px_var(--accent)]" />
               )}
             </div>
-             <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:text-black transition-colors">
-              Analisar Ativo & Estratégia →
+             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-black/30 group-hover:text-black transition-colors">
+              Analisar Ativo →
             </span>
         </div>
       </div>
@@ -352,11 +352,15 @@ export default function Gallery() {
 
   return (
     <div className="pt-2">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-black/10 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b-[3px] border-black pb-10">
         <div>
-          <h2 ref={headingRef} className={`reveal-heading text-4xl md:text-5xl font-black ${revealed ? 'is-revealed' : ''}`}>Acervo Curado</h2>
-          <p className="mt-2 text-base text-slate-600 max-w-2xl italic font-serif leading-relaxed">
-            Repertório técnico e autoral aplicável a pautas editoriais, veículos de mídia e campanhas de impacto.
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-3 h-3 bg-accent animate-pulse" />
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Repertório Técnico & Curadoria Editorial</p>
+          </div>
+          <h2 ref={headingRef} className={`reveal-heading text-4xl md:text-7xl font-black tracking-tighter leading-[0.85] text-black ${revealed ? 'is-revealed' : ''}`}>Acervo <br/> <span className="italic font-serif text-accent text-glow">Surgical Assets</span></h2>
+          <p className="mt-6 text-lg text-black font-bold max-w-2xl italic leading-tight border-l-[6px] border-black pl-8">
+            Intervenções visuais de alta densidade técnica aplicáveis a pautas editoriais, governança e campanhas de soberania digital.
           </p>
         </div>
         
@@ -365,14 +369,14 @@ export default function Gallery() {
             type="search"
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
-            placeholder="Buscar no acervo..."
-            className="w-full rounded-full border border-black/10 bg-slate-50 px-4 py-1.5 text-xs focus:ring-1 focus:ring-accent outline-none"
+            placeholder="FILTRAR_ACERVO_ID :: SEARCH"
+            className="w-full rounded-none border-[3px] border-black bg-white px-6 py-3 text-[11px] font-black uppercase tracking-widest focus:ring-0 focus:border-accent outline-none shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
           />
           <div className="flex gap-2">
               <select
                 value={typeFilter}
                 onChange={(event) => setTypeFilter(event.target.value)}
-                className="flex-1 rounded-full border border-black/10 bg-slate-50 px-3 py-1 text-[10px] font-bold uppercase tracking-widest outline-none"
+                className="flex-1 rounded-none border-[3px] border-black bg-white px-4 py-3 text-[10px] font-black uppercase tracking-widest outline-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)]"
               >
                 {availableTypes.map((type) => (
                   <option key={type} value={type}>
@@ -382,7 +386,7 @@ export default function Gallery() {
               </select>
               <button 
                 onClick={() => setFilter(filter === 'safe' ? 'all' : 'safe')}
-                className={`px-3 py-1 rounded-full border border-black/10 text-[10px] font-bold uppercase tracking-widest transition-all ${filter === 'safe' ? 'bg-black text-white' : 'bg-slate-50'}`}
+                className={`px-5 py-3 rounded-none border-[3px] border-black text-[10px] font-black uppercase tracking-widest transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)] ${filter === 'safe' ? 'bg-black text-white' : 'bg-white text-black'}`}
               >
                 {filter === 'safe' ? 'Filtro Ativo' : 'Sensível: ON'}
               </button>
@@ -429,28 +433,29 @@ export default function Gallery() {
                     const featured = items.find(i => i.featured);
                     if (!featured) return null;
                     return (
-                        <div className="grid md:grid-cols-2 gap-8 items-center bg-white p-6 md:p-12 border-[3px] border-black shadow-[20px_20px_0px_0px_rgba(0,0,0,1)] hover:shadow-[24px_24px_0px_0px_rgba(239,68,68,0.1)] transition-all">
-                            <div className="ink-frame relative aspect-[4/3] md:aspect-[16/10] overflow-hidden border-[3px] border-black bg-white shadow-xl group-hover:scale-[1.01] transition-transform">
+                        <div className="grid md:grid-cols-2 gap-12 items-center bg-white p-10 md:p-20 border-[4px] border-black shadow-[32px_32px_0px_0px_rgba(0,0,0,1)] hover:shadow-[40px_40px_0px_0px_var(--accent)] transition-all group-hover:bg-black group-hover:text-white group">
+                            <div className="ink-frame relative aspect-[4/3] md:aspect-[16/10] overflow-hidden border-[3px] border-black bg-white shadow-2xl group-hover:scale-[1.03] transition-transform">
                                 <Image 
                                     src={featured.src} 
                                     alt={featured.title} 
                                     fill 
-                                    className="object-contain p-6" 
+                                    className="object-contain p-10"
                                 />
+                                <div className="absolute inset-0 bg-accent/5 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
-                            <div className="space-y-8">
+                            <div className="space-y-12">
                                 <div>
-                                    <span className="text-[11px] font-black uppercase tracking-[0.4em] text-accent mb-4 block">Capacidade de Entrega / {featured.type}</span>
-                                    <h4 className="text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter italic mb-4">&quot;{featured.title}&quot;</h4>
-                                    <p className="text-slate-900 font-bold italic text-xl mt-6 leading-tight border-l-4 border-black pl-6">&quot;{featured.subtitle}&quot;</p>
+                                    <span className="text-[12px] font-black uppercase tracking-[0.5em] text-accent mb-6 block">Flagship_Asset // {featured.type}</span>
+                                    <h4 className="text-5xl md:text-8xl font-black leading-[0.8] tracking-tighter italic mb-8 uppercase">&quot;{featured.title}&quot;</h4>
+                                    <p className="text-xl md:text-2xl font-black italic mt-8 leading-none border-l-[8px] border-accent pl-8">&quot;{featured.subtitle}&quot;</p>
                                 </div>
-                                <div className="pt-8 border-t-2 border-slate-900 flex flex-wrap gap-6 items-center">
-                                    <button className="ink-button bg-black text-white px-10 py-5 text-xs">
-                                        Explorar Destaque Técnico →
+                                <div className="pt-12 border-t-[3px] border-current flex flex-wrap gap-10 items-center">
+                                    <button className="ink-button bg-accent text-white border-black px-12 py-6 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+                                        Explorar Ativo →
                                     </button>
                                     <div className="flex flex-col">
-                                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Entidade / Relacionamento</span>
-                                        <span className="text-xs font-bold text-black uppercase tracking-widest">{featured.client || 'Acervo Estratégico'}</span>
+                                        <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-2">Authority_Client</span>
+                                        <span className="text-sm font-black uppercase tracking-widest">{featured.client || 'Strategic_Archive'}</span>
                                     </div>
                                 </div>
                             </div>

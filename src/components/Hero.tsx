@@ -57,17 +57,17 @@ export default function Hero({ works }: HeroProps) {
       <div className="z-10">
         <div className="flex items-center gap-3 mb-6">
           <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">ESTÚDIO DE DESIGN & ESTRATÉGIA</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">ESTÚDIO DE DESIGN & ESTRATÉGIA</p>
         </div>
         
         <h1
           ref={headingRef}
-          className={`hero-kinetic-title text-5xl md:text-8xl font-black leading-[0.9] tracking-tighter text-slate-900 ${revealed ? 'is-revealed' : ''}`}
+          className={`hero-kinetic-title text-5xl md:text-8xl font-black leading-[0.9] tracking-tighter text-black ${revealed ? 'is-revealed' : ''}`}
         >
           {titleWords.map((word, index) => (
             <Fragment key={`${word}-${index}`}>
               <span
-                className={`hero-kinetic-word ${word === 'estratégica.' ? 'hero-ink-underline italic' : ''}`}
+                className={`hero-kinetic-word ${word === 'estratégica.' ? 'hero-ink-underline italic font-serif' : ''}`}
                 style={{ ['--d' as string]: index }}
               >
                 {word}
@@ -76,7 +76,7 @@ export default function Hero({ works }: HeroProps) {
             </Fragment>
           ))}
         </h1>
-        <p className="mt-10 max-w-xl text-xl md:text-2xl text-slate-900 font-bold leading-tight italic border-l-[6px] border-slate-900 pl-8">
+        <p className="mt-10 max-w-xl text-xl md:text-2xl text-black font-bold leading-tight italic border-l-[6px] border-black pl-8">
           Atendimento consultivo focado em autoridade digital e narrativa visual técnica.
         </p>
         
@@ -96,29 +96,29 @@ export default function Hero({ works }: HeroProps) {
             Diagnóstico Técnico
           </a>
         </div>
-        <div className="mt-8 flex items-center gap-3 opacity-80">
-           <div className="h-[2px] w-8 bg-slate-900" />
-           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900">Agendamento via Consultiva Direta</p>
+        <div className="mt-8 flex items-center gap-3 opacity-90">
+           <div className="h-[3px] w-8 bg-black" />
+           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-black">Agendamento via Consultiva Direta</p>
         </div>
       </div>
 
       {featuredImage ? (
         <div className="relative group perspective-1000">
           {/* Main Proof Container */}
-          <div className="relative z-10 ink-card p-0 overflow-hidden bg-slate-50 border-[3px] border-slate-900 shadow-[20px_20px_0px_0px_rgba(15,23,42,0.05)] aspect-[16/11] md:aspect-[16/10] group-hover:shadow-none group-hover:translate-x-1 group-hover:translate-y-1 transition-all duration-500">
+          <div className="relative z-10 ink-card p-0 overflow-hidden bg-white border-[3px] border-black shadow-[24px_24px_0px_0px_rgba(0,0,0,1)] aspect-[16/11] md:aspect-[16/10] group-hover:shadow-[28px_28px_0px_0px_var(--accent)] transition-all duration-500">
             
             {/* High-Fidelity Browser Frame UI */}
-            <div className="absolute top-0 inset-x-0 h-10 bg-slate-900 flex items-center px-4 justify-between z-20">
+            <div className="absolute top-0 inset-x-0 h-10 bg-black flex items-center px-4 justify-between z-20">
               <div className="flex gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
               </div>
               <div className="bg-white/10 px-4 py-1 rounded-md flex items-center gap-2 max-w-[200px] sm:max-w-[300px]">
                 <div className="w-3 h-3 text-white/40">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/><path d="M2 12H22"/><path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z"/></svg>
                 </div>
-                <span className="text-[9px] text-white/60 font-medium truncate tracking-tight">esboco.me/projeto/{featuredSafeWork?.slug || 'aps-sustentabilidade'}</span>
+                <span className="text-[9px] text-white/80 font-black truncate tracking-widest uppercase">esboco.me/projeto/{featuredSafeWork?.slug || 'aps-sustentabilidade'}</span>
               </div>
               <div className="w-8 h-8 flex items-center justify-center">
                 <div className="w-1.5 h-1.5 bg-white/20 rounded-full" />
@@ -139,9 +139,9 @@ export default function Hero({ works }: HeroProps) {
                 {/* Mobile Proof - Double Evidence for APS */}
                 {isAPS && (
                   <div className="absolute bottom-2 right-2 w-[80px] sm:w-[120px] aspect-[9/19] z-30 transition-all duration-700 delay-300 group-hover:scale-110 group-hover:-translate-y-4">
-                    <div className="relative w-full h-full ink-card p-0 overflow-hidden border-2 border-slate-900 shadow-2xl bg-white rounded-lg sm:rounded-2xl">
+                    <div className="relative w-full h-full ink-card p-0 overflow-hidden border-2 border-black shadow-2xl bg-white rounded-lg sm:rounded-2xl">
                         {/* Mobile Header */}
-                        <div className="absolute top-0 inset-x-0 h-3 bg-slate-900 flex items-center justify-center gap-0.5 z-20">
+                        <div className="absolute top-0 inset-x-0 h-3 bg-black flex items-center justify-center gap-0.5 z-20">
                           <div className="w-4 h-0.5 bg-white/20 rounded-full" />
                         </div>
                         <div className="absolute inset-0 pt-3">
@@ -157,21 +157,21 @@ export default function Hero({ works }: HeroProps) {
                 )}
                 
                 {/* Deployed State Overlay */}
-                <div className="absolute bottom-4 left-4 bg-emerald-500 text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded shadow-xl flex items-center gap-2 border border-black/10">
+                <div className="absolute bottom-4 left-4 bg-emerald-500 text-white text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded shadow-xl flex items-center gap-2 border border-black/10">
                     <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
-                    PROJETO ATIVO / PROVA REAL PWA
+                    CASE REAL / AUTORIDADE 2026
                 </div>
               </div>
             </div>
           </div>
 
           {/* Floating Strategic Labels - Consolidated */}
-          <div className="absolute -top-6 -right-6 z-30 bg-accent text-white border-2 border-black px-5 py-2 font-black text-[11px] uppercase tracking-widest shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] -rotate-3 transition-all hover:rotate-0 hover:scale-105">
-             {isAPS ? 'CASE REAL · APS SUSTENTABILIDADE' : 'PROVA REAL · AUTORIDADE DIGITAL'}
+          <div className="absolute -top-6 -right-6 z-30 bg-accent text-white border-[3px] border-black px-6 py-3 font-black text-[12px] uppercase tracking-[0.3em] shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] -rotate-3 transition-all hover:rotate-0 hover:scale-105">
+             {isAPS ? 'PROVA TÉCNICA · APS SUSTENTABILIDADE' : 'PROVA REAL · AUTORIDADE DIGITAL'}
           </div>
           
-          <div className="absolute -bottom-6 -left-6 z-30 bg-white border-2 border-black px-4 py-2 text-slate-900 font-bold text-[10px] uppercase tracking-[0.25em] shadow-xl rotate-2">
-            {isAPS ? 'PWA INSTITUCIONAL / ESTRATÉGIA' : 'ESTÚDIO DE ESTRATÉGIA ⚡ 2026'}
+          <div className="absolute -bottom-6 -left-6 z-30 bg-white border-[3px] border-black px-5 py-3 text-black font-black text-[10px] uppercase tracking-[0.3em] shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rotate-2">
+            {isAPS ? 'PWA INSTITUCIONAL / NEXT.JS' : 'ESTÚDIO DE ESTRATÉGIA ⚡ 2026'}
           </div>
         </div>
       ) : null}
