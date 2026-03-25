@@ -142,34 +142,6 @@ export const cases: Case[] = [
         screenshot_url: '/portfolio/books/barnabe.jpg'
     },
     {
-        slug: 'juquinha-vencedor',
-        category: 'Ilustração Editorial',
-        client: 'Editora Criativa Leitura',
-        sector: 'Literatura Infantil',
-        title: 'O Sonho que Tornou Juquinha um Vencedor',
-        summary: 'Obra educativa sobre disciplina e foco para jovens leitores.',
-        diagnostic: 'Equilibrar ludicidade com a seriedade de uma trajetória de sucesso.',
-        intervention: 'Estética inspirada em conquistas esportivas e superação pessoal.',
-        impact: 'Material base para palestras em escolas de ensino fundamental.',
-        isBook: true,
-        bookMetadata: {
-            author: 'Marcio Marinho Nogueira',
-            category: 'Capa Infantil / Educativo',
-            audience: 'Infantil / Juvenil',
-            language: 'Português',
-            edition: '1ª Edição',
-            type: 'Capa e Ilustrações'
-        },
-        evidence: 'REDE: ESCOLAR PR/SP',
-        methodology: 'Narrativa Visual Linear',
-        proof: {
-            deliverables: 'Capa e 12 Pranchas Chave',
-            format: 'Digital Art',
-            impactType: 'Impacto Pedagógico'
-        },
-        screenshot_url: '/portfolio/books/juquinha.png'
-    },
-    {
         slug: 'mequinho-pelo-poco',
         category: 'Ilustração Editorial',
         client: 'Editora Criativa Leitura',
@@ -224,90 +196,6 @@ export const cases: Case[] = [
             impactType: 'Vida Útil de Ativo'
         },
         screenshot_url: '/portfolio/books/mequinho.jpg'
-    },
-    {
-        slug: 'mae-terra',
-        category: 'Ilustração Editorial',
-        client: 'Editora Sustentar',
-        sector: 'Sustentabilidade',
-        title: 'Uma Mãe Chamada Terra',
-        summary: 'Abordagem personificada e poética sobre ecologia e preservação.',
-        diagnostic: 'Humanizar o planeta para gerar conexão emocional imediata.',
-        intervention: 'Pintura digital onírica com elementos de natureza integrada.',
-        impact: 'Adotado por ONGs socioambientais para educação de base.',
-        isBook: true,
-        bookMetadata: {
-            author: 'Marcio Marinho Nogueira',
-            category: 'Infantojuvenil / Paradidático',
-            audience: 'Juvenil / Escolar',
-            language: 'Português',
-            edition: '1ª Edição',
-            type: 'Capa e Ilustrações'
-        },
-        evidence: 'FRENTE: ESG / EDUCACIONAL',
-        methodology: 'Antropomorfização Poética',
-        proof: {
-            deliverables: 'Capa e 16 Ilustrações Internas',
-            format: 'Digital Painting',
-            impactType: 'Consciência Ambiental'
-        },
-        screenshot_url: '/portfolio/books/mae-terra.png'
-    },
-    {
-        slug: 'forca-natureza',
-        category: 'Ilustração Editorial',
-        client: 'Editora Sustentar',
-        sector: 'Ecologia',
-        title: 'A Força da Natureza',
-        summary: 'Exploração dos elementos naturais e seu impacto no equilíbrio global.',
-        diagnostic: 'Representar o poder da natureza sem torná-lo assustador para crianças.',
-        intervention: 'Personificações amigáveis de vento, chuva e florestas.',
-        impact: 'Material didático de apoio para feiras de ciências.',
-        isBook: true,
-        bookMetadata: {
-            author: 'Marcio Marinho Nogueira',
-            category: 'Capa Infantil / Ecologia',
-            audience: 'Infantil',
-            language: 'Português',
-            edition: '1ª Edição',
-            type: 'Capa e Ilustrações'
-        },
-        evidence: 'ACERVO: CIÊNCIAS/NAT',
-        methodology: 'Design de Elementos',
-        proof: {
-            deliverables: 'Design de Cenários e Capa',
-            format: 'Digital Art',
-            impactType: 'Engajamento Escolar'
-        },
-        screenshot_url: '/portfolio/books/forca-natureza.png'
-    },
-    {
-        slug: 'maior-magica',
-        category: 'Ilustração Editorial',
-        client: 'Editora Fantasia Viva',
-        sector: 'Literatura Infantil',
-        title: 'A Maior Mágica do Mundo',
-        summary: 'Narrativa sobre a mágica do conhecimento e da leitura.',
-        diagnostic: 'Visualizar a "mágica da leitura" de forma expansiva e vibrante.',
-        intervention: 'Uso de paleta roxo/dourada e elementos flutuantes (livros, luzes).',
-        impact: 'Premiação interna de melhor direção de arte em editora parceira.',
-        isBook: true,
-        bookMetadata: {
-            author: 'Marcio Marinho Nogueira',
-            category: 'Fantasia / Infantil',
-            audience: 'Infantil',
-            language: 'Português',
-            edition: '1ª Edição',
-            type: 'Capa e Ilustrações'
-        },
-        evidence: 'AWARD: BEST_ART_DIRECTION',
-        methodology: 'Narrativa Visual Mágica',
-        proof: {
-            deliverables: 'Capa e Concept Art',
-            format: 'Special Edition Render',
-            impactType: 'Desejo de Consumo'
-        },
-        screenshot_url: '/portfolio/books/maior-magica.png'
     },
     {
         slug: 'politica-institucional',
