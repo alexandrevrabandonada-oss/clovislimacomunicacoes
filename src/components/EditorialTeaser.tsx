@@ -55,7 +55,7 @@ export default function EditorialTeaser() {
                </p>
                <div className="pt-6 border-t border-black/10 flex flex-col gap-2">
                     <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Status_Publicação</span>
-                    <span className="text-xs font-black uppercase">{flagshipBook.bookMetadata?.edition} // {flagshipBook.bookMetadata?.author}</span>
+                     <span className="text-xs font-black uppercase">{flagshipBook.bookMetadata?.edition} {'//'} {flagshipBook.bookMetadata?.author}</span>
                </div>
                <Link href={`/acervo/${flagshipBook.slug}`} className="text-xs font-black uppercase tracking-widest text-accent flex items-center gap-2 group-hover:translate-x-2 transition-transform">
                 Analisar Ativo Editorial →

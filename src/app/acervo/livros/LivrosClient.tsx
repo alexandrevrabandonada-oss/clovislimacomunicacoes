@@ -114,7 +114,7 @@ export default function LivrosClient() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-2xl">
                 <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-[0.9] mb-6 italic">Arquitetura Editorial <br/> de Impacto</h2>
-                <p className="text-sm font-bold opacity-60 uppercase leading-relaxed">Não é sobre "fazer uma capa". É sobre construir a porta de entrada para um universo de leitura capaz de converter atenção em adesão literária.</p>
+                <p className="text-sm font-bold opacity-60 uppercase leading-relaxed">Não é sobre &quot;fazer uma capa&quot;. É sobre construir a porta de entrada para um universo de leitura capaz de converter atenção em adesão literária.</p>
             </div>
             <div className="grid grid-cols-2 gap-4 text-center">
                 <div className="p-4 bg-black text-white">
@@ -180,7 +180,7 @@ export default function LivrosClient() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="group relative bg-white border-[3px] border-black p-10 hover:shadow-[16px_16px_0px_0px_var(--accent)] transition-all">
-                <span className="text-xs font-black text-accent block mb-4 italic">Caso_Técnico // Conversão de Capa</span>
+                <span className="text-xs font-black text-accent block mb-4 italic">Caso_Técnico {"//"} Conversão de Capa</span>
                 <h3 className="text-2xl font-black uppercase tracking-tight mb-6">Transformando Concept em Presença Comercial</h3>
                 <p className="text-xs font-bold leading-relaxed uppercase opacity-80 mb-8 max-w-lg">
                     O desafio de capas infantis é equilibrar a linguagem lúdica para a criança com a autoridade técnica para o comprador (pais/escola). Nossos diagnósticos focam em legibilidade de título e saturação estratégica para o PDV digital ou físico.
@@ -193,7 +193,7 @@ export default function LivrosClient() {
                 </ul>
             </div>
             <div className="group relative bg-black text-white border-[3px] border-black p-10 hover:shadow-[16px_16px_0px_0px_var(--accent)] transition-all">
-                <span className="text-xs font-black text-accent block mb-4 italic">Estratégia // World Building</span>
+                <span className="text-xs font-black text-accent block mb-4 italic">Estratégia {"//"} World Building</span>
                 <h3 className="text-2xl font-black uppercase tracking-tight mb-6">Construção de Universos para Coleções</h3>
                 <p className="text-xs font-bold leading-relaxed uppercase opacity-80 mb-8 max-w-lg">
                     Para editoras que buscam serialização, o estúdio entrega não apenas uma ilustração, mas um Guia de Estilo Editorial. Isso garante que o Volume 1 e o Volume 10 possuam a mesma coerência cromática e estrutural, reduzindo custos de direção de arte futuros.
