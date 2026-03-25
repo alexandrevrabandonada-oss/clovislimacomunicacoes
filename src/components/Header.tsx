@@ -11,6 +11,7 @@ type NavItem = {
 }
 
 const navItems: NavItem[] = [
+  { label: 'Livros', href: '/acervo/livros', isPage: true },
   { label: 'Acervo', href: '#trabalhos' },
   { label: 'Cases', href: '/cases', isPage: true },
   { label: 'Soluções', href: '#servicos' },

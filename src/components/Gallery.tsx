@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
 import Modal from './Modal'
 import { trackEvent } from '../lib/analytics'
@@ -362,6 +363,23 @@ export default function Gallery() {
           <p className="mt-6 text-lg text-black font-bold max-w-2xl italic leading-tight border-l-[6px] border-black pl-8">
             Intervenções visuais de alta densidade técnica aplicáveis a pautas editoriais, governança e campanhas de soberania digital.
           </p>
+          
+          {/* FRENTE EDITORIAL TEASER */}
+          <Link 
+            href="/acervo/livros" 
+            className="mt-10 inline-flex items-center gap-6 p-6 border-[3px] border-black bg-white shadow-[10px_10px_0px_0px_var(--accent)] hover:shadow-[14px_14px_0px_0px_var(--accent)] hover:-translate-y-1 transition-all group"
+          >
+            <div className="relative h-16 w-12 border-2 border-black shadow-md overflow-hidden bg-slate-100 italic flex items-center justify-center text-[8px] font-black uppercase text-black/20">
+              Cover_Prot
+            </div>
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-1 block">Frente_Editorial_Disponível</span>
+              <h4 className="text-xl font-black uppercase tracking-tighter leading-none italic">Livros & Ilustração Editorial</h4>
+              <p className="text-[10px] font-bold text-black/50 uppercase tracking-widest mt-2 flex items-center gap-2">
+                Explorar Biblioteca Pública <span className="text-accent group-hover:translate-x-2 transition-transform">→</span>
+              </p>
+            </div>
+          </Link>
         </div>
         
         <div className="flex flex-col gap-2 min-w-[200px]">
