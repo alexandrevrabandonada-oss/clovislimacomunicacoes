@@ -53,16 +53,16 @@ export default function Hero({ works }: HeroProps) {
   const titleWords = ['Criação,', 'arte', '&', 'direção', 'estratégica.']
 
   return (
-    <div className="min-h-[60vh] md:min-h-[65vh] grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center strategy-grid py-8 md:py-16">
+    <div className="min-h-[50vh] md:min-h-[60vh] grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center strategy-grid py-12 md:py-20">
       <div className="z-10">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">ESTÚDIO DE ESTRATÉGIA & DESIGN</p>
+        <div className="flex items-center gap-3 mb-6">
+          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">ESTÚDIO DE DESIGN & ESTRATÉGIA</p>
         </div>
         
         <h1
           ref={headingRef}
-          className={`hero-kinetic-title text-5xl md:text-7xl font-black leading-[0.95] tracking-tight text-slate-900 ${revealed ? 'is-revealed' : ''}`}
+          className={`hero-kinetic-title text-5xl md:text-8xl font-black leading-[0.9] tracking-tighter text-slate-900 ${revealed ? 'is-revealed' : ''}`}
         >
           {titleWords.map((word, index) => (
             <Fragment key={`${word}-${index}`}>
@@ -76,29 +76,29 @@ export default function Hero({ works }: HeroProps) {
             </Fragment>
           ))}
         </h1>
-        <p className="mt-8 max-w-xl text-lg md:text-xl text-slate-600 font-medium leading-relaxed italic border-l-4 border-slate-100 pl-6">
-          Atendimento consultivo focado em autoridade digital e narrativa visual técnica para organizações que buscam impacto real.
+        <p className="mt-10 max-w-xl text-xl md:text-2xl text-slate-900 font-bold leading-tight italic border-l-[6px] border-slate-900 pl-8">
+          Atendimento consultivo focado em autoridade digital e narrativa visual técnica.
         </p>
         
-        <div className="mt-10 flex flex-col sm:flex-row gap-4">
+        <div className="mt-12 flex flex-col sm:flex-row gap-5">
           <a
             href="#trabalhos"
             onClick={() => trackEvent('click_cta_portfolio')}
-            className="ink-button inline-block text-center bg-black text-white px-8 py-4 font-black uppercase text-[11px] tracking-widest hover:bg-accent transition-all shadow-2xl"
+            className="ink-button inline-block text-center bg-black text-white px-10 py-5 text-[11px] tracking-widest"
           >
             Analisar Repertório →
           </a>
           <a
             href="#servicos"
             onClick={() => trackEvent('click_cta_servicos')}
-            className="ink-button inline-block text-center px-8 py-4 font-black uppercase text-[11px] tracking-widest bg-white border-2 border-slate-100 hover:border-black transition-all"
+            className="ink-button inline-block text-center px-10 py-5 text-[11px] tracking-widest"
           >
             Diagnóstico Técnico
           </a>
         </div>
-        <div className="mt-6 flex items-center gap-2 opacity-60">
-           <div className="h-px w-6 bg-slate-300" />
-           <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Agendamento via Consultiva Direta</p>
+        <div className="mt-8 flex items-center gap-3 opacity-80">
+           <div className="h-[2px] w-8 bg-slate-900" />
+           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900">Agendamento via Consultiva Direta</p>
         </div>
       </div>
 

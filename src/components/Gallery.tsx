@@ -96,7 +96,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
   return (
     <article
       ref={tiltRef}
-      className={`ink-card p-2 md:p-3 flex flex-col ${tileClass} group hover:shadow-2xl transition-all duration-300 relative bg-white border border-black/5 rounded-2xl`}
+      className={`ink-card p-2 md:p-3 flex flex-col ${tileClass} group hover:shadow-2xl transition-all duration-300 relative bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)] hover:shadow-[12px_12px_0px_0px_rgba(239,68,68,0.1)]`}
       role="button"
       tabIndex={0}
       aria-label={`Abrir obra ${item.title}`}
@@ -129,7 +129,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
         </div>
       )}
 
-      <div className={`ink-frame relative overflow-hidden rounded-xl bg-slate-50 border border-black/5 transition-all duration-500
+      <div className={`ink-frame relative overflow-hidden bg-slate-50 border-b-2 border-black transition-all duration-500
         ${containerAspect} 
         ${imageLoaded ? 'bg-[radial-gradient(circle_at_center,#ffffff_0%,#f8fafc_100%)]' : 'bg-slate-50'}
       `}>
@@ -187,8 +187,8 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
                 <div title="Licença Disponível" className="h-1.5 w-1.5 rounded-full bg-blue-500" />
               )}
             </div>
-            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:text-black transition-colors">
-              Ver Detalhes & Estratégia →
+             <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:text-black transition-colors">
+              Analisar Ativo & Estratégia →
             </span>
         </div>
       </div>
@@ -429,26 +429,29 @@ export default function Gallery() {
                     const featured = items.find(i => i.featured);
                     if (!featured) return null;
                     return (
-                        <div className="grid md:grid-cols-2 gap-8 items-center bg-slate-50 p-6 md:p-10 rounded-[2.5rem] border border-black/5 hover:border-black/20 transition-all">
-                            <div className="ink-frame relative aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-2xl group-hover:scale-[1.01] transition-transform">
+                        <div className="grid md:grid-cols-2 gap-8 items-center bg-white p-6 md:p-12 border-[3px] border-black shadow-[20px_20px_0px_0px_rgba(0,0,0,1)] hover:shadow-[24px_24px_0px_0px_rgba(239,68,68,0.1)] transition-all">
+                            <div className="ink-frame relative aspect-[4/3] md:aspect-[16/10] overflow-hidden border-[3px] border-black bg-white shadow-xl group-hover:scale-[1.01] transition-transform">
                                 <Image 
                                     src={featured.src} 
                                     alt={featured.title} 
                                     fill 
-                                    className="object-contain p-4" 
+                                    className="object-contain p-6" 
                                 />
                             </div>
-                            <div className="space-y-6">
+                            <div className="space-y-8">
                                 <div>
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2 block">{featured.type}</span>
-                                    <h4 className="text-3xl md:text-5xl font-black leading-tight italic">&quot;{featured.title}&quot;</h4>
-                                    <p className="text-slate-600 font-serif italic text-lg mt-4 leading-relaxed">&quot;{featured.subtitle}&quot;</p>
+                                    <span className="text-[11px] font-black uppercase tracking-[0.4em] text-accent mb-4 block">Capacidade de Entrega / {featured.type}</span>
+                                    <h4 className="text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter italic mb-4">&quot;{featured.title}&quot;</h4>
+                                    <p className="text-slate-900 font-bold italic text-xl mt-6 leading-tight border-l-4 border-black pl-6">&quot;{featured.subtitle}&quot;</p>
                                 </div>
-                                <div className="pt-6 border-t border-black/10 flex flex-wrap gap-4 items-center">
-                                    <button className="bg-black text-white px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest hover:bg-accent transition-colors">
-                                        Explorar Destaque →
+                                <div className="pt-8 border-t-2 border-slate-900 flex flex-wrap gap-6 items-center">
+                                    <button className="ink-button bg-black text-white px-10 py-5 text-xs">
+                                        Explorar Destaque Técnico →
                                     </button>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{featured.client || 'Acervo Vivo'}</span>
+                                    <div className="flex flex-col">
+                                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Entidade / Relacionamento</span>
+                                        <span className="text-xs font-bold text-black uppercase tracking-widest">{featured.client || 'Acervo Estratégico'}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
