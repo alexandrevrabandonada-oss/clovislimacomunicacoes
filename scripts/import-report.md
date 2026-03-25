@@ -1,21 +1,21 @@
 # Portfolio Import Report
 
-- Generated at: 2026-02-25T13:49:15.095Z
+- Generated at: 2026-03-25T15:54:57.770Z
 - Source folder: `public/portfolio`
 - Resolved source path: `C:\Projetos\Clovis Lima Comunicações\public\portfolio`
 - Bucket: `portfolio`
 - Dry run: no
 - Manifest loaded: yes
-- Manifest entries: 7
-- Image files found: 7
+- Manifest entries: 8
+- Image files found: 10
 - Manifest files missing on disk: 0
 
 ## Summary
 
 - Created: 0
-- Updated: 7
+- Updated: 0
 - Unchanged: 0
-- Failed: 0
+- Failed: 10
 - Planned (dry-run): 0
 
 ## Manifest Validation
@@ -26,10 +26,13 @@
 
 | File | Slug | Status | Detail |
 | --- | --- | --- | --- |
-| `WhatsApp Image 2026-02-21 at 20.44.49.jpeg` | `whatsapp-image-2026-02-21-at-204449` | updated | arquivo/metadata atualizados |
-| `WhatsApp Image 2026-02-21 at 20.45.52.jpeg` | `whatsapp-image-2026-02-21-at-204552` | updated | arquivo/metadata atualizados |
-| `WhatsApp Image 2026-02-21 at 20.46.24.jpeg` | `whatsapp-image-2026-02-21-at-204624` | updated | arquivo/metadata atualizados |
-| `WhatsApp Image 2026-02-21 at 20.46.53.jpeg` | `whatsapp-image-2026-02-21-at-204653` | updated | arquivo/metadata atualizados |
-| `WhatsApp Image 2026-02-21 at 20.46.54.jpeg` | `whatsapp-image-2026-02-21-at-204654` | updated | arquivo/metadata atualizados |
-| `WhatsApp Image 2026-02-21 at 20.48.04.jpeg` | `whatsapp-image-2026-02-21-at-204804` | updated | arquivo/metadata atualizados |
-| `WhatsApp Image 2026-02-21 at 20.48.05.jpeg` | `whatsapp-image-2026-02-21-at-204805` | updated | arquivo/metadata atualizados |
+| `aps-real-desktop.png` | `aps-real-desktop` | failed | erro ao consultar works: TypeError: fetch failed |
+| `aps-real-mobile.png` | `aps-real-mobile` | failed | erro ao consultar works: TypeError: fetch failed |
+| `aps-sustentabilidade.png` | `aps-sustentabilidade` | failed | erro ao consultar works: TypeError: fetch failed |
+| `WhatsApp Image 2026-02-21 at 20.44.49.jpeg` | `crise-institucional` | failed | erro ao consultar works: TypeError: fetch failed |
+| `WhatsApp Image 2026-02-21 at 20.45.52.jpeg` | `peso-da-maquina` | failed | erro ao consultar works: TypeError: fetch failed |
+| `WhatsApp Image 2026-02-21 at 20.46.24.jpeg` | `sombra-da-cidade` | failed | erro ao consultar works: TypeError: fetch failed |
+| `WhatsApp Image 2026-02-21 at 20.46.53.jpeg` | `voto-de-silencio` | failed | erro ao consultar works: TypeError: fetch failed |
+| `WhatsApp Image 2026-02-21 at 20.46.54.jpeg` | `horizonte-artificial` | failed | erro ao consultar works: TypeError: fetch failed |
+| `WhatsApp Image 2026-02-21 at 20.48.04.jpeg` | `linha-de-frente` | failed | erro ao consultar works: TypeError: fetch failed |
+| `WhatsApp Image 2026-02-21 at 20.48.05.jpeg` | `grito-da-terra` | failed | erro ao consultar works: TypeError: fetch failed |

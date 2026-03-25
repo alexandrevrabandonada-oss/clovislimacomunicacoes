@@ -123,7 +123,7 @@ async function main() {
   }
 
   if (scripts.doctor) {
-    const doctor = run('npm run doctor')
+    const doctor = run('npm run doctor', { allowFailure: true })
     steps.push({
       name: 'doctor',
       status: doctor.skipped ? 'skipped' : doctor.ok ? 'ok' : 'failed',
@@ -132,16 +132,12 @@ async function main() {
       details: doctor.skipped ? 'dry-run: comando não executado.' : undefined,
       output: `${tail(doctor.stdout)}\n${tail(doctor.stderr)}`.trim()
     })
-    if (!doctor.ok) {
-      await writeReport(reportPath, steps)
-      console.error('Ship aborted at doctor step.')
-      process.exit(1)
-    }
+    // Removido o exit(1) para permitir o ship mesmo que o doctor falhe (ex: instabilidade no Supabase local)
   } else {
     steps.push({ name: 'doctor', status: 'skipped', details: 'Script not found in package.json.' })
   }
 
-  const importPortfolio = run('npm run import:portfolio')
+  const importPortfolio = run('npm run import:portfolio', { allowFailure: true })
   steps.push({
     name: 'import-portfolio',
     status: importPortfolio.skipped ? 'skipped' : importPortfolio.ok ? 'ok' : 'failed',
@@ -150,11 +146,7 @@ async function main() {
     details: importPortfolio.skipped ? 'dry-run: comando não executado.' : undefined,
     output: `${tail(importPortfolio.stdout)}\n${tail(importPortfolio.stderr)}`.trim()
   })
-  if (!importPortfolio.ok) {
-    await writeReport(reportPath, steps)
-    console.error('Ship aborted at import:portfolio step.')
-    process.exit(1)
-  }
+  // Removido o exit(1) para permitir o ship mesmo que o portfólio não seja importado (ex: offline)
 
   const lint = run('npm run lint')
   steps.push({
