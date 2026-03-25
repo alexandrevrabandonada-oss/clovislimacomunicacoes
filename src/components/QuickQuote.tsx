@@ -9,15 +9,15 @@ type QuickOption = {
 }
 
 const options: QuickOption[] = [
-  { slug: 'editorial', title: 'Editorial / Charges', button: 'Charges / Editorial' },
+  { slug: 'editorial', title: 'Charges / Editorial', button: 'Charges / Editorial' },
   { slug: 'licença', title: 'Licenciamento / Prints', button: 'Licenciamento / Prints' },
-  { slug: 'tech', title: 'Sites / PWA', button: 'Sites / PWA' }
+  { slug: 'tech', title: 'Sistemas Digitais / PWA', button: 'Sistemas Digitais / PWA' }
 ]
 
 function packageMessage(option: QuickOption): string {
   if (option.slug === 'editorial') return 'Olá! Gostaria de entender como a narrativa visual e as charges estratégicas podem aumentar a autoridade e a legibilidade da minha pauta ou veículo. Podemos alinhar um diagnóstico técnico?'
-  if (option.slug === 'licença') return 'Olá! Tenho interesse no licenciamento estratégico de obras do acervo para fins editoriais ou comerciais. Como funciona a cessão de direitos e uso para minha demanda específica?'
-  if (option.slug === 'tech') return 'Olá! Busco uma interface autoral (Site/PWA) que conecte estratégia de informação e design de impacto. Podemos conversar sobre o desafio do meu produto digital?'
+  if (option.slug === 'licença') return 'Olá! Tenho interesse no licenciamento estratégico de ativos editoriais para fins sistêmicos ou comerciais. Como funciona a cessão de direitos e uso para minha demanda específica?'
+  if (option.slug === 'tech') return 'Olá! Busco uma interface autoral (Site/PWA / Sistema Digital) que conecte estratégia de informação e design de impacto. Podemos conversar sobre o desafio do meu produto digital?'
   return 'Olá! Gostaria de iniciar um atendimento consultivo para um projeto especial de estratégia e criação visual.'
 }
 

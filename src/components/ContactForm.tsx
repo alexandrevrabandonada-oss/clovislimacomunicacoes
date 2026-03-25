@@ -16,51 +16,16 @@ declare global {
 
 const PACKAGE_LABELS: Record<string, string> = {
   editorial: 'Charges / Editorial',
-  'licença': 'Prints / Licenciamento',
-  tech: 'Sites / PWA'
+  licenciamento: 'Licenciamento / Prints',
+  digital: 'Sistemas Digitais / PWA',
+  consultoria: 'Consultoria Especializada'
 }
 
-function packageMessage(label: string): string {
-  return `Olá! Tenho interesse na trilha de ${label}. Meu objetivo é: [descreva brevemente]. Prazo ideal: [data ou período].`
-}
-
-function formatWorkLabel(slug: string): string {
-  const clean = slug.trim().toLowerCase()
-  if (!clean) return ''
-  const parts = clean.split('-').filter(Boolean)
-  if (parts.length >= 2 && parts[0] === 'obra') {
-    const number = parts[1]
-    const titleParts = parts.slice(2).map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    if (titleParts.length) return `Obra ${number} - ${titleParts.join(' ')}`
-    return `Obra ${number}`
-  }
-  return clean
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ')
-}
-
-function buildTemplate(packageSlug: string, packageLabel: string, workLabel: string): string {
-  if (['prints', 'licenca-editorial', 'licenca-campanha', 'licença'].includes(packageSlug)) {
-    return `Olá! Tenho interesse em adquirir ou licenciar uma obra. Gostaria de saber mais sobre valores e formatos para ${packageLabel || 'impressão/licença'}.`
-  }
-  if (['editorial', 'tech'].includes(packageSlug)) {
-    return `Olá! Gostaria de conversar sobre um projeto de ${packageLabel}. Meu objetivo principal é: [descreva brevemente].`
-  }
-  if (packageLabel && workLabel) {
-    return `Olá! Vi a referência "${workLabel}" e gostaria de algo similar no pacote de ${packageLabel}. Podemos falar sobre prazos?`
-  }
-  if (workLabel) {
-    return `Olá! Gostaria de conversar sobre a obra "${workLabel}" (licenciamento ou print assinado).`
-  }
-  if (packageLabel) {
-    return `Olá! Tenho interesse na trilha de ${packageLabel}. Como podemos começar?`
-  }
-  return 'Olá! Gostaria de conversar sobre um projeto de comunicação. Meu objetivo é: [descreva o projeto].'
-}
+type ContactPath = 'editorial' | 'licenciamento' | 'digital' | 'consultoria';
 
 export default function ContactForm() {
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
+  const [activePath, setActivePath] = useState<ContactPath>('editorial')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -79,14 +44,44 @@ export default function ContactForm() {
   const whatsAppNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5524992544760').replace(/\D/g, '')
   const leadEmail = 'clovischarges@gmail.com'
   const hasTurnstile = Boolean(turnstileSiteKey)
-  const lastAutoMessageRef = useRef('')
-  const [selectedPackageLabel, setSelectedPackageLabel] = useState('')
-  const [selectedWorkSlug, setSelectedWorkSlug] = useState('')
-  const [selectedWorkLabel, setSelectedWorkLabel] = useState('')
 
   const whatsappLink = whatsAppNumber
     ? `https://wa.me/${whatsAppNumber}`
     : `https://wa.me/`
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const p = params.get('pacote')
+    if (p && PACKAGE_LABELS[p]) {
+      setActivePath(p as ContactPath)
+    }
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setStatus('error')
+      setFeedback('Por favor, preencha todos os campos obrigatórios.')
+      return
+    }
+
+    setStatus('loading')
+    try {
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, message: `[TRILHA: ${PACKAGE_LABELS[activePath]}] ${message}`, honeypot, turnstileToken })
+      })
+      
+      if (!response.ok) throw new Error('Falha no envio')
+      
+      setStatus('success')
+      trackEvent('submit_lead_success', { package: activePath })
+    } catch {
+      setStatus('error')
+      setFeedback('Não foi possível enviar agora. Tente novamente ou use o WhatsApp.')
+    }
+  }
 
   const mountTurnstile = useCallback(() => {
     if (!hasTurnstile) return
@@ -116,79 +111,9 @@ export default function ContactForm() {
   }, [hasTurnstile, turnstileSiteKey])
 
   useEffect(() => {
-    const prefillFromQuery = () => {
-      const params = new URLSearchParams(window.location.search)
-      const pacote = (params.get('pacote') || '').trim().toLowerCase()
-      const obra = (params.get('obra') || '').trim().toLowerCase()
-      const packageLabel = pacote ? (PACKAGE_LABELS[pacote] || pacote) : ''
-      const workLabel = obra ? formatWorkLabel(obra) : ''
-      const prefill = params.get('prefill_message')
-      
-      setSelectedPackageLabel(packageLabel)
-      setSelectedWorkSlug(obra)
-      setSelectedWorkLabel(workLabel)
-
-      if (prefill && (!message.trim() || message === lastAutoMessageRef.current)) {
-        setMessage(prefill)
-        lastAutoMessageRef.current = prefill
-        return
-      }
-
-      if ((packageLabel || workLabel) && (!message.trim() || message === lastAutoMessageRef.current)) {
-        const nextMessage = buildTemplate(pacote, packageLabel, workLabel)
-        setMessage(nextMessage)
-        lastAutoMessageRef.current = nextMessage
-      }
-    }
-
-    const onPrefill = (event: Event) => {
-      const custom = event as CustomEvent<{ message?: string }>
-      const incoming = custom.detail?.message || ''
-      if (!incoming) return
-      setMessage(incoming)
-      lastAutoMessageRef.current = incoming
-      setTimeout(() => messageRef.current?.focus(), 100)
-    }
-
-    prefillFromQuery()
-    window.addEventListener('contact-prefill', onPrefill)
-    window.addEventListener('popstate', prefillFromQuery)
-    return () => {
-      window.removeEventListener('contact-prefill', onPrefill)
-      window.removeEventListener('popstate', prefillFromQuery)
-    }
-  }, [message])
-
-  useEffect(() => {
     if (!widgetReady) return
     mountTurnstile()
   }, [widgetReady, mountTurnstile])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setStatus('error')
-      setFeedback('Por favor, preencha todos os campos obrigatórios.')
-      return
-    }
-
-    setStatus('loading')
-    try {
-      const response = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, message, honeypot, turnstileToken })
-      })
-      
-      if (!response.ok) throw new Error('Falha no envio')
-      
-      setStatus('success')
-      trackEvent('submit_lead_success', { package: selectedPackageLabel })
-    } catch {
-      setStatus('error')
-      setFeedback('Não foi possível enviar agora. Tente novamente ou use o WhatsApp.')
-    }
-  }
 
   return (
     <div className="max-w-4xl mx-auto bg-white p-12 md:p-20 border-[4px] border-black shadow-[32px_32px_0px_0px_rgba(0,0,0,1)]">
@@ -204,12 +129,29 @@ export default function ContactForm() {
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Technical_Onboarding // Protocolo_2026</p>
         </div>
         <h2 ref={headingRef} className={`reveal-heading text-5xl md:text-8xl font-black italic tracking-tighter leading-[0.8] uppercase ${revealed ? 'is-revealed' : ''}`}>
-          Onboarding <br/> <span className="text-accent">Consultivo</span>
+          Protocolo <br/> <span className="text-accent text-glow">De Entrada</span>
         </h2>
         <p className="mt-8 text-xl text-black font-bold leading-tight max-w-2xl italic border-l-8 border-black pl-8">
-          Inicie uma interlocução técnica soberana. Cada pauta é submetida a um diagnóstico de viabilidade estratégia e impacto narrativo imediato.
+          Inicie uma interlocução técnica soberana. Selecione a vertical de ativos e aguarde o diagnóstico de viabilidade estratégia e impacto narrativo.
         </p>
       </header>
+
+      {/* Path Selector */}
+      <div className="mb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {(Object.keys(PACKAGE_LABELS) as ContactPath[]).map(path => (
+          <button
+            key={path}
+            onClick={() => setActivePath(path)}
+            className={`p-6 border-[3px] text-left transition-all relative overflow-hidden group 
+              ${activePath === path ? 'border-accent bg-black text-white shadow-[8px_8px_0px_0px_var(--accent)]' : 'border-black bg-white text-black hover:border-accent hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]'}
+            `}
+          >
+            <div className={`w-2 h-8 absolute left-0 top-1/2 -translate-y-1/2 ${activePath === path ? 'bg-accent' : 'bg-black/10'}`} />
+            <p className="text-[9px] font-black uppercase tracking-widest opacity-40 mb-2">Vertical_{path}</p>
+            <p className="text-xs font-black uppercase tracking-tighter leading-tight italic">{PACKAGE_LABELS[path]}</p>
+          </button>
+        ))}
+      </div>
       
       <div className="mb-16 p-10 bg-black text-white border-[3px] border-black relative overflow-hidden group shadow-[16px_16px_0px_0px_rgba(239,68,68,1)]">
         <div className="absolute top-0 right-0 p-8 opacity-10">
@@ -223,21 +165,21 @@ export default function ContactForm() {
           <li className="flex flex-col gap-6 items-start">
             <span className="shrink-0 w-8 h-8 bg-white text-black text-[12px] flex items-center justify-center font-black border-2 border-white shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]">01</span>
             <div>
-               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Qualificação_Pauta</p>
-               <p className="text-[11px] text-white/50 leading-tight font-bold uppercase tracking-tight">Análise técnica da demanda e verificação de aderência ao repertório soberano do estúdio.</p>
+               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Triagem_Pauta</p>
+               <p className="text-[11px] text-white/50 leading-tight font-bold uppercase tracking-tight">Verificação de aderência do projeto ao repertório soberano do estúdio.</p>
             </div>
           </li>
           <li className="flex flex-col gap-6 items-start">
             <span className="shrink-0 w-8 h-8 bg-white text-black text-[12px] flex items-center justify-center font-black border-2 border-white shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]">02</span>
             <div>
-               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Diagnóstico_Viabilidade</p>
-               <p className="text-[11px] text-white/50 leading-tight font-bold uppercase tracking-tight">Dimensionamento de esforço técnico, prazos críticos e impacto narrativo esperado.</p>
+               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Diagnóstico_Impacto</p>
+               <p className="text-[11px] text-white/50 leading-tight font-bold uppercase tracking-tight">Dimensionamento de esforço técnico e narrativa visual esperada.</p>
             </div>
           </li>
           <li className="flex flex-col gap-6 items-start">
             <span className="shrink-0 w-8 h-8 bg-white text-black text-[12px] flex items-center justify-center font-black border-2 border-white shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]">03</span>
             <div>
-               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Retorno_Técnico</p>
+               <p className="text-[13px] font-black text-white mb-2 uppercase tracking-widest">Aprovação_Técnica</p>
                <p className="text-[11px] text-white/50 leading-tight font-bold uppercase tracking-tight">Proposta técnica enviada via canal oficial em até 24h úteis.</p>
             </div>
           </li>

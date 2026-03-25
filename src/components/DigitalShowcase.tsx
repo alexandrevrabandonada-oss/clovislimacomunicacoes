@@ -9,10 +9,10 @@ export default function DigitalShowcase() {
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
 
   const techStack = [
-    { category: "Frontend Arch", items: ["Next.js 14 (App Router)", "React Server Components", "TypeScript 5+", "TailwindCSS 3"] },
-    { category: "Backend & Data", items: ["Node.js Edge Runtime", "Supabase / PostgreSQL", "Redis Caching", "Vector Search"] },
-    { category: "Performance Ops", items: ["Cloudflare Global Network", "Vercel Deployment", "Brotli/Gzip Compression", "Core Web Vitals Audit"] },
-    { category: "High Availability", items: ["Service Workers (PWA)", "Offline Sync", "Zero-Latency Interactions", "Manifest Optimization"] }
+    { category: "Arquitetura Frontend", items: ["Next.js 15 (App Router)", "React Server Components", "TypeScript 5+", "TailwindCSS 4"] },
+    { category: "Backend & Dados", items: ["Node.js Edge Runtime", "Supabase / PostgreSQL", "Redis Caching", "Vector Search"] },
+    { category: "Operações de Performance", items: ["Cloudflare Global Network", "Vercel Deployment", "Brotli/Gzip Compression", "Core Web Vitals Audit"] },
+    { category: "Alta Disponibilidade", items: ["Service Workers (PWA)", "Offline Sync", "Zero-Latency Interactions", "Manifest Optimization"] }
   ]
 
   const capabilities = [
@@ -20,25 +20,25 @@ export default function DigitalShowcase() {
       title: "PWA Institucional", 
       desc: "Websites que funcionam como apps nativos: offline, rápidos e instaláveis.", 
       icon: "📱",
-      tags: ["Offline First", "Installable", "App Shell"]
+      tags: ["Offline First", "Instalável", "App Shell"]
     },
     { 
       title: "Dashboards Técnicos", 
       desc: "Interfaces de dados complexos com foco em usabilidade e performance crítica.", 
       icon: "📊", 
-      tags: ["Data Viz", "Real-time", "Low Latency"]
+      tags: ["Data Viz", "Real-time", "Baixa Latência"]
     },
     { 
       title: "Hubs Editoriais", 
       desc: "Centrais de marca com gestão de conteúdo via Headless CMS para escala.", 
       icon: "🎯",
-      tags: ["SEO Pro", "Narrative High", "CMS Sync"]
+      tags: ["SEO Pro", "Narrativa High", "CMS Sync"]
     },
     { 
       title: "Arquitetura de Autoridade", 
       desc: "Sistemas digitais projetados para converter leads de alto ticket.", 
       icon: "⚡",
-      tags: ["Conversion Art", "Security", "Scalable"]
+      tags: ["Conversão Art", "Segurança", "Escalável"]
     }
   ]
 
@@ -46,7 +46,7 @@ export default function DigitalShowcase() {
     { metric: "< 0.8s", label: "LCP - Performance Extrema", status: "excellent" },
     { metric: "100/100", label: "Lighthouse Score Real", status: "excellent" },
     { metric: "Zero", label: "Runtime Exceptions", status: "excellent" },
-    { metric: "100%", label: "SEO & Meta-Authority", status: "excellent" }
+    { metric: "100%", label: "SEO & Meta-Autoridade", status: "excellent" }
   ]
 
   return (
@@ -56,14 +56,14 @@ export default function DigitalShowcase() {
         <div className="max-w-2xl">
           <div className="flex items-center gap-3 mb-4">
             <span className="w-2.5 h-2.5 bg-accent" />
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Engenharia de Presença Digital / Capability</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Engenharia de Presença Digital / Capacidades</p>
           </div>
           <h2 ref={headingRef} className={`text-4xl md:text-7xl font-black tracking-tighter leading-[0.85] text-black ${revealed ? 'is-revealed' : ''}`}>
-             Sistemas de <br/> <span className="hero-ink-underline italic font-serif">Alta Autoridade</span>
+             Sistemas de <br/> <span className="hero-ink-underline italic font-serif text-accent">Alta Autoridade</span>
           </h2>
         </div>
         <div className="max-w-sm">
-          <p className="text-sm md:text-base text-black font-bold leading-tight italic border-l-[6px] border-black pl-6">
+          <p className="text-sm md:text-base text-black font-bold leading-tight italic border-l-[6px] border-black pl-6 uppercase tracking-tighter">
             Desenvolvimento de arquiteturas web que não apenas existem, mas dominam o ambiente técnico e comercial.
           </p>
         </div>

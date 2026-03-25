@@ -22,7 +22,7 @@ export type Case = {
 export const cases: Case[] = [
     {
         slug: 'jornalismo-nsc',
-        category: 'Editorial de Alta Escala',
+        category: 'Asset Editorial',
         client: 'NSC Comunicação / G1 SC',
         sector: 'Mídia e Editorial',
         title: 'Engajamento Narrativo via Âncoras Cognitivas',
@@ -33,14 +33,14 @@ export const cases: Case[] = [
         evidence: 'MÉTRICA DE RETENÇÃO: +40% SHARES',
         methodology: 'Design de Escaneabilidade: a imagem decodifica o argumento central para sustentar o fluxo de atenção ininterrupta.',
         proof: {
-            deliverables: 'Série de 12 intervenções visuais estrategicamente posicionadas',
-            format: 'SVG Otimizado / Performance de Carregamento',
+            deliverables: 'Série de 12 intervenções visuais estratégicamente posicionadas',
+            format: 'SVG Otimizado / Alta Performance',
             impactType: 'Retenção & Autoridade Editorial'
         }
     },
     {
         slug: 'comunicacao-publica',
-        category: 'Legal Design & Gov',
+        category: 'Report Técnico',
         client: 'Prefeituras e Órgãos Governamentais',
         sector: 'Setor Público',
         title: 'Otimização de Fluxos de Serviço ao Cidadão',
@@ -58,7 +58,7 @@ export const cases: Case[] = [
     },
     {
         slug: 'tech-licensing',
-        category: 'UX / Product Authority',
+        category: 'Sistema Digital',
         client: 'SaaS e Startups Tech',
         sector: 'Tecnologia',
         title: 'Onboarding Cognitivo Assistido para Produtos Críticos',
@@ -76,20 +76,20 @@ export const cases: Case[] = [
     },
     {
         slug: 'unipampa-camisaria',
-        category: 'Prints / Institucional / Aplicação Física',
+        category: 'Prova Física',
         client: 'UNIPAMPA — Campus Dom Pedrito/RS',
         sector: 'Educação / Governo',
-        title: 'UNIPAMPA — Educação do Campo / Camisaria Institucional',
+        title: 'UNIPAMPA — Camisaria Institucional',
         summary: 'Sistema gráfico aplicado em camisetas institucionais para a Universidade Federal do Pampa.',
-        diagnostic: 'Necessidade de consistência visual em uniformização institucional: o desafio era adaptar o sistema gráfico da Educação do Campo para múltiplas cores e formatos de vestuário sem perder a identidade.',
-        intervention: 'Desenvolvimento de matriz gráfica adaptativa para camisaria, com variações cromáticas (branco, azul, verde) e estruturais (manga curta e longa), garantindo legibilidade e impacto visual em suporte têxtil.',
-        impact: 'Prova real de consistência em desdobramento gráfico para suporte físico, estabelecendo um padrão de autoridade visual para o curso.',
-        evidence: 'APLICAÇÃO_FÍSICA: CONSOLIDADA',
-        methodology: 'Desdobramento de Identidade: aplicação técnica do sistema visual em versões positiva/negativa para diferentes substratos cromáticos.',
+        diagnostic: 'A Educação do Campo da UNIPAMPA necessitava de uma uniformização que aliasse o peso institucional à identidade orgânica do curso, garantindo legibilidade em múltiplas variações de vestuário.',
+        intervention: 'Desenvolvimento de matriz gráfica adaptativa para camisaria. O sistema foi modularizado para suportar versões em manga curta e longa, com aplicação em fundos branco, azul e verde, mantendo a integridade cromática.',
+        impact: 'Consolidação da identidade visual física do curso, resultando em um sistema de uniformização robusto, de alta durabilidade estética e fácil reprodução técnica.',
+        evidence: 'PROVA_REAL: SISTEMA_FÍSICO_ATIVO',
+        methodology: 'Engenharia de Suporte: adaptação técnica de traços e preenchimentos para substratos têxteis, prevendo a distorção térmica na aplicação.',
         proof: {
-            deliverables: 'Matriz Gráfica + 04 Variações de Camisaria (Branca/Azul/Verde)',
-            format: 'Vetor / PDF Ready for Print',
-            impactType: 'Consistência Institucional'
+            deliverables: 'Camisaria Institucional, Aplicação Multiversão, Preparação Têxtil, Consistência Física',
+            format: 'Vetor Nativo / Matriz de Produção',
+            impactType: 'Legitimidade Institucional'
         },
         screenshot_url: '/portfolio/unipampa-manga-curta.jpg',
         gallery: [
@@ -99,7 +99,7 @@ export const cases: Case[] = [
     },
     {
         slug: 'aps-sustentabilidade',
-        category: 'PWA / Institutional Engine',
+        category: 'Sistema Digital',
         client: 'APS Sustentabilidade',
         sector: 'Socioambiental',
         title: 'APS Sustentabilidade — Plataforma de Legitimidade Digital',

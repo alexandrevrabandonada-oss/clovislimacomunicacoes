@@ -7,7 +7,7 @@
   --accent-soft: rgba(239, 68, 68, 0.1);
   --stroke: #000000;
   --ink-border: 3px; 
-  --ink-radius: 4px; /* Mais rígido, padrão elite */
+  --ink-radius: 0px; /* Rigidez máxima absoluta 2026 */
   --studio-grid: rgba(0, 0, 0, 0.06); 
 }
 
@@ -23,7 +23,7 @@ html {
 .ink-card{
   position: relative;
   border: var(--ink-border) solid #000; 
-  border-radius: 4px; /* Rápida transição para ultra-rígido */
+  border-radius: 0px; 
   background: white;
   box-shadow: 
     12px 12px 0px 0px rgba(0,0,0,1); /* Sombra absoluta ESBOÇO */

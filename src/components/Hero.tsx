@@ -32,7 +32,7 @@ const LOCAL_FLAGSHIP = {
   id: 'local-flagship',
   slug: 'aps-sustentabilidade',
   title: 'APS Sustentabilidade',
-  type: 'Sites / PWA',
+  type: 'Sistema Digital / PWA',
   cover_url: '/portfolio/aps-real-desktop.png',
   cover_image_url: null,
   content_warning: null

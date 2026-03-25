@@ -11,7 +11,7 @@ export default function PrintsTeaser() {
       headline: "Uso imediato para veículos de alta tiragem",
       description: "Licenciamento ágil para pautas de impacto socioambiental e político. Entrega técnica em resoluções mutáveis para impresso e digital.",
       specs: ["Arquivo Vetorial ou 300dpi", "Cálculo por Tiragem/Alcance", "Selo de Autoridade Clóvis Lima", "Uso Single/Editorial"],
-      priceHint: "Consultoria de Pauta",
+      priceHint: "Consulte Pauta",
       cta: "Liberar para Pauta",
       badge: "Editorial Sync",
       color: "bg-white"
@@ -24,15 +24,15 @@ export default function PrintsTeaser() {
       specs: ["Uso Customizado / Perpétuo", "Exclusividade de Segmento", "Manual de Aplicação Visual", "Certificação de Direitos"],
       priceHint: "Projeto Estratégico",
       cta: "Analisar Campanha",
-      badge: "High Impact",
+      badge: "Alto Impacto",
       featured: true,
       color: "bg-black text-white"
     },
     {
       id: "fineart",
-      title: "Acervo Fine-Art",
-      headline: "Impressões museológicas para coleções",
-      description: "Edições limitadas e assinadas. Impressão Giclée em papel algodão 310g com pigmentos minerais. O ápice da qualidade física da obra.",
+      title: "Padrão Museológico",
+      headline: "Edições Fine-Art para coleções",
+      description: "Impressões museológicas assinadas. Giclée em papel algodão 310g com pigmentos minerais. O ápice da qualidade física da obra.",
       specs: ["Papel Hahnemühle 310g", "Pigmentos Minerais", "Certificado de Autenticidade", "Série Limitada e Numerada"],
       priceHint: "Colecionismo",
       cta: "Consultar Obra",
@@ -45,7 +45,7 @@ export default function PrintsTeaser() {
     { label: "Precisão Cromática", value: "Delta-E < 2.0", context: "Fidelidade absoluta em qualquer substrato" },
     { label: "Durabilidade Fine-Art", value: "100+ anos", context: "Longevidade museológica garantida" },
     { label: "Entrega Técnica", value: "Vetor Nativo", context: "Escalabilidade infinita para grandes formatos" },
-    { label: "Legal Design", value: "Cessão Própria", context: "Segurança jurídica total na contratação" }
+    { label: "Segurança Jurídica", value: "Cessão Direta", context: "Processo blindado de transferência de direitos" }
   ];
 
   return (
@@ -169,7 +169,7 @@ export default function PrintsTeaser() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="w-3 h-3 bg-accent animate-pulse" />
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">Proof_of_Physical_Application // 001</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">Prova_Física // 001</p>
             </div>
             <h4 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.85] italic mb-8 uppercase">
               Consistência visual em <br/> <span className="underline decoration-accent underline-offset-8">Suporte Têxtil</span>
@@ -182,7 +182,8 @@ export default function PrintsTeaser() {
                 {[
                   "Identidade aplicada em camisaria institucional",
                   "Desdobramento gráfico para produção física",
-                  "Arte preparada para múltiplas versões e suportes"
+                  "Arte preparada para múltiplas versões e suportes",
+                  "Fidelidade técnica em substratos cromáticos"
                 ].map(item => (
                   <li key={item} className="flex items-center gap-4 text-[11px] font-black uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
                     <div className="w-1.5 h-1.5 bg-accent" />

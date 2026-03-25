@@ -122,9 +122,9 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
 
       {item.tier === 'curated' && !item.isFlagship && (
         <div className="absolute top-4 left-4 z-10 pointer-events-none flex flex-col gap-1">
-          <span className="stamp text-[8px] px-3 py-1 bg-black text-white font-black tracking-[0.2em] uppercase border border-white/20">Editorial Selection</span>
-          {item.type === 'Sites / PWA' && (
-            <span className="stamp text-[8px] px-3 py-1 bg-accent text-white font-black tracking-[0.2em] uppercase border border-black shadow-lg">Digital / PWA</span>
+          <span className="stamp text-[8px] px-3 py-1 bg-black text-white font-black tracking-[0.2em] uppercase border border-white/20">Seleção Editorial</span>
+          {item.type === 'Sistema Digital' && (
+            <span className="stamp text-[8px] px-3 py-1 bg-accent text-white font-black tracking-[0.2em] uppercase border border-black shadow-lg">Sistema Digital</span>
           )}
         </div>
       )}
@@ -133,8 +133,8 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
         ${containerAspect} 
         ${imageLoaded ? 'bg-white' : 'bg-white'}
       `}>
-        {/* Browser Frame Header for Tech/Digital */}
-        {item.type === 'Sites / PWA' && (
+        {/* Browser Frame Header for Digital Systems */}
+        {item.type === 'Sistema Digital' && (
           <div className="absolute top-0 inset-x-0 h-8 bg-black flex items-center px-4 gap-2 z-20">
             <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
             <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
@@ -161,7 +161,7 @@ function GalleryCard({ item, index, total, onOpen }: GalleryCardProps) {
               setImageLoaded(true)
             }}
             className={`transition-all duration-700 
-              ${item.type === 'Sites / PWA' ? 'object-cover object-top pt-6' : 'object-contain p-3'}
+              ${item.type === 'Sistema Digital' ? 'object-cover object-top pt-6' : 'object-contain p-3'}
               ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
             `}
           />
@@ -356,9 +356,9 @@ export default function Gallery() {
         <div>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-3 h-3 bg-accent animate-pulse" />
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Repertório Técnico & Curadoria Editorial</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Acervo Técnico & Curadoria Editorial</p>
           </div>
-          <h2 ref={headingRef} className={`reveal-heading text-4xl md:text-7xl font-black tracking-tighter leading-[0.85] text-black ${revealed ? 'is-revealed' : ''}`}>Acervo <br/> <span className="italic font-serif text-accent text-glow">Surgical Assets</span></h2>
+          <h2 ref={headingRef} className={`reveal-heading text-4xl md:text-7xl font-black tracking-tighter leading-[0.85] text-black ${revealed ? 'is-revealed' : ''}`}>Acervo <br/> <span className="italic font-serif text-accent text-glow">Ativos Editoriais</span></h2>
           <p className="mt-6 text-lg text-black font-bold max-w-2xl italic leading-tight border-l-[6px] border-black pl-8">
             Intervenções visuais de alta densidade técnica aplicáveis a pautas editoriais, governança e campanhas de soberania digital.
           </p>
@@ -445,7 +445,7 @@ export default function Gallery() {
                             </div>
                             <div className="space-y-12">
                                 <div>
-                                    <span className="text-[12px] font-black uppercase tracking-[0.5em] text-accent mb-6 block">Flagship_Asset // {featured.type}</span>
+                                    <span className="text-[12px] font-black uppercase tracking-[0.5em] text-accent mb-6 block">Ativo de Autoridade // {featured.type}</span>
                                     <h4 className="text-5xl md:text-8xl font-black leading-[0.8] tracking-tighter italic mb-8 uppercase">&quot;{featured.title}&quot;</h4>
                                     <p className="text-xl md:text-2xl font-black italic mt-8 leading-none border-l-[8px] border-accent pl-8">&quot;{featured.subtitle}&quot;</p>
                                 </div>
@@ -465,12 +465,12 @@ export default function Gallery() {
             </section>
           )}
 
-          {/* 1. Vitrine Digital (Sites / PWA) */}
-          {items.some(i => i.type === 'Sites / PWA') && searchQuery === '' && typeFilter === 'all' && (
+          {/* 1. Sistemas Digitais */}
+          {items.some(i => i.type === 'Sistema Digital') && searchQuery === '' && typeFilter === 'all' && (
             <section>
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-px flex-1 bg-black/10" />
-                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Projetos Digitais & PWAs</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Sistemas Digitais & PWAs</h3>
                 <span className="h-px flex-1 bg-black/10" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
@@ -481,12 +481,12 @@ export default function Gallery() {
             </section>
           )}
 
-          {/* 2. Grade Editorial (Curated) */}
+          {/* 2. Ativos Editoriais (Curated) */}
           {curated.length > 0 && searchQuery === '' && typeFilter === 'all' && (
             <section>
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-px flex-1 bg-black/10" />
-                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Curadoria Editorial</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Ativos Editoriais</h3>
                 <span className="h-px flex-1 bg-black/10" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-8">
@@ -564,18 +564,18 @@ export default function Gallery() {
             <div className="mt-4 grid grid-cols-2 gap-4 border-y border-black/10 py-4 text-sm">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                  {selected.type === 'Sites / PWA' ? 'Architecture' : 'Contexto'}
+                  {selected.type === 'Sistema Digital' ? 'Arquitetura' : 'Contexto'}
                 </p>
                 <p className="mt-1 font-medium italic">
-                  {selected.type === 'Sites / PWA' ? 'High-Performance PWA' : (selected.client || 'Acervo Vivo')}
+                  {selected.type === 'Sistema Digital' ? 'PWA de Alta Performance' : (selected.client || 'Acervo Vivo')}
                 </p>
               </div>
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                   {selected.type === 'Sites / PWA' ? 'Tech Stack' : 'Ano / Tipo'}
+                   {selected.type === 'Sistema Digital' ? 'Stack Técnico' : 'Ano / Classe'}
                 </p>
                 <p className="mt-1 font-medium">
-                  {selected.type === 'Sites / PWA' ? 'Next.js / Cloudflare / PWA' : `${selected.year || '—'} / ${selected.type}`}
+                  {selected.type === 'Sistema Digital' ? 'Next.js / Vercel / PWA' : `${selected.year || '—'} / ${selected.type}`}
                 </p>
               </div>
             </div>

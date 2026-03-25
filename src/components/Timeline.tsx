@@ -71,24 +71,33 @@ export default function Timeline(){
 
                         {/* Content Card */}
                         <div className={`w-full md:w-[45%] ink-card p-0 border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all bg-white overflow-hidden`}>
-                            <div className={`p-6 border-b-[3px] border-black flex items-center justify-between ${cycle.current ? 'bg-black text-white' : 'bg-white'}`}>
-                                <span className="text-[11px] font-black uppercase tracking-[0.2em]">{cycle.era}</span>
-                                <span className={`text-[10px] font-black uppercase tracking-[0.3em] px-4 py-1.5 border-2 ${cycle.current ? 'bg-accent text-white border-white' : 'bg-black text-white border-black'}`}>
+                            <div className={`p-4 border-b-[3px] border-black flex items-center justify-between ${cycle.current ? 'bg-black text-white' : 'bg-white'}`}>
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-2 h-2 ${cycle.current ? 'bg-accent' : 'bg-black'}`} />
+                                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{cycle.era}</span>
+                                </div>
+                                <span className={`text-[9px] font-black uppercase tracking-[0.3em] px-3 py-1 border-2 ${cycle.current ? 'bg-accent text-white border-white' : 'bg-black text-white border-black'}`}>
                                     {cycle.badge}
                                 </span>
                             </div>
-                            <div className="p-10">
-                                <h3 className="text-3xl font-black italic mb-8 tracking-tighter leading-none uppercase">{cycle.title}</h3>
-                                <ul className="space-y-6">
+                            <div className="p-8">
+                                <h3 className="text-2xl font-black italic mb-6 tracking-tighter leading-none uppercase">{cycle.title}</h3>
+                                <ul className="space-y-4">
                                     {cycle.milestones.map((ms, i) => (
-                                        <li key={i} className="flex items-start gap-5 group">
-                                            <span className="text-[11px] font-black text-accent mt-1 tracking-widest">0{i+1}</span>
-                                            <p className="text-base font-bold text-black leading-snug group-hover:text-accent transition-colors italic">
+                                        <li key={i} className="flex items-start gap-4 group">
+                                            <span className="text-[10px] font-black text-accent mt-1 tracking-widest">0{i+1}</span>
+                                            <p className="text-sm font-bold text-black leading-tight group-hover:text-accent transition-colors italic">
                                                 {ms}
                                             </p>
                                         </li>
                                     ))}
                                 </ul>
+                                <div className="mt-8 pt-6 border-t border-black/5 flex items-center justify-between">
+                                    <span className="text-[8px] font-black uppercase tracking-[0.4em] text-black/20 italic">Technical_Log // {cycle.badge}_Protocol</span>
+                                    <div className="flex gap-1">
+                                      {[1,2,3].map(i => <div key={i} className="w-1 h-3 bg-black/5" />)}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

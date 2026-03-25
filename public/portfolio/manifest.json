@@ -1,5 +1,5 @@
 {
-  "defaultType": "charge",
+  "defaultType": "Asset Editorial",
   "items": {
     "WhatsApp Image 2026-02-21 at 20.44.49.jpeg": {
       "file": "WhatsApp Image 2026-02-21 at 20.44.49.jpeg",
@@ -14,7 +14,7 @@
       "available_for_license": true,
       "featured": true,
       "tier": "curated",
-      "type": "charge",
+      "type": "Asset Editorial",
       "content_warning": false
     },
     "WhatsApp Image 2026-02-21 at 20.46.54.jpeg": {
@@ -30,7 +30,7 @@
       "available_for_license": true,
       "featured": true,
       "tier": "curated",
-      "type": "ilustração",
+      "type": "Asset Editorial",
       "content_warning": false
     },
     "WhatsApp Image 2026-02-21 at 20.48.05.jpeg": {
@@ -46,7 +46,7 @@
       "available_for_license": true,
       "featured": true,
       "tier": "curated",
-      "type": "charge",
+      "type": "Asset Editorial",
       "content_warning": false
     },
     "WhatsApp Image 2026-02-21 at 20.46.24.jpeg": {
@@ -62,7 +62,7 @@
       "available_for_license": false,
       "featured": true,
       "tier": "curated",
-      "type": "charge",
+      "type": "Asset Editorial",
       "content_warning": false
     },
     "WhatsApp Image 2026-02-21 at 20.45.52.jpeg": {
@@ -78,7 +78,7 @@
       "available_for_license": true,
       "featured": false,
       "tier": "regular",
-      "type": "charge",
+      "type": "Asset Editorial",
       "content_warning": false
     },
     "WhatsApp Image 2026-02-21 at 20.48.04.jpeg": {
@@ -94,7 +94,7 @@
       "available_for_license": false,
       "featured": false,
       "tier": "regular",
-      "type": "charge",
+      "type": "Asset Editorial",
       "content_warning": false
     },
     "WhatsApp Image 2026-02-21 at 20.46.53.jpeg": {
@@ -110,7 +110,7 @@
       "available_for_license": true,
       "featured": false,
       "tier": "archive",
-      "type": "charge",
+      "type": "Asset Editorial",
       "content_warning": false
     },
     "aps-sustentabilidade.png": {
@@ -120,13 +120,13 @@
       "subtitle": "Engenharia de presença digital para impacto socioambiental",
       "year": 2024,
       "client": "APS Sustentabilidade",
-      "vehicle": "Institucional PWA",
-      "tags": ["ESG", "institucional", "pwa", "impacto"],
+      "vehicle": "Plataforma Digital",
+      "tags": ["ESG", "institucional", "sistema", "impacto"],
       "available_for_print": false,
       "available_for_license": false,
       "featured": true,
       "tier": "curated",
-      "type": "Sites / PWA",
+      "type": "Sistema Digital",
       "external_link": "https://apsustentabilidade.org/",
       "is_flagship": true,
       "content_warning": false
@@ -138,13 +138,13 @@
       "subtitle": "Sistema gráfico aplicado em camisetas institucionais para a Educação do Campo.",
       "year": 2024,
       "client": "UNIPAMPA",
-      "vehicle": "Aplicação Física / Prints",
-      "tags": ["institucional", "camisaria", "universidade", "aplicação física", "licenciamento"],
+      "vehicle": "Aplicação Física",
+      "tags": ["institucional", "camisaria", "universidade", "prova física", "licenciamento"],
       "available_for_print": true,
       "available_for_license": true,
       "featured": true,
       "tier": "curated",
-      "type": "prints / institucional / aplicação física",
+      "type": "Prova Física",
       "content_warning": false
     }
   }
