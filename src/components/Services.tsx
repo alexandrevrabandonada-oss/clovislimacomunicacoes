@@ -21,8 +21,8 @@ const services: ServiceItem[] = [
     description: "Engajamento e narrativa visual para veículos de mídia e pautas densas.",
     forWhom: "Portais, Revistas e Editoriais de Política/Economia.",
     deliverables: ["Charge Digital (SVG/PNG)", "Infográficos Narrativos", "Direção de Arte Editorial"],
-    timing: "2 a 5 dias úteis",
-    cta: "Diagnóstico Editorial"
+    timing: "Operação Ágil // Sob Demanda",
+    cta: "Protocolar Diagnóstico"
   },
   {
     slug: "licença",
@@ -30,8 +30,8 @@ const services: ServiceItem[] = [
     description: "Arte autoral para marcas, campanhas e acervos exclusivos.",
     forWhom: "Agências de Publicidade, Departamentos de Marketing e Colecionadores.",
     deliverables: ["Cessão de Direitos de Uso", "Prints Fine-Art Assinados", "Arquitetura de Acervo"],
-    timing: "Imediato (Digital) / 7 dias (Físico)",
-    cta: "Consultar Acervo"
+    timing: "Fluxo Imediato / Curadoria",
+    cta: "Acessar Acervo"
   },
     {
       slug: "tech",
@@ -39,9 +39,9 @@ const services: ServiceItem[] = [
       description: "Sistemas web de alta performance e plataformas de autoridade técnica. Arquitetura orientada a Core Web Vitals e UX crítica.",
       forWhom: "Organizações, Apps e Projetos Editoriais que exigem rapidez, soberania de dados e escala.",
       deliverables: ["Arquitetura PWA Ready", "Performance (Core Web Vitals)", "Interfaces de Autoridade", "Soberania de Dados"],
-      timing: "5 a 15 dias úteis",
-      cta: "Análise de Viabilidade"
-    },
+    timing: "Protocolo de Escala // Customizado",
+    cta: "Solicitar Viabilidade"
+  },
 ];
 
 function goToContact(slug: string, title: string) {
@@ -78,7 +78,7 @@ export default function Services() {
             <span className="w-2.5 h-2.5 bg-accent" />
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Soluções & Estratégia // 2026 Ready</p>
           </div>
-          <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.85] text-black uppercase">Capabilities</h2>
+          <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.85] text-black uppercase">Capacidades <br/> <span className="text-accent italic font-serif">Técnicas</span></h2>
         </div>
       </div>
 

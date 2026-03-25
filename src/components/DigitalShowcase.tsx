@@ -10,7 +10,7 @@ export default function DigitalShowcase() {
 
   const techStack = [
     { category: "Arquitetura Frontend", items: ["Next.js 15 (App Router)", "React Server Components", "TypeScript 5+", "TailwindCSS 4"] },
-    { category: "Backend & Dados", items: ["Node.js Edge Runtime", "Supabase / PostgreSQL", "Redis Caching", "Vector Search"] },
+    { category: "Backend & Dados", items: ["Node.js Edge Runtime", "Supabase / PostgreSQL", "Redis Caching", "Busca Vetorial"] },
     { category: "Operações de Performance", items: ["Cloudflare Global Network", "Vercel Deployment", "Brotli/Gzip Compression", "Core Web Vitals Audit"] },
     { category: "Alta Disponibilidade", items: ["Service Workers (PWA)", "Offline Sync", "Zero-Latency Interactions", "Manifest Optimization"] }
   ]
@@ -56,7 +56,7 @@ export default function DigitalShowcase() {
         <div className="max-w-2xl">
           <div className="flex items-center gap-3 mb-4">
             <span className="w-2.5 h-2.5 bg-accent" />
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Engenharia de Presença Digital / Capacidades</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Arquitetura de Presença Digital // Capability</p>
           </div>
           <h2 ref={headingRef} className={`text-4xl md:text-7xl font-black tracking-tighter leading-[0.85] text-black ${revealed ? 'is-revealed' : ''}`}>
              Sistemas de <br/> <span className="hero-ink-underline italic font-serif text-accent">Alta Autoridade</span>
@@ -128,7 +128,7 @@ export default function DigitalShowcase() {
         {/* Technical Sidebar */}
         <div className="lg:col-span-4 space-y-8">
           <div className="ink-card bg-black text-white p-8 border-[3px] border-black shadow-[12px_12px_0px_0px_var(--accent)]">
-            <h3 className="text-xl font-black mb-8 italic text-accent uppercase tracking-widest border-b border-white/10 pb-4">Tech_Stack 2026</h3>
+            <h3 className="text-xl font-black mb-8 italic text-accent uppercase tracking-widest border-b border-white/10 pb-4">Protocolo Técnico 2026</h3>
             <div className="space-y-8">
               {techStack.map((stack) => (
                 <div key={stack.category} className="group/stack">

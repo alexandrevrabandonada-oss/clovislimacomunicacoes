@@ -73,7 +73,7 @@ export default function QuickQuote() {
           onClick={goWithoutPackage}
           className="ink-button rounded-full border border-black bg-black px-5 py-2.5 text-sm font-bold text-white hover:scale-105 transition-all"
         >
-          Ainda estou entendendo
+          Consultoria Especializada
         </button>
       </div>
     </div>

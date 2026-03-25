@@ -369,7 +369,7 @@ export default function Gallery() {
             type="search"
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
-            placeholder="FILTRAR_ACERVO_ID :: SEARCH"
+            placeholder="PROTOCOLO_ID :: PESQUISAR"
             className="w-full rounded-none border-[3px] border-black bg-white px-6 py-3 text-[11px] font-black uppercase tracking-widest focus:ring-0 focus:border-accent outline-none shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
           />
           <div className="flex gap-2">

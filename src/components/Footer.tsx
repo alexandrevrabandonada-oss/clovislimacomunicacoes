@@ -43,8 +43,8 @@ export default function Footer() {
             <div className="mt-20 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
                 <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">© {new Date().getFullYear()} Studio ESBOÇO creation & technical art</p>
                 <div className="flex gap-8">
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">2026_Standard_Ready</span>
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">All_Diagnostics_Reserved</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">Protocolo_2026_Digital</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">Diagnóstico_Reservado</span>
                 </div>
             </div>
         </div>
