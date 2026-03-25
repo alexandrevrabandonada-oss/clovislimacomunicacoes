@@ -5,7 +5,7 @@ import { PRICING } from "../lib/data";
 import { trackEvent } from "../lib/analytics";
 
 type ServiceItem = {
-  slug: "editorial" | "licença" | "tech";
+  slug: "editorial" | "licença" | "tech" | "livro";
   title: string;
   description: string;
   forWhom: string;
@@ -25,6 +25,15 @@ const services: ServiceItem[] = [
     cta: "Protocolar Diagnóstico"
   },
   {
+    slug: "livro",
+    title: "Livros / Proj. Editorial",
+    description: "Construção de capas, personagens e universos de leitura de alta autoridade.",
+    forWhom: "Editoras, Autores Independentes e Selos Literários.",
+    deliverables: ["Capas de Alto Impacto", "Design de Personagem (IP)", "Direção de Arte Editorial"],
+    timing: "Ciclo Curado // 10-15 dias",
+    cta: "Iniciar Trilha"
+  },
+  {
     slug: "licença",
     title: "Licenciamento / Prints",
     description: "Arte autoral para marcas, campanhas e acervos exclusivos.",
@@ -33,12 +42,12 @@ const services: ServiceItem[] = [
     timing: "Fluxo Imediato / Curadoria",
     cta: "Acessar Acervo"
   },
-    {
-      slug: "tech",
-      title: "Engenharia de Presença / PWA",
-      description: "Sistemas web de alta performance e plataformas de autoridade técnica. Arquitetura orientada a Core Web Vitals e UX crítica.",
-      forWhom: "Organizações, Apps e Projetos Editoriais que exigem rapidez, soberania de dados e escala.",
-      deliverables: ["Arquitetura PWA Ready", "Performance (Core Web Vitals)", "Interfaces de Autoridade", "Soberania de Dados"],
+  {
+    slug: "tech",
+    title: "Sistemas Digitais / PWA",
+    description: "Interfaces de autoridade e plataformas de alta performance (Next.js/Vercel).",
+    forWhom: "Organizações e Apps que exigem rapidez e soberania de dados.",
+    deliverables: ["Arquitetura PWA Ready", "Performance Max (Core Web Vitals)", "Interfaces de Autoridade"],
     timing: "Protocolo de Escala // Customizado",
     cta: "Solicitar Viabilidade"
   },

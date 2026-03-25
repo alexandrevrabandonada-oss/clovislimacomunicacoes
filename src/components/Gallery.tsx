@@ -367,17 +367,28 @@ export default function Gallery() {
           {/* FRENTE EDITORIAL TEASER */}
           <Link 
             href="/acervo/livros" 
-            className="mt-10 inline-flex items-center gap-6 p-6 border-[3px] border-black bg-white shadow-[10px_10px_0px_0px_var(--accent)] hover:shadow-[14px_14px_0px_0px_var(--accent)] hover:-translate-y-1 transition-all group"
+            className="mt-10 inline-flex items-center gap-8 p-6 md:p-10 border-[3px] border-black bg-white shadow-[12px_12px_0px_0px_var(--accent)] hover:shadow-[16px_16px_0px_0px_var(--accent)] hover:-translate-y-1 transition-all group max-w-xl"
           >
-            <div className="relative h-16 w-12 border-2 border-black shadow-md overflow-hidden bg-slate-100 italic flex items-center justify-center text-[8px] font-black uppercase text-black/20">
-              Cover_Prot
+            <div className="relative h-24 w-16 border-[3px] border-black shadow-xl overflow-hidden bg-slate-100 flex-shrink-0 group-hover:scale-105 transition-transform">
+              <Image 
+                src="/portfolio/books/mequinho.jpg"
+                alt="Flagship Editorial"
+                fill
+                className="object-cover"
+              />
             </div>
             <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-1 block">Frente_Editorial_Disponível</span>
-              <h4 className="text-xl font-black uppercase tracking-tighter leading-none italic">Livros & Ilustração Editorial</h4>
-              <p className="text-[10px] font-bold text-black/50 uppercase tracking-widest mt-2 flex items-center gap-2">
-                Explorar Biblioteca Pública <span className="text-accent group-hover:translate-x-2 transition-transform">→</span>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[9px] font-black uppercase tracking-[0.4em] text-accent">Frente_Editorial_Flagship</span>
+                <span className="h-px w-8 bg-accent/30" />
+              </div>
+              <h4 className="text-2xl font-black uppercase tracking-tighter leading-none italic">Biblioteca de <br/> Ilustração Editorial</h4>
+              <p className="text-[10px] font-bold text-black/60 uppercase tracking-widest mt-4 leading-relaxed">
+                Capas, Personagens e Universos de Leitura para o Mercado Editorial.
               </p>
+              <div className="mt-4 flex items-center gap-2 text-accent text-[10px] font-black uppercase tracking-widest">
+                Explorar Biblioteca <span className="group-hover:translate-x-2 transition-transform">→</span>
+              </div>
             </div>
           </Link>
         </div>

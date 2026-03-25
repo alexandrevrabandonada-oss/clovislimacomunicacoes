@@ -16,6 +16,7 @@ import SectionRail from '../components/SectionRail'
 import MobileCTABar from '../components/MobileCTABar'
 import { fetchPublishedWorks } from '../lib/works'
 import DigitalShowcase from '../components/DigitalShowcase'
+import EditorialTeaser from '../components/EditorialTeaser'
 
 const siteUrl = 'https://esboco.design' // URL sugerida para a nova marca
 const defaultTitle = 'ESBOÇO criação & arte | Humor que comunica. Design que converte.'
@@ -56,7 +57,12 @@ export default async function Page() {
         <ProofStrip />
       </SectionShell>
 
-      {/* 3. Repertório Editorial / Galeria */}
+      {/* 3. Projeto Editorial / Livros (NOVO HUB DE ALTA HIERARQUIA) */}
+      <SectionShell id="editorial-livros">
+        <EditorialTeaser />
+      </SectionShell>
+
+      {/* 4. Repertório Editorial / Galeria */}
       <SectionShell id="trabalhos">
         <div className="flex items-center gap-3 mb-6">
           <div className="h-4 w-1 bg-accent rounded-full" />

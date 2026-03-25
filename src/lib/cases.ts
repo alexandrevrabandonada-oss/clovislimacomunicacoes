@@ -30,101 +30,71 @@ export type Case = {
 
 export const cases: Case[] = [
     {
-        slug: 'barnabe',
-        category: 'Ilustração Editorial',
-        client: 'Editora Criativa Leitura',
-        sector: 'Literatura Infantil',
-        title: 'A Grande Sacada de Barnabé',
-        summary: 'Desenvolvimento de universo visual e personagens para obra literária infantil focada em criatividade e superação.',
-        diagnostic: 'Necessidade de transformar conceitos abstratos de "ideia" e "motivação" em elementos visuais tangíveis e carismáticos para o público infantil.',
-        intervention: 'Criação de paleta vibrante e traço dinâmico que sustenta a narrativa de descoberta do protagonista.',
-        impact: 'Alta aceitação em projetos de leitura escolares e consolidação do personagem como IP (Identidade Proprietária).',
-        evidence: 'CIRCULAÇÃO: REDE ESCOLAR RS/RJ',
-        methodology: 'Design de Personagem focado em expressão e empatia visual.',
-        isBook: true,
-        bookMetadata: {
-            author: 'Marcio Marinho Nogueira',
-            category: 'Literatura Infantil',
-            audience: 'Infantil',
-            language: 'Português',
-            edition: '1ª Edição',
-            type: 'Capa e Ilustrações'
-        },
-        proof: {
-            deliverables: 'Capa, Personagens e 24 Ilustrações de Miolo',
-            format: 'Digital Painting / Print Ready',
-            impactType: 'Engajamento Literário'
-        },
-        screenshot_url: '/portfolio/books/barnabe.jpg'
-    },
-    {
-        slug: 'mequinho-poco',
-        category: 'Ilustração Editorial',
-        client: 'Editora Criativa Leitura',
-        sector: 'Literatura Infantil',
-        title: 'A Viagem de Mequinho ao Fundo do Poço',
-        summary: 'Revitalização visual e nova edição de obra clássica da literatura infantil educativa.',
-        diagnostic: 'Obra em 2ª edição necessitava de atualização estética para manter relevância comercial perante a nova geração de leitores.',
-        intervention: 'Pintura digital de alta densidade e reforço de sombreamento para criar atmosfera de imersão e aventura.',
-        impact: 'Lançamento bem-sucedido da 2ª Edição (Revista e Ampliada) com aumento de demanda editorial.',
-        evidence: 'STATUS: 2ª EDIÇÃO - AMPLIADA',
-        methodology: 'Color Grading Editorial: uso de luz e sombra para acentuar o drama e a redenção narrativa.',
-        isBook: true,
-        bookMetadata: {
-            author: 'Marcio Marinho Nogueira',
-            category: 'Literatura Infantil',
-            audience: 'Infantil / Educativo',
-            language: 'Português',
-            edition: '2ª Edição - Revista e Ampliada',
-            type: 'Capa e Ilustrações'
-        },
-        proof: {
-            deliverables: 'Nova Capa e Atualização de Pranchas Internas',
-            format: 'High-Res Digital Art',
-            impactType: 'Revitalização de Ativo Editorial'
-        },
-        screenshot_url: '/portfolio/books/mequinho.jpg'
-    },
-    {
         slug: 'etzarolhinho',
         category: 'Ilustração Editorial',
         client: 'Editora Criativa Leitura',
-        sector: 'Literatura Infantil / Inclusão',
+        sector: 'Inclusão / Fantasia',
         title: 'O Etzarolhinho no Planeta das Diferenças',
-        summary: 'Criação de universo visual para obra pioneira em educação inclusiva e respeito às diferenças.',
-        diagnostic: 'O desafio de representar a "diferença" de forma lúdica, sem estigmas, promovendo a identificação imediata do leitor.',
-        intervention: 'Design de personagem alienígena (Etzarolhinho) como metáfora visual positiva para a diversidade.',
-        impact: 'Referência em bibliotecas escolares para pautas de inclusão e diversidade.',
-        evidence: 'ACERVO: EDUCAÇÃO INCLUSIVA',
-        methodology: 'Semiótica da Empatia: traços arredondados e cores primárias para acolhimento cognitivo.',
+        summary: 'Obra pioneira em educação inclusiva e respeito às diferenças.',
+        diagnostic: 'Transformar a "diferença" em uma metáfora visual lúdica e acolhedora.',
+        intervention: 'Design de personagem alienígena com traços arredondados e cores primárias.',
+        impact: 'Referência absoluta em bibliotecas escolares para pautas de diversidade.',
         isBook: true,
         bookMetadata: {
             author: 'Marcio Marinho Nogueira',
-            category: 'Inclusão / Fantasia',
+            category: 'Capa Infantil / Inclusão',
             audience: 'Infantil',
             language: 'Português',
             edition: '2ª Edição',
             type: 'Capa e Ilustrações'
         },
+        evidence: 'ACERVO: EDUCAÇÃO INCLUSIVA',
+        methodology: 'Semiótica da Empatia',
         proof: {
-            deliverables: 'Concepção de Personagem e Storyboarding Visual',
-            format: 'Technical Illustration',
-            impactType: 'Impacto Social e Educativo'
+            deliverables: 'Personagem e 24 Pranchas',
+            format: 'Digital Painting',
+            impactType: 'Impacto Social'
         },
         screenshot_url: '/portfolio/books/etzarolhinho.jpg'
+    },
+    {
+        slug: 'sei-que-posso',
+        category: 'Ilustração Editorial',
+        client: 'Editora Criativa Leitura',
+        sector: 'Literatura Infantil',
+        title: 'Sei que Posso',
+        summary: 'Narrativa visual sobre superação de limites e autoconfiança na infância.',
+        diagnostic: 'Estimular o protagonismo infantil através de uma estética de "conquista".',
+        intervention: 'Uso de ângulos de câmera heróicos e paleta solar.',
+        impact: 'Alta adoção em projetos de coaching para crianças.',
+        isBook: true,
+        bookMetadata: {
+            author: 'Marcio Marinho Nogueira',
+            category: 'Capa Infantil / Motivação',
+            audience: 'Infantil',
+            language: 'Português',
+            edition: '1ª Edição',
+            type: 'Capa e Ilustrações'
+        },
+        evidence: 'STATUS: DISPONÍVEL',
+        methodology: 'Storyboarding Motivacional',
+        proof: {
+            deliverables: 'Capa e Projeto Gráfico',
+            format: 'High-Res Digital',
+            impactType: 'Engajamento Escolar'
+        },
+        screenshot_url: '/portfolio/books/sei-que-posso.png'
     },
     {
         slug: 'christmas-reindeer',
         category: 'Ilustração Editorial',
         client: 'International Editorial Project',
         sector: 'Literatura Infantojuvenil',
-        title: "Everyday's Christmas",
-        summary: 'Projeto editorial internacional (Bilingue) com foco em atmosfera sazonal e narrativa emocional.',
-        diagnostic: 'Necessidade de uma estética que conversasse com o mercado global (EUA/Brasil), mantendo o rigor técnico da ilustração clássica.',
-        intervention: 'Composição de capa cinematográfica com uso estratégico de efeitos de luz e partículas digitais.',
-        impact: 'Entrada do estúdio no mercado de licenciamento bilingue.',
-        evidence: 'PROJETO: INTERNATIONAL EDITION',
-        methodology: 'Renderização Atmosférica: foco em ambientação e "mood" para capturar a magia sazonal.',
+        title: "Everyday's Christmas: The Reindeer's Wish",
+        summary: 'Projeto editorial internacional focado em atmosfera sazonal e narrativa emocional.',
+        diagnostic: 'Necessidade de uma estética global que converse com mercados EUA/Brasil.',
+        intervention: 'Capa cinematográfica com efeitos de luz e partículas digitais.',
+        impact: 'Entrada estratégica no mercado de licenciamento bilingue.',
         isBook: true,
         bookMetadata: {
             author: 'Marcio Marinho Nogueira',
@@ -134,12 +104,210 @@ export const cases: Case[] = [
             edition: 'International Edition',
             type: 'Capa e Ilustrações'
         },
+        evidence: 'PROJETO: INTERNATIONAL',
+        methodology: 'Renderização Atmosférica',
         proof: {
-            deliverables: 'Capa de Edição Especial e Design de Ambiente',
-            format: 'Global Ready / CMYK Optimized',
-            impactType: 'Expansão de Mercado Artístico'
+            deliverables: 'Capa Especial e Ambiente',
+            format: 'CMYK Optimized',
+            impactType: 'Expansão de Mercado'
         },
         screenshot_url: '/portfolio/books/christmas.jpg'
+    },
+    {
+        slug: 'barnabe',
+        category: 'Ilustração Editorial',
+        client: 'Editora Criativa Leitura',
+        sector: 'Literatura Infantil',
+        title: 'A Grande Sacada de Barnabé',
+        summary: 'Universo visual focado em criatividade e inovação para crianças.',
+        diagnostic: 'Traduzir o "momento do insight" em uma jornada visual tangível.',
+        intervention: 'Traço dinâmico e elementos simbólicos (lâmpadas, ideias) integrados à narrativa.',
+        impact: 'Consolidação do personagem como IP proprietária no setor escolar.',
+        isBook: true,
+        bookMetadata: {
+            author: 'Marcio Marinho Nogueira',
+            category: 'Capa Infantil',
+            audience: 'Infantil',
+            language: 'Português',
+            edition: '1ª Edição',
+            type: 'Capa e Ilustrações'
+        },
+        evidence: 'IP_PROPRIETARY: BARNABÉ',
+        methodology: 'Character Design Estratégico',
+        proof: {
+            deliverables: 'Capa e 24 Ilustrações',
+            format: 'Digital Painting',
+            impactType: 'Autoridade de Marca'
+        },
+        screenshot_url: '/portfolio/books/barnabe.jpg'
+    },
+    {
+        slug: 'juquinha-vencedor',
+        category: 'Ilustração Editorial',
+        client: 'Editora Criativa Leitura',
+        sector: 'Literatura Infantil',
+        title: 'O Sonho que Tornou Juquinha um Vencedor',
+        summary: 'Obra educativa sobre disciplina e foco para jovens leitores.',
+        diagnostic: 'Equilibrar ludicidade com a seriedade de uma trajetória de sucesso.',
+        intervention: 'Estética inspirada em conquistas esportivas e superação pessoal.',
+        impact: 'Material base para palestras em escolas de ensino fundamental.',
+        isBook: true,
+        bookMetadata: {
+            author: 'Marcio Marinho Nogueira',
+            category: 'Capa Infantil / Educativo',
+            audience: 'Infantil / Juvenil',
+            language: 'Português',
+            edition: '1ª Edição',
+            type: 'Capa e Ilustrações'
+        },
+        evidence: 'REDE: ESCOLAR PR/SP',
+        methodology: 'Narrativa Visual Linear',
+        proof: {
+            deliverables: 'Capa e 12 Pranchas Chave',
+            format: 'Digital Art',
+            impactType: 'Impacto Pedagógico'
+        },
+        screenshot_url: '/portfolio/books/juquinha.png'
+    },
+    {
+        slug: 'mequinho-pelo-poco',
+        category: 'Ilustração Editorial',
+        client: 'Editora Criativa Leitura',
+        sector: 'Literatura Infantil',
+        title: 'A Viagem de Mequinho pelo Poço',
+        summary: 'Primeira jornada de exploração e descoberta de Mequinho.',
+        diagnostic: 'Gerar curiosidade e senso de aventura segura em ambiente de mistério.',
+        intervention: 'Cenários detalhados com flora e fauna carismáticas.',
+        impact: 'Base para a expansão da "Série Mequinho" no mercado editorial.',
+        isBook: true,
+        bookMetadata: {
+            author: 'Marcio Marinho Nogueira',
+            category: 'Capa Infantil / Aventura',
+            audience: 'Infantil',
+            language: 'Português',
+            edition: '1ª Edição',
+            type: 'Capa e Ilustrações'
+        },
+        evidence: 'SÉRIE: ACERVO VIVO',
+        methodology: 'World Building Infantil',
+        proof: {
+            deliverables: 'Universo Visual e Personagens',
+            format: 'Full Illustration',
+            impactType: 'Atração Editorial'
+        },
+        screenshot_url: '/portfolio/books/mequinho-pelo-poco.jpg'
+    },
+    {
+        slug: 'mequinho-fundo-poco',
+        category: 'Ilustração Editorial',
+        client: 'Editora Criativa Leitura',
+        sector: 'Literatura Infantil',
+        title: 'A Viagem de Mequinho ao Fundo do Poço',
+        summary: 'Revitalização de obra clássica com pintura digital de alta densidade.',
+        diagnostic: 'Atualizar estética de 2ª edição para nova geração de leitores.',
+        intervention: 'Reforço de sombreamento e renderização atmosférica.',
+        impact: 'Lançamento bem-sucedido com aumento imediato de demanda escolar.',
+        isBook: true,
+        bookMetadata: {
+            author: 'Marcio Marinho Nogueira',
+            category: 'Capa Infantil / Reedição',
+            audience: 'Infantil',
+            language: 'Português',
+            edition: '2ª Edição Revista',
+            type: 'Capa e Ilustrações'
+        },
+        evidence: 'REVITALIZAÇÃO: 2ª EDIÇÃO',
+        methodology: 'Color Grading Editorial',
+        proof: {
+            deliverables: 'Nova Capa e Update de Miolo',
+            format: 'High-Res Raster',
+            impactType: 'Vida Útil de Ativo'
+        },
+        screenshot_url: '/portfolio/books/mequinho.jpg'
+    },
+    {
+        slug: 'mae-terra',
+        category: 'Ilustração Editorial',
+        client: 'Editora Sustentar',
+        sector: 'Sustentabilidade',
+        title: 'Uma Mãe Chamada Terra',
+        summary: 'Abordagem personificada e poética sobre ecologia e preservação.',
+        diagnostic: 'Humanizar o planeta para gerar conexão emocional imediata.',
+        intervention: 'Pintura digital onírica com elementos de natureza integrada.',
+        impact: 'Adotado por ONGs socioambientais para educação de base.',
+        isBook: true,
+        bookMetadata: {
+            author: 'Marcio Marinho Nogueira',
+            category: 'Infantojuvenil / Paradidático',
+            audience: 'Juvenil / Escolar',
+            language: 'Português',
+            edition: '1ª Edição',
+            type: 'Capa e Ilustrações'
+        },
+        evidence: 'FRENTE: ESG / EDUCACIONAL',
+        methodology: 'Antropomorfização Poética',
+        proof: {
+            deliverables: 'Capa e 16 Ilustrações Internas',
+            format: 'Digital Painting',
+            impactType: 'Consciência Ambiental'
+        },
+        screenshot_url: '/portfolio/books/mae-terra.png'
+    },
+    {
+        slug: 'forca-natureza',
+        category: 'Ilustração Editorial',
+        client: 'Editora Sustentar',
+        sector: 'Ecologia',
+        title: 'A Força da Natureza',
+        summary: 'Exploração dos elementos naturais e seu impacto no equilíbrio global.',
+        diagnostic: 'Representar o poder da natureza sem torná-lo assustador para crianças.',
+        intervention: 'Personificações amigáveis de vento, chuva e florestas.',
+        impact: 'Material didático de apoio para feiras de ciências.',
+        isBook: true,
+        bookMetadata: {
+            author: 'Marcio Marinho Nogueira',
+            category: 'Capa Infantil / Ecologia',
+            audience: 'Infantil',
+            language: 'Português',
+            edition: '1ª Edição',
+            type: 'Capa e Ilustrações'
+        },
+        evidence: 'ACERVO: CIÊNCIAS/NAT',
+        methodology: 'Design de Elementos',
+        proof: {
+            deliverables: 'Design de Cenários e Capa',
+            format: 'Digital Art',
+            impactType: 'Engajamento Escolar'
+        },
+        screenshot_url: '/portfolio/books/forca-natureza.png'
+    },
+    {
+        slug: 'maior-magica',
+        category: 'Ilustração Editorial',
+        client: 'Editora Fantasia Viva',
+        sector: 'Literatura Infantil',
+        title: 'A Maior Mágica do Mundo',
+        summary: 'Narrativa sobre a mágica do conhecimento e da leitura.',
+        diagnostic: 'Visualizar a "mágica da leitura" de forma expansiva e vibrante.',
+        intervention: 'Uso de paleta roxo/dourada e elementos flutuantes (livros, luzes).',
+        impact: 'Premiação interna de melhor direção de arte em editora parceira.',
+        isBook: true,
+        bookMetadata: {
+            author: 'Marcio Marinho Nogueira',
+            category: 'Fantasia / Infantil',
+            audience: 'Infantil',
+            language: 'Português',
+            edition: '1ª Edição',
+            type: 'Capa e Ilustrações'
+        },
+        evidence: 'AWARD: BEST_ART_DIRECTION',
+        methodology: 'Narrativa Visual Mágica',
+        proof: {
+            deliverables: 'Capa e Concept Art',
+            format: 'Special Edition Render',
+            impactType: 'Desejo de Consumo'
+        },
+        screenshot_url: '/portfolio/books/maior-magica.png'
     },
     {
         slug: 'politica-institucional',
@@ -147,12 +315,10 @@ export const cases: Case[] = [
         client: 'Carbo Editora / Institucional',
         sector: 'Educação / Cidadania',
         title: 'Se preocupe, se importe, se interesse por POLÍTICA',
-        summary: 'Aplicação de ilustração técnica em obra de conscientização política e social para jovens.',
-        diagnostic: 'Complexidade de um tema "árido" para o público jovem: como gerar interesse visual em pautas de cidadania?',
-        intervention: 'Estética de "Charge de Multidão" (Crowd Scene) para representar a diversidade do corpo social brasileiro de forma vibrante.',
-        impact: 'Material utilizado em frentes de educação política não-partidária em escolas públicas.',
-        evidence: 'UTILIDADE: EDUCAÇÃO CIDADÃ',
-        methodology: 'Narrativa Visual Coletiva: composição multi-personagem para reforçar o pertencimento.',
+        summary: 'Ilustração técnica para conscientização social de jovens.',
+        diagnostic: 'Gerar interesse visual em temas áridos para o público jovem.',
+        intervention: 'Estética de "Charge de Multidão" para representar a diversidade.',
+        impact: 'Material utilizado em frentes de educação pública em todo o Brasil.',
         isBook: true,
         bookMetadata: {
             author: 'Adriane Nopes / Maycon Oliveira',
@@ -162,10 +328,12 @@ export const cases: Case[] = [
             edition: 'Edição Institucional',
             type: 'Ilustrações de Capa e Miolo'
         },
+        evidence: 'UTILIDADE: EDUCAÇÃO CIDADÃ',
+        methodology: 'Narrativa Visual Coletiva',
         proof: {
-            deliverables: 'Ilustração de Capa e 16 Intervenções Internas',
-            format: 'Technical Vector / Raster Mix',
-            impactType: 'Conformidade e Engajamento Social'
+            deliverables: 'Capa e 16 Intervenções',
+            format: 'Technical Vector',
+            impactType: 'Engajamento Social'
         },
         screenshot_url: '/portfolio/books/se-preocupe.jpg'
     },
