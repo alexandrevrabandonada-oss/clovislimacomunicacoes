@@ -142,34 +142,6 @@ export const cases: Case[] = [
         screenshot_url: '/portfolio/books/barnabe.jpg'
     },
     {
-        slug: 'mequinho-pelo-poco',
-        category: 'Ilustração Editorial',
-        client: 'Editora Criativa Leitura',
-        sector: 'Literatura Infantil',
-        title: 'A Viagem de Mequinho pelo Poço',
-        summary: 'Primeira jornada de exploração e descoberta de Mequinho.',
-        diagnostic: 'Gerar curiosidade e senso de aventura segura em ambiente de mistério.',
-        intervention: 'Cenários detalhados com flora e fauna carismáticas.',
-        impact: 'Base para a expansão da "Série Mequinho" no mercado editorial.',
-        isBook: true,
-        bookMetadata: {
-            author: 'Marcio Marinho Nogueira',
-            category: 'Capa Infantil / Aventura',
-            audience: 'Infantil',
-            language: 'Português',
-            edition: '1ª Edição',
-            type: 'Capa e Ilustrações'
-        },
-        evidence: 'SÉRIE: ACERVO VIVO',
-        methodology: 'World Building Infantil',
-        proof: {
-            deliverables: 'Universo Visual e Personagens',
-            format: 'Full Illustration',
-            impactType: 'Atração Editorial'
-        },
-        screenshot_url: '/portfolio/books/mequinho-pelo-poco.jpg'
-    },
-    {
         slug: 'mequinho-fundo-poco',
         category: 'Ilustração Editorial',
         client: 'Editora Criativa Leitura',
