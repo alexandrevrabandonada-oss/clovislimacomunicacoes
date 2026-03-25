@@ -353,7 +353,7 @@ export default function Gallery() {
 
   return (
     <div className="pt-2">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b-[3px] border-black pb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-8 border-b-[3px] border-black pb-6 md:pb-10">
         <div>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-3 h-3 bg-accent animate-pulse" />
@@ -367,9 +367,9 @@ export default function Gallery() {
           {/* FRENTE EDITORIAL TEASER */}
           <Link 
             href="/acervo/livros" 
-            className="mt-10 inline-flex items-center gap-8 p-6 md:p-10 border-[3px] border-black bg-white shadow-[12px_12px_0px_0px_var(--accent)] hover:shadow-[16px_16px_0px_0px_var(--accent)] hover:-translate-y-1 transition-all group max-w-xl"
+            className="mt-6 md:mt-10 inline-flex items-center gap-4 md:gap-8 p-4 md:p-10 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_var(--accent)] hover:shadow-[12px_12px_0px_0px_var(--accent)] hover:-translate-y-1 transition-all group max-w-full md:max-w-xl"
           >
-            <div className="relative h-24 w-16 border-[3px] border-black shadow-xl overflow-hidden bg-slate-100 flex-shrink-0 group-hover:scale-105 transition-transform">
+            <div className="relative h-20 md:h-24 w-14 md:w-16 border-[3px] border-black shadow-xl overflow-hidden bg-slate-100 flex-shrink-0 group-hover:scale-105 transition-transform">
               <Image 
                 src="/portfolio/books/mequinho.jpg"
                 alt="Flagship Editorial"
@@ -393,7 +393,7 @@ export default function Gallery() {
           </Link>
         </div>
         
-        <div className="flex flex-col gap-2 min-w-[200px]">
+        <div className="flex flex-col gap-2 min-w-[180px] md:min-w-[200px]">
            <input
             type="search"
             value={searchQuery}
@@ -462,7 +462,7 @@ export default function Gallery() {
                     const featured = items.find(i => i.featured);
                     if (!featured) return null;
                     return (
-                        <div className="grid md:grid-cols-2 gap-12 items-center bg-white p-10 md:p-20 border-[4px] border-black shadow-[32px_32px_0px_0px_rgba(0,0,0,1)] hover:shadow-[40px_40px_0px_0px_var(--accent)] transition-all group-hover:bg-black group-hover:text-white group">
+                        <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center bg-white p-5 md:p-20 border-[4px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] md:shadow-[32px_32px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] md:hover:shadow-[40px_40px_0px_0px_var(--accent)] transition-all group-hover:bg-black group-hover:text-white group">
                             <div className="ink-frame relative aspect-[4/3] md:aspect-[16/10] overflow-hidden border-[3px] border-black bg-white shadow-2xl group-hover:scale-[1.03] transition-transform">
                                 <Image 
                                     src={featured.src} 
@@ -472,14 +472,14 @@ export default function Gallery() {
                                 />
                                 <div className="absolute inset-0 bg-accent/5 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
-                            <div className="space-y-12">
-                                <div>
+                                <div className="space-y-6 md:space-y-12">
+                                    <div>
                                     <span className="text-[12px] font-black uppercase tracking-[0.5em] text-accent mb-6 block">Ativo de Autoridade // {featured.type}</span>
-                                    <h4 className="text-5xl md:text-8xl font-black leading-[0.8] tracking-tighter italic mb-8 uppercase">&quot;{featured.title}&quot;</h4>
-                                    <p className="text-xl md:text-2xl font-black italic mt-8 leading-none border-l-[8px] border-accent pl-8">&quot;{featured.subtitle}&quot;</p>
+                                        <h4 className="text-4xl md:text-8xl font-black leading-[0.8] tracking-tighter italic mb-4 md:mb-8 uppercase">&quot;{featured.title}&quot;</h4>
+                                        <p className="text-lg md:text-2xl font-black italic mt-4 md:mt-8 leading-none border-l-[4px] md:border-l-[8px] border-accent pl-4 md:pl-8">&quot;{featured.subtitle}&quot;</p>
                                 </div>
-                                <div className="pt-12 border-t-[3px] border-current flex flex-wrap gap-10 items-center">
-                                    <button className="ink-button bg-accent text-white border-black px-12 py-6 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+                                <div className="pt-6 md:pt-12 border-t-[3px] border-current flex flex-wrap gap-4 md:gap-10 items-center">
+                                        <button className="ink-button bg-accent text-white border-black px-6 md:px-12 py-4 md:py-6 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
                                         Explorar Ativo →
                                     </button>
                                     <div className="flex flex-col">

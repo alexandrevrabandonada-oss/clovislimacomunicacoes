@@ -265,3 +265,42 @@ html {
 
 /* accessibility helpers */
 .sr-only{position:absolute!important;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+
+/* ─── MOBILE HARDENING ≤ 767px ─────────────────────────────────────── */
+@media (max-width: 767px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Reduce ink-card shadow on mobile to prevent visual chaos + overflow */
+  .ink-card {
+    box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+  }
+  .ink-card:hover,
+  .ink-card:focus-within {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px 0px var(--accent);
+  }
+
+  /* Reduce ink-button shadow on mobile */
+  .ink-button {
+    box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+    letter-spacing: 0.1em;
+  }
+  .ink-button:hover,
+  .ink-button:focus-visible {
+    box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+  }
+
+  /* Stamp badge: remove artificial min-height */
+  .stamp-badge {
+    min-height: auto;
+  }
+
+  /* Timeline card */
+  .timeline-card {
+    box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+    padding: 1rem;
+  }
+}

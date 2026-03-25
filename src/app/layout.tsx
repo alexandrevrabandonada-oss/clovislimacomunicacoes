@@ -83,8 +83,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <html lang="pt-BR">
-      <body className="bg-paper text-primary halftone-bg">
+    <html lang="pt-BR" className="overflow-x-hidden">
+      <body className="bg-paper text-primary halftone-bg overflow-x-hidden">
         {plausibleDomain ? (
           <Script
             defer

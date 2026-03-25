@@ -74,11 +74,11 @@ export default function PrintsTeaser() {
         {productTracks.map((track) => (
           <div 
             key={track.id}
-            className={`ink-card p-0 flex flex-col border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all ${track.featured ? 'md:scale-[1.05] z-10' : ''} ${track.color}`}
+            className={`ink-card p-0 flex flex-col border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_var(--accent)] md:hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all ${track.featured ? 'md:scale-[1.05] z-10' : ''} ${track.color}`}
           >
             {/* Card Header */}
-            <div className={`p-10 border-b-[3px] ${track.featured ? 'border-white/20' : 'border-black'}`}>
-              <div className="flex justify-between items-start mb-8">
+            <div className={`p-5 md:p-10 border-b-[3px] ${track.featured ? 'border-white/20' : 'border-black'}`}>
+              <div className="flex justify-between items-start mb-5 md:mb-8">
                 <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 border-2 ${track.featured ? 'bg-accent text-white border-white' : 'bg-black text-white border-black'}`}>
                   {track.badge}
                 </span>
@@ -93,8 +93,8 @@ export default function PrintsTeaser() {
             </div>
 
             {/* Card Body */}
-            <div className="p-10 flex-grow">
-              <p className={`text-sm leading-relaxed mb-10 font-bold ${track.featured ? 'text-white/80' : 'text-black/80'}`}>
+            <div className="p-5 md:p-10 flex-grow">
+              <p className={`text-sm leading-relaxed mb-6 md:mb-10 font-bold ${track.featured ? 'text-white/80' : 'text-black/80'}`}>
                 {track.description}
               </p>
               
@@ -114,7 +114,7 @@ export default function PrintsTeaser() {
             </div>
 
             {/* Card Footer */}
-            <div className="p-10 pt-0">
+            <div className="p-5 md:p-10 pt-0">
               <a 
                 href="#contato"
                 onClick={() => trackEvent('click_prints_track', { track: track.id })}
@@ -132,13 +132,13 @@ export default function PrintsTeaser() {
       </div>
 
       {/* Quality Standards Bar */}
-      <div className="bg-white border-[3px] border-black p-10 md:p-16 shadow-[24px_24px_0px_0px_rgba(0,0,0,1)]">
-        <div className="flex items-center gap-4 mb-12">
+      <div className="bg-white border-[3px] border-black p-6 md:p-16 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] md:shadow-[24px_24px_0px_0px_rgba(0,0,0,1)]">
+        <div className="flex items-center gap-4 mb-8 md:mb-12">
           <div className="h-[3px] w-12 bg-black" />
           <p className="text-[11px] font-black uppercase tracking-[0.4em] text-black">Certificação de Qualidade / MUSEUM GRADE ⚡</p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12">
           {qualityStandards.map((std) => (
             <div key={std.label} className="group/std">
               <p className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 mb-3 group-hover/std:text-accent transition-colors">{std.label}</p>
@@ -148,7 +148,7 @@ export default function PrintsTeaser() {
           ))}
         </div>
 
-        <div className="mt-16 pt-12 border-t-[3px] border-black/10 flex flex-col md:flex-row items-center justify-between gap-10">
+        <div className="mt-8 md:mt-16 pt-6 md:pt-12 border-t-[3px] border-black/10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10">
           <div className="flex items-center gap-6">
             <div className="w-16 h-16 bg-black text-white flex items-center justify-center font-black text-2xl border-[3px] border-accent shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">CL</div>
             <p className="text-sm font-black text-black max-w-[240px] italic leading-tight uppercase tracking-tight">Curadoria, Assinatura e Selo de Autoridade Clóvis Lima.</p>
@@ -163,7 +163,7 @@ export default function PrintsTeaser() {
       </div>
 
       {/* Real Application Proof: UNIPAMPA */}
-      <div className="bg-black text-white border-[3px] border-accent p-10 md:p-16 shadow-[24px_24px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden group">
+      <div className="bg-black text-white border-[3px] border-accent p-6 md:p-16 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] md:shadow-[24px_24px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden group">
         <div className="absolute inset-0 halftone-bg opacity-5 group-hover:opacity-10 transition-opacity" />
         <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
           <div>
@@ -208,7 +208,7 @@ export default function PrintsTeaser() {
       </div>
 
       {/* Process Rail */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-10 pt-10 border-t-[3px] border-black/5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-10 pt-6 md:pt-10 border-t-[3px] border-black/5">
         {[
           { step: "01", label: "Consulta", desc: "Identificação da obra e modalidade" },
           { step: "02", label: "Proposta", desc: "Termos de cessão e orçamento" },

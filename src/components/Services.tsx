@@ -91,11 +91,11 @@ export default function Services() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12 relative z-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-12 relative z-10">
         {services.map((service, index) => (
           <div 
             key={service.slug}
-            className="ink-card group/service p-10 flex flex-col h-full bg-white border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all relative overflow-hidden"
+            className="ink-card group/service p-6 md:p-10 flex flex-col bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_var(--accent)] md:hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all relative overflow-hidden"
           >
             {/* Tech Marker */}
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover/service:opacity-20 transition-opacity">
@@ -103,14 +103,14 @@ export default function Services() {
             </div>
 
             <div className="relative z-10 flex-grow">
-              <h3 className="text-3xl font-black tracking-tighter mb-6 group-hover/service:text-accent transition-colors italic uppercase leading-none">
+              <h3 className="text-2xl md:text-3xl font-black tracking-tighter mb-4 md:mb-6 group-hover/service:text-accent transition-colors italic uppercase leading-none">
                 {service.title}
               </h3>
-              <p className="text-base text-black font-bold leading-tight mb-8 italic border-l-4 border-black pl-6">
+              <p className="text-base text-black font-bold leading-tight mb-5 md:mb-8 italic border-l-4 border-black pl-4 md:pl-6">
                 {service.description}
               </p>
               
-              <div className="space-y-4 mb-10">
+              <div className="space-y-3 mb-6 md:mb-10">
                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-black/40">Protocolo_Entrega:</p>
                 <ul className="space-y-3">
                   {service.deliverables.map(item => (
@@ -124,7 +124,7 @@ export default function Services() {
             </div>
 
             <button
-              className="ink-button mt-4 w-full bg-black text-white px-8 py-6 font-black text-[12px] uppercase tracking-[0.2em] hover:bg-accent transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)]"
+              className="ink-button mt-4 w-full bg-black text-white px-8 py-4 md:py-6 font-black text-[12px] uppercase tracking-[0.2em] hover:bg-accent transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)]"
               onClick={() => {
                 trackEvent('click_service_card', { package: service.slug })
                 setSelected(service)

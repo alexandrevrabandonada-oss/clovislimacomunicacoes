@@ -38,7 +38,7 @@ export default function Timeline(){
     ];
 
     return (
-        <div className="space-y-12">
+        <div className="space-y-8 md:space-y-12">
             {/* Timeline Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b-[3px] border-black pb-10">
                 <div className="max-w-2xl">
@@ -70,7 +70,7 @@ export default function Timeline(){
                         </div>
 
                         {/* Content Card */}
-                        <div className={`w-full md:w-[45%] ink-card p-0 border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all bg-white overflow-hidden`}>
+                        <div className={`w-full md:w-[45%] ink-card p-0 border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_var(--accent)] md:hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all bg-white overflow-hidden`}>
                             <div className={`p-4 border-b-[3px] border-black flex items-center justify-between ${cycle.current ? 'bg-black text-white' : 'bg-white'}`}>
                                 <div className="flex items-center gap-3">
                                   <div className={`w-2 h-2 ${cycle.current ? 'bg-accent' : 'bg-black'}`} />
@@ -80,7 +80,7 @@ export default function Timeline(){
                                     {cycle.badge}
                                 </span>
                             </div>
-                            <div className="p-8">
+                            <div className="p-5 md:p-8">
                                 <h3 className="text-2xl font-black italic mb-6 tracking-tighter leading-none uppercase">{cycle.title}</h3>
                                 <ul className="space-y-4">
                                     {cycle.milestones.map((ms, i) => (
@@ -111,13 +111,13 @@ export default function Timeline(){
             </div>
 
             {/* Closing Statement */}
-            <div className="bg-black text-white p-12 md:p-20 border-[4px] border-black flex flex-col lg:flex-row items-center justify-between gap-16 shadow-[32px_32px_0px_0px_rgba(239,68,68,1)]">
+            <div className="bg-black text-white p-8 md:p-20 border-[4px] border-black flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-16 shadow-[16px_16px_0px_0px_rgba(239,68,68,1)] md:shadow-[32px_32px_0px_0px_rgba(239,68,68,1)]">
                 <div className="max-w-2xl">
                     <p className="text-accent text-[11px] font-black uppercase tracking-[0.5em] mb-6">Manifesto ESBOÇO 2026</p>
-                    <h4 className="text-4xl md:text-6xl font-black italic tracking-tighter leading-[0.85] mb-8 uppercase">
+                    <h4 className="text-3xl md:text-6xl font-black italic tracking-tighter leading-[0.85] mb-6 md:mb-8 uppercase">
                         O tempo não apenas passa. <br/> Ele <span className="text-accent underline decoration-white/20 underline-offset-8">Acumula Autoridade.</span>
                     </h4>
-                    <p className="text-lg md:text-xl text-white/60 font-black italic leading-tight border-l-[8px] border-accent pl-8">
+                    <p className="text-base md:text-xl text-white/60 font-black italic leading-tight border-l-[4px] md:border-l-[8px] border-accent pl-5 md:pl-8">
                         Nossa trajetória é a garantia técnica de que cada traço, cada linha de código e cada report estratégico possui a soberania de quem opera no topo da cadeia de comunicação.
                     </p>
                 </div>

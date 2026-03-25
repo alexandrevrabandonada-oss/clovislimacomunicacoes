@@ -12,8 +12,8 @@ export default function EditorialTeaser() {
   const tiltRef = useTilt<HTMLDivElement>(2)
 
   return (
-    <div className="py-12">
-      <div className="flex flex-col md:flex-row gap-12 items-start mb-16">
+    <div className="py-8 md:py-12">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-start mb-8 md:mb-16">
         <div className="max-w-2xl">
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">
             VERTICAL_ESTRATÉGICA :: EDITORIAL
@@ -32,14 +32,14 @@ export default function EditorialTeaser() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 md:gap-12 items-stretch">
         {/* FLAGSHIP HIGHLIGHT */}
         {flagshipBook && (
           <div 
             ref={tiltRef}
-            className="group relative bg-white border-[3px] border-black p-8 md:p-12 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all flex flex-col md:flex-row gap-10 items-center overflow-hidden"
+            className="group relative bg-white border-[3px] border-black p-5 md:p-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_var(--accent)] md:hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all flex flex-col md:flex-row gap-6 md:gap-10 items-center overflow-hidden"
           >
-            <div className="w-full md:w-1/2 aspect-[3/4] relative shadow-2xl border-[3px] border-black group-hover:scale-[1.02] transition-transform duration-500 overflow-hidden bg-slate-50">
+            <div className="w-full md:w-1/2 aspect-[3/4] max-h-64 md:max-h-none relative shadow-2xl border-[3px] border-black group-hover:scale-[1.02] transition-transform duration-500 overflow-hidden bg-slate-50">
                 <Image 
                     src={flagshipBook.screenshot_url || ''} 
                     alt={flagshipBook.title}
@@ -53,7 +53,7 @@ export default function EditorialTeaser() {
                <p className="text-xs font-bold text-black/60 leading-relaxed uppercase">
                 {flagshipBook.summary}
                </p>
-               <div className="pt-6 border-t border-black/10 flex flex-col gap-2">
+               <div className="pt-4 md:pt-6 border-t border-black/10 flex flex-col gap-2">
                     <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Status_Publicação</span>
                      <span className="text-xs font-black uppercase">{flagshipBook.bookMetadata?.edition} {'//'} {flagshipBook.bookMetadata?.author}</span>
                </div>
@@ -88,7 +88,7 @@ export default function EditorialTeaser() {
           ))}
           <Link 
             href="/acervo/livros" 
-            className="flex items-center justify-center p-6 border-[3px] border-black border-dashed opacity-50 hover:opacity-100 hover:border-accent hover:text-accent font-black uppercase text-xs tracking-widest transition-all"
+            className="flex items-center justify-center p-4 md:p-6 border-[3px] border-black border-dashed opacity-50 hover:opacity-100 hover:border-accent hover:text-accent font-black uppercase text-xs tracking-widest transition-all"
           >
             + Ver Catálogo Completo
           </Link>
