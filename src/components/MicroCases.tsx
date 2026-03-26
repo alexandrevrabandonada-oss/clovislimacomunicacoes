@@ -27,13 +27,13 @@ export default function MicroCases() {
 
             <div className="grid gap-12 md:grid-cols-2">
                 {cases.slice(0, 4).map((item) => (
-                    <article key={item.slug} className="ink-card p-0 flex flex-col bg-white border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all group overflow-hidden rounded-none">
+                     <article key={item.slug} className="ink-card p-0 flex flex-col bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_var(--accent)] md:hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all group overflow-hidden rounded-none">
                         
-                        <div className="p-10 flex-grow border-b-[3px] border-black">
-                            <div className="flex items-center justify-between mb-8">
-                                <span className="bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 border-2 border-black">
+                            <div className="p-5 md:p-10 flex-grow border-b-[3px] border-black">
+                                <div className="flex items-start justify-between gap-2 mb-5 md:mb-8 flex-wrap">
+                                    <span className="microcases-badge bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 border-2 border-black max-w-[70%] leading-tight">
                                     ESTRATÉGIA_ENGINE // {item.category}
-                                </span>
+                                    </span>
                                 <div className="flex gap-2 items-center">
                                     <span className="w-2 h-2 bg-emerald-500 animate-pulse" />
                                     <span className="text-[9px] font-black text-black/30 uppercase tracking-[0.3em]">Case_Verified</span>
@@ -42,7 +42,7 @@ export default function MicroCases() {
 
                             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                                 <div className="md:col-span-12">
-                                    <h3 className="text-4xl font-black mb-8 leading-[0.95] tracking-tighter group-hover:text-accent transition-colors italic uppercase">
+                                    <h3 className="text-2xl md:text-4xl font-black mb-5 md:mb-8 leading-[0.95] tracking-tighter group-hover:text-accent transition-colors italic uppercase">
                                         &quot;{item.title}&quot;
                                     </h3>
                                     
@@ -62,31 +62,31 @@ export default function MicroCases() {
                                 </div>
                             </div>
 
-                            <section className="mt-4 p-8 bg-white border-[3px] border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <section className="mt-4 p-5 md:p-8 bg-white border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6">
                                     <div className="max-w-md">
                                         <p className="text-[10px] font-black uppercase text-black/30 tracking-[0.3em] mb-3 font-mono">Retorno_Operacional :: Impacto</p>
                                         <p className="text-xl font-black text-black leading-none tracking-tight italic uppercase">&quot;{item.impact}&quot;</p>
                                     </div>
-                                    <div className="bg-accent text-white border-[3px] border-black px-5 py-3 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] text-center">
+                                    <div className="bg-accent text-white border-[3px] border-black px-3 md:px-5 py-2 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] text-center self-start">
                                         <p className="text-[10px] font-black uppercase tracking-[0.2em]">{item.evidence}</p>
                                     </div>
                                 </div>
                             </section>
                         </div>
 
-                        <div className="p-10 pt-0 flex flex-col sm:flex-row gap-6 bg-white">
+                        <div className="p-5 md:p-10 pt-0 flex flex-col sm:flex-row gap-3 md:gap-6 bg-white">
                             <Link 
                                 href={`/cases/${item.slug}`}
                                 onClick={() => trackEvent('click_microcase_detail', { slug: item.slug })}
-                                className="ink-button flex-1 text-center py-6 bg-black text-white text-[11px] uppercase font-black tracking-[0.2em] hover:bg-accent transition-all"
+                                className="ink-button flex-1 text-center py-4 md:py-6 bg-black text-white text-[11px] uppercase font-black tracking-[0.2em] hover:bg-accent transition-all"
                             >
                                 Analisar Report →
                             </Link>
                             <Link 
                                 href="/#contato"
                                 onClick={() => trackEvent('click_microcase_cta', { slug: item.slug })}
-                                className="ink-button flex-1 text-center py-6 bg-white text-black text-[11px] uppercase font-black tracking-[0.2em] border-[3px] border-black hover:bg-black hover:text-white transition-all"
+                                className="ink-button flex-1 text-center py-4 md:py-6 bg-white text-black text-[11px] uppercase font-black tracking-[0.2em] border-[3px] border-black hover:bg-black hover:text-white transition-all"
                             >
                                 Solicitar Diagnóstico
                             </Link>

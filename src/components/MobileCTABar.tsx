@@ -46,7 +46,7 @@ export default function MobileCTABar() {
   if (hidden) return null
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t-2 border-black bg-paper px-3 py-2">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t-2 border-black bg-white px-3 py-2">
       <div className="mx-auto grid max-w-6xl grid-cols-3 gap-2">
         <button
           type="button"

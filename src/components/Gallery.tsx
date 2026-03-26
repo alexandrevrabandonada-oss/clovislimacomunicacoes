@@ -367,7 +367,7 @@ export default function Gallery() {
           {/* FRENTE EDITORIAL TEASER */}
           <Link 
             href="/acervo/livros" 
-            className="mt-6 md:mt-10 inline-flex items-center gap-4 md:gap-8 p-4 md:p-10 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_var(--accent)] hover:shadow-[12px_12px_0px_0px_var(--accent)] hover:-translate-y-1 transition-all group max-w-full md:max-w-xl"
+            className="mt-6 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-8 p-4 md:p-10 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_var(--accent)] hover:shadow-[12px_12px_0px_0px_var(--accent)] hover:-translate-y-1 transition-all group max-w-full md:max-w-xl"
           >
             <div className="relative h-20 md:h-24 w-14 md:w-16 border-[3px] border-black shadow-xl overflow-hidden bg-slate-100 flex-shrink-0 group-hover:scale-105 transition-transform">
               <Image 
@@ -377,16 +377,16 @@ export default function Gallery() {
                 className="object-cover"
               />
             </div>
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[9px] font-black uppercase tracking-[0.4em] text-accent">Frente_Editorial_Flagship</span>
-                <span className="h-px w-8 bg-accent/30" />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 mb-2 overflow-hidden">
+                <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-accent truncate">Frente_Editorial_Flagship</span>
+                <span className="h-px w-4 md:w-8 bg-accent/30 shrink-0" />
               </div>
-              <h4 className="text-2xl font-black uppercase tracking-tighter leading-none italic">Biblioteca de <br/> Ilustração Editorial</h4>
-              <p className="text-[10px] font-bold text-black/60 uppercase tracking-widest mt-4 leading-relaxed">
+              <h4 className="text-xl md:text-2xl font-black uppercase tracking-tighter leading-none italic">Biblioteca de <br/> Ilustração Editorial</h4>
+              <p className="text-[10px] font-bold text-black/60 uppercase tracking-tight md:tracking-widest mt-3 md:mt-4 leading-relaxed">
                 Capas, Personagens e Universos de Leitura para o Mercado Editorial.
               </p>
-              <div className="mt-4 flex items-center gap-2 text-accent text-[10px] font-black uppercase tracking-widest">
+              <div className="mt-3 md:mt-4 flex items-center gap-2 text-accent text-[10px] font-black uppercase tracking-widest">
                 Explorar Biblioteca <span className="group-hover:translate-x-2 transition-transform">→</span>
               </div>
             </div>
