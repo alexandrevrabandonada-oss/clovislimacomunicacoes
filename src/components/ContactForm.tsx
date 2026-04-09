@@ -49,6 +49,7 @@ export default function ContactForm() {
     ? `https://wa.me/${whatsAppNumber}`
     : `https://wa.me/`
 
+  // Ler trilha da URL no mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const p = params.get('pacote')
@@ -56,6 +57,38 @@ export default function ContactForm() {
       setActivePath(p as ContactPath)
     }
   }, [])
+
+  // Ouvir evento disparado pelo QuickQuote ao selecionar trilha
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ message?: string; package?: string }>).detail
+      if (detail?.package && PACKAGE_LABELS[detail.package]) {
+        setActivePath(detail.package as ContactPath)
+      }
+      if (detail?.message) {
+        setMessage(detail.message)
+        setTimeout(() => messageRef.current?.focus({ preventScroll: true }), 120)
+      }
+    }
+    window.addEventListener('contact-prefill', handler)
+    return () => window.removeEventListener('contact-prefill', handler)
+  }, [])
+
+  const buildWhatsAppMessage = (path: ContactPath) => {
+    const verticalLabel = PACKAGE_LABELS[path]
+    const lines = [
+      `📋 *PROTOCOLO DE ENTRADA // ESBOÇO 2026*`,
+      ``,
+      `*Vertical:* ${verticalLabel}`,
+      `*Nome:* ${name}`,
+      `*E-mail:* ${email}`,
+      phone ? `*WhatsApp:* ${phone}` : null,
+      ``,
+      `*Briefing:*`,
+      message,
+    ].filter(Boolean)
+    return lines.join('\n')
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -75,6 +108,11 @@ export default function ContactForm() {
       
       if (!response.ok) throw new Error('Falha no envio')
       
+      // Redireciona para WhatsApp com a mensagem pré-preenchida
+      const waMessage = buildWhatsAppMessage(activePath)
+      const waUrl = `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(waMessage)}`
+      window.open(waUrl, '_blank', 'noopener,noreferrer')
+
       setStatus('success')
       trackEvent('submit_lead_success', { package: activePath })
     } catch {

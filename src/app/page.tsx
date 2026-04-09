@@ -117,13 +117,8 @@ export default async function Page() {
       {/* 10. Orçamento Rápido & 11. Contato */}
       <SectionShell id="contato" className="">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 items-start">
-          <div className="space-y-6">
+          <div>
             <QuickQuote />
-            <div className="hidden lg:block p-6 bg-accent/5 rounded-[2rem] border border-accent/10">
-              <p className="text-xs text-slate-500 leading-relaxed font-medium italic">
-                &quot;Cada projeto na ESBOÇO começa com uma análise técnica da pauta. Nosso foco é garantir que o design sirva à estratégia de informação.&quot;
-              </p>
-            </div>
           </div>
           <ContactForm />
         </div>

@@ -184,9 +184,6 @@ export default function DigitalShowcase() {
             <h3 className="text-4xl md:text-5xl font-black text-white italic mb-6 leading-[0.9] tracking-tighter">
               Infraestrutura de Elite para <br/> <span className="text-accent underline decoration-white/20 underline-offset-8">Marcas Inevitáveis.</span>
             </h3>
-            <p className="text-white/40 font-black text-xs uppercase tracking-[0.4em] mb-4">
-              Diagnóstico de Performance · Estratégia PWA · Segurança de Dados
-            </p>
          </div>
          <Link 
             href="#contato"
@@ -199,3 +196,4 @@ export default function DigitalShowcase() {
     </div>
   )
 }
+

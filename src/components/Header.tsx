@@ -72,7 +72,7 @@ export default function Header() {
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-3 md:py-5">
           {/* Logo + badge */}
           <div className="flex items-center gap-3 min-w-0">
-            <Link href="#hero" className="flex items-center gap-2 group shrink-0">
+            <Link href="/" className="flex items-center gap-2 group shrink-0">
               <Image 
                 src="/brand/logo-horizontal.png" 
                 alt="ESBOÇO criação & arte" 
@@ -82,10 +82,10 @@ export default function Header() {
                 priority
               />
             </Link>
-            <div className="hidden xl:flex items-center gap-3 bg-black text-white px-3 py-1 border border-black">
-               <span className="w-1.5 h-1.5 bg-accent animate-pulse" />
+            <Link href="/" className="hidden xl:flex items-center gap-3 bg-black text-white px-3 py-1 border border-black hover:bg-accent transition-colors">
+               <span className="w-1.5 h-1.5 bg-white animate-pulse" />
                <span className="text-[9px] font-black uppercase tracking-[0.3em]">Protocolo_2026 :: Estratégia & Design v3.4</span>
-            </div>
+            </Link>
           </div>
 
           {/* Desktop nav */}
