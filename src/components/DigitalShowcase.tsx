@@ -3,10 +3,12 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { trackEvent } from '../lib/analytics'
+import { cases } from '../lib/cases'
 import { useRevealOnView } from '../lib/useRevealOnView'
 
 export default function DigitalShowcase() {
   const { ref: headingRef, revealed } = useRevealOnView<HTMLHeadingElement>()
+  const bombaAberta = cases.find((item) => item.slug === 'bomba-aberta')
 
   const techStack = [
     { category: "Arquitetura Frontend", items: ["Next.js 15 (App Router)", "React Server Components", "TypeScript 5+", "TailwindCSS 4"] },
@@ -159,6 +161,127 @@ export default function DigitalShowcase() {
           </div>
         </div>
       </div>
+
+      {bombaAberta && (
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] gap-8">
+          <article className="ink-card overflow-hidden border-[3px] border-black bg-white shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[20px_20px_0px_0px_var(--accent)] transition-all">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+              <div className="relative min-h-[320px] border-b-[3px] border-black bg-white lg:min-h-[100%] lg:border-b-0 lg:border-r-[3px] lg:border-black">
+                <div className="absolute top-0 inset-x-0 z-20 flex h-9 items-center justify-between bg-black px-4">
+                  <div className="flex gap-2">
+                    <div className="h-2.5 w-2.5 rounded-full bg-red-500" />
+                    <div className="h-2.5 w-2.5 rounded-full bg-amber-500" />
+                    <div className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                  </div>
+                  <div className="max-w-[70%] truncate bg-white/10 px-3 py-1 text-[8px] font-black uppercase tracking-[0.35em] text-white/80">
+                    LIVE_PUBLIC_UTILITY // BBA.FIELD
+                  </div>
+                </div>
+                <Image
+                  src={bombaAberta.screenshot_url || '/portfolio/bomba-aberta-placeholder.svg'}
+                  alt="Bomba Aberta - visual de produto PWA"
+                  fill
+                  className="object-cover object-top pt-9 transition-transform duration-1000 group-hover:scale-[1.02]"
+                />
+                <div className="pointer-events-none absolute left-5 top-14 z-20 max-w-[220px] border-2 border-black bg-white px-4 py-3 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.2)]">
+                  <p className="mb-2 text-[8px] font-black uppercase tracking-[0.35em] text-black/40">Campo_Operacional</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.15em] text-black">Mapa vivo, busca, recência e envio em fluxo de consulta cotidiana.</p>
+                </div>
+              </div>
+
+              <div className="flex min-w-0 flex-col gap-6 p-6 md:p-8 lg:p-10">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="bg-black px-4 py-2 text-[10px] font-black uppercase tracking-[0.25em] text-white border-[2px] border-black">
+                    PROVA_REAL
+                  </span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/40 break-words">
+                    {bombaAberta.category}
+                  </span>
+                </div>
+
+                <div className="space-y-4 min-w-0">
+                  <h3 className="text-3xl md:text-4xl font-black tracking-tighter italic uppercase text-black leading-[0.9] break-words">
+                    {bombaAberta.title}
+                  </h3>
+                  {bombaAberta.subtitle && (
+                    <p className="text-[11px] font-black uppercase tracking-[0.28em] text-black/50 leading-tight break-words">
+                      {bombaAberta.subtitle}
+                    </p>
+                  )}
+                  <p className="border-l-4 border-accent pl-5 text-base md:text-lg font-bold italic leading-snug text-black">
+                    {bombaAberta.portfolioSummary || bombaAberta.summary}
+                  </p>
+                </div>
+
+                {bombaAberta.highlights && bombaAberta.highlights.length > 0 && (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {bombaAberta.highlights.map((item) => (
+                      <div key={item} className="border-[2px] border-black bg-white px-4 py-4 text-[10px] font-black uppercase tracking-[0.14em] leading-tight text-black">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {bombaAberta.tags && bombaAberta.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {bombaAberta.tags.map((tag) => (
+                      <span key={tag} className="border-[2px] border-black px-3 py-2 text-[9px] font-black uppercase tracking-[0.22em] text-black">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+                  <Link
+                    href={`/cases/${bombaAberta.slug}`}
+                    onClick={() => trackEvent('click_digital_bomba_aberta_case')}
+                    className="ink-button flex-1 border-[3px] border-black bg-black px-6 py-4 text-center text-[11px] font-black uppercase tracking-[0.28em] text-white transition-all hover:bg-accent"
+                  >
+                    {bombaAberta.ctaLabel || 'Ver case PWA'}
+                  </Link>
+                  {bombaAberta.websiteUrl && (
+                    <a
+                      href={bombaAberta.websiteUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => trackEvent('click_digital_bomba_aberta_live')}
+                      className="ink-button flex-1 border-[3px] border-black bg-white px-6 py-4 text-center text-[11px] font-black uppercase tracking-[0.28em] text-black transition-all hover:bg-black hover:text-white"
+                    >
+                      Abrir produto vivo
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <aside className="ink-card border-[3px] border-black bg-black p-6 text-white shadow-[12px_12px_0px_0px_var(--accent)] md:p-8">
+            <h3 className="mb-6 border-b border-white/10 pb-4 text-lg font-black uppercase tracking-[0.35em] text-accent">
+              Protocolo de Campo
+            </h3>
+            <div className="space-y-4">
+              {(bombaAberta.protocol || []).map((item) => (
+                <div key={item} className="flex items-start gap-3 border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
+                  <span className="mt-1 h-2.5 w-2.5 shrink-0 bg-accent" />
+                  <p className="text-[11px] font-bold uppercase tracking-[0.16em] leading-tight text-white/85">{item}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+              <div className="border border-white/15 p-4">
+                <p className="text-[8px] font-black uppercase tracking-[0.35em] text-white/40">Recorte</p>
+                <p className="mt-2 text-sm font-black uppercase tracking-[0.16em] text-white">Sul Fluminense</p>
+              </div>
+              <div className="border border-white/15 p-4">
+                <p className="text-[8px] font-black uppercase tracking-[0.35em] text-white/40">Modo</p>
+                <p className="mt-2 text-sm font-black uppercase tracking-[0.16em] text-white">Consulta recorrente</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      )}
 
       {/* Capability Buckets */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-6">

@@ -4,7 +4,9 @@ export type Case = {
     client: string
     sector: string
     title: string
+    subtitle?: string
     summary: string
+    portfolioSummary?: string
     diagnostic: string // Renamed from problem
     intervention: string // Renamed from solution
     impact: string // Renamed from result
@@ -17,6 +19,11 @@ export type Case = {
     }
     screenshot_url?: string
     gallery?: string[]
+    highlights?: string[]
+    tags?: string[]
+    protocol?: string[]
+    ctaLabel?: string
+    websiteUrl?: string
     isBook?: boolean
     bookMetadata?: {
         author: string
@@ -273,6 +280,55 @@ export const cases: Case[] = [
             '/portfolio/unipampa-manga-curta.jpg',
             '/portfolio/unipampa-manga-longa.jpg'
         ]
+    },
+    {
+        slug: 'bomba-aberta',
+        category: 'PWA / utilidade pública / mapa vivo',
+        client: 'Projeto autoral / movimento VR Abandonada',
+        sector: 'Sul Fluminense / mobilidade territorial',
+        title: 'Bomba Aberta',
+        subtitle: 'Plataforma PWA de monitoramento colaborativo de preços de combustíveis no Sul Fluminense.',
+        summary: 'Sistema mobile-first para buscar postos, visualizar mapa vivo, acompanhar preços e recência das informações e enviar novas atualizações em fluxo rápido.',
+        portfolioSummary: 'Infraestrutura PWA para utilidade pública territorial. Mapa vivo, leitura de recência e envio colaborativo de preços em fluxo mobile-first, desenhado para uso cotidiano.',
+        diagnostic: 'Falta de transparência prática e atualização rápida na leitura pública dos preços de combustíveis, com pouca inteligência territorial e baixa fluidez no envio colaborativo.',
+        intervention: 'Construção de um PWA com mapa vivo, busca operacional, leitura de recência e fluxo direto de envio de informação, priorizando uso real em mobile.',
+        impact: 'Produto de consulta recorrente, com atualização comunitária, navegação orientada à ação e arquitetura pensada para uso em campo.',
+        evidence: 'PRODUTO_VIVO: CONSULTA_TERRITORIAL',
+        methodology: 'Arquitetura de utilidade pública com leitura operacional de recência e envio comunitário em fluxo mobile-first.',
+        proof: {
+            deliverables: 'Mapa vivo, busca de postos, leitura de recência, envio colaborativo',
+            format: 'PWA mobile-first / recorte territorial / fluxo rápido',
+            impactType: 'Utilidade pública territorial'
+        },
+        screenshot_url: '/portfolio/home%20bombaaberta.png',
+        gallery: [
+            '/portfolio/home%20bombaaberta.png',
+            '/portfolio/atualizacoes%20bombaaberta.png'
+        ],
+        highlights: [
+            'Mapa vivo com leitura operacional de postos, preços e recência.',
+            'Fluxo colaborativo de atualização de preços.',
+            'Arquitetura mobile-first para consulta e envio.',
+            'Produto territorializado para o Sul Fluminense.'
+        ],
+        tags: [
+            'PWA',
+            'Mapa Vivo',
+            'Utilidade Pública',
+            'Mobile First',
+            'Busca Operacional',
+            'Envio Colaborativo'
+        ],
+        protocol: [
+            'Arquitetura PWA mobile-first.',
+            'Mapa vivo orientado a recorte territorial.',
+            'Busca de postos com leitura operacional.',
+            'Fluxo de envio de preço em poucos passos.',
+            'Experiência pensada para consulta recorrente.',
+            'Interface de utilidade pública com alta legibilidade.'
+        ],
+        ctaLabel: 'Analisar arquitetura',
+        websiteUrl: 'https://bombaaberta.org/'
     },
     {
         slug: 'aps-sustentabilidade',

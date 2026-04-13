@@ -52,24 +52,65 @@ export default function CaseDetailPage({ params }: Props) {
                 </nav>
 
                 <header className="mb-24 border-b-[3px] border-black pb-16">
-                    <div className="flex items-center gap-4 mb-8">
-                        <span className="bg-black text-white px-5 py-2 text-[11px] font-black uppercase tracking-[0.3em] border-[2px] border-black">
+                    <div className="flex flex-wrap items-center gap-4 mb-8">
+                        <span className="max-w-full break-words bg-black text-white px-5 py-2 text-[11px] font-black uppercase tracking-[0.24em] leading-tight border-[2px] border-black">
                             {item.category}
                         </span>
                         <span className="h-[2px] w-12 bg-accent opacity-50" />
-                        <span className="text-[11px] font-black text-black uppercase tracking-[0.4em]">
+                        <span className="text-[11px] font-black text-black uppercase tracking-[0.3em] break-words leading-tight">
                             Sector::{item.sector}
                         </span>
                     </div>
                     <h1 className="text-5xl md:text-9xl font-black text-black leading-[0.85] tracking-tighter mb-8 uppercase italic">
                         {item.title}
                     </h1>
+                    {item.subtitle && (
+                        <p className="mb-8 max-w-5xl text-[11px] md:text-[12px] font-black uppercase tracking-[0.32em] text-black/50 leading-tight break-words">
+                            {item.subtitle}
+                        </p>
+                    )}
                     <p className="text-2xl md:text-3xl text-black font-black italic max-w-4xl leading-tight border-l-[12px] border-accent pl-10">
                         &quot;{item.summary}&quot;
                     </p>
-                    <div className="mt-12 pt-8 border-t border-black/5 flex items-center gap-6 text-[11px] font-black text-black/40 uppercase tracking-[0.4em]">
-                         PROTOCOLO_CLIENTE: <span className="text-black bg-black/5 px-3 py-1">{item.client}</span>
+                    <div className="mt-12 pt-8 border-t border-black/5 flex flex-wrap items-center gap-4 md:gap-6 text-[11px] font-black text-black/40 uppercase tracking-[0.3em]">
+                         <span>PROTOCOLO_CLIENTE: <span className="text-black bg-black/5 px-3 py-1 break-words">{item.client}</span></span>
+                         {item.websiteUrl && (
+                            <a
+                                href={item.websiteUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center border-[2px] border-black px-4 py-2 text-black transition-colors hover:bg-black hover:text-white"
+                            >
+                                Abrir produto vivo
+                            </a>
+                         )}
                     </div>
+                    {item.tags && item.tags.length > 0 && (
+                        <div className="mt-8 flex flex-wrap gap-3">
+                            {item.tags.map((tag) => (
+                                <span key={tag} className="border-[2px] border-black px-3 py-2 text-[10px] font-black uppercase tracking-[0.24em] text-black">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                    {item.screenshot_url && (
+                        <div className="mt-12 overflow-hidden border-[3px] border-black bg-white shadow-[16px_16px_0px_0px_rgba(0,0,0,0.08)]">
+                            <div className="flex h-8 items-center gap-2 bg-black px-4">
+                                <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-amber-500" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                            </div>
+                            <div className="relative aspect-[16/9] bg-white">
+                                <Image
+                                    src={item.screenshot_url}
+                                    alt={item.title}
+                                    fill
+                                    className="object-cover object-top"
+                                />
+                            </div>
+                        </div>
+                    )}
                 </header>
 
                 <div className="grid gap-24">
@@ -150,6 +191,58 @@ export default function CaseDetailPage({ params }: Props) {
                             </div>
                         </div>
                     </section>
+
+                    {(item.portfolioSummary || (item.highlights && item.highlights.length > 0) || (item.protocol && item.protocol.length > 0)) && (
+                        <section className="grid lg:grid-cols-[300px_1fr] gap-12 md:gap-20">
+                            <aside>
+                                <div className="flex items-center gap-3 mb-6">
+                                    <span className="w-3 h-3 bg-accent animate-pulse" />
+                                    <h2 className="text-[12px] font-black uppercase tracking-[0.4em] text-black">
+                                        04. Operational_Protocol
+                                    </h2>
+                                </div>
+                            </aside>
+                            <div className="grid gap-8 xl:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)]">
+                                <div className="border-[3px] border-black bg-black p-10 text-white shadow-[20px_20px_0px_0px_rgba(239,68,68,1)] md:p-12">
+                                    <p className="mb-4 text-[11px] font-black uppercase tracking-[0.42em] text-accent">Portfolio_Readout</p>
+                                    <p className="text-2xl md:text-3xl font-black italic uppercase leading-[0.95] tracking-tighter">
+                                        {item.portfolioSummary || item.summary}
+                                    </p>
+                                    {item.highlights && item.highlights.length > 0 && (
+                                        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+                                            {item.highlights.map((highlight) => (
+                                                <div key={highlight} className="border border-white/15 px-4 py-4 text-[10px] font-black uppercase leading-tight tracking-[0.18em] text-white/85">
+                                                    {highlight}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="border-[3px] border-black bg-white p-8 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] md:p-10">
+                                    <p className="mb-6 text-[11px] font-black uppercase tracking-[0.42em] text-black/40">Protocolo_Técnico</p>
+                                    <div className="space-y-4">
+                                        {(item.protocol || []).map((protocolItem) => (
+                                            <div key={protocolItem} className="flex items-start gap-3 border-b border-black/10 pb-4 last:border-b-0 last:pb-0">
+                                                <span className="mt-1 h-2.5 w-2.5 shrink-0 bg-black" />
+                                                <p className="text-[11px] font-black uppercase leading-tight tracking-[0.18em] text-black/75">{protocolItem}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                        <div className="border-[2px] border-black px-4 py-4">
+                                            <p className="text-[9px] font-black uppercase tracking-[0.32em] text-black/35">Impact_Type</p>
+                                            <p className="mt-2 text-sm font-black uppercase tracking-[0.18em] text-black">{item.proof.impactType}</p>
+                                        </div>
+                                        <div className="border-[2px] border-black px-4 py-4">
+                                            <p className="text-[9px] font-black uppercase tracking-[0.32em] text-black/35">Delivery_Mode</p>
+                                            <p className="mt-2 text-sm font-black uppercase tracking-[0.18em] text-black">{item.proof.format}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    )}
                 </div>
 
                 {/* Technical Gallery Section */}
@@ -177,7 +270,7 @@ export default function CaseDetailPage({ params }: Props) {
                             ))}
                         </div>
                         <div className="mt-12 flex items-center gap-4 text-[10px] font-black text-black/40 uppercase tracking-[0.4em]">
-                             SISTEMA_UNIPAMPA: <span className="text-black italic">Múltiplas Versões & Suportes</span>
+                                REGISTRO_VISUAL: <span className="text-black italic">Capturas operacionais do produto</span>
                         </div>
                     </section>
                 )}

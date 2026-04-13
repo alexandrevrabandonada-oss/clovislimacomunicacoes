@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { fetchPublishedWorks } from '../lib/works'
+import { cases } from '../lib/cases'
 import { getSiteUrl } from '../lib/site'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -16,6 +17,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${siteUrl}/admin`,
       changeFrequency: 'monthly',
       priority: 0.2
+    },
+    {
+      url: `${siteUrl}/cases`,
+      changeFrequency: 'weekly',
+      priority: 0.8
     }
   ]
 
@@ -26,5 +32,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7
   }))
 
-  return [...routes, ...workRoutes]
+  const caseRoutes: MetadataRoute.Sitemap = cases.map((item) => ({
+    url: `${siteUrl}/cases/${item.slug}`,
+    changeFrequency: 'monthly',
+    priority: 0.7
+  }))
+
+  return [...routes, ...workRoutes, ...caseRoutes]
 }

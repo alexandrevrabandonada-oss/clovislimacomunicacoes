@@ -50,7 +50,7 @@ export default function CasesPage() {
                         >
                             {/* Category Badge */}
                             <div className="absolute top-6 left-6 z-10">
-                                <span className="bg-black text-white px-4 py-1 text-[10px] font-black uppercase tracking-[0.3em] border-2 border-black">
+                                <span className="block max-w-[calc(100%-3rem)] break-words bg-black px-4 py-2 text-[10px] font-black uppercase leading-tight tracking-[0.22em] text-white border-2 border-black">
                                     {item.category}
                                 </span>
                             </div>
@@ -76,14 +76,14 @@ export default function CasesPage() {
                                 <header className="mb-8">
                                     <div className="flex items-center gap-3 mb-4">
                                         <span className="w-2 h-2 bg-accent animate-pulse" />
-                                        <span className="text-[10px] font-black text-black/40 uppercase tracking-[0.4em]">
+                                        <span className="text-[10px] font-black text-black/40 uppercase tracking-[0.32em] break-words">
                                             Sector::{item.sector}
                                         </span>
                                     </div>
                                     <h2 className="text-3xl font-black mb-4 leading-none group-hover:text-accent transition-colors italic uppercase tracking-tighter">
                                         &quot;{item.title}&quot;
                                     </h2>
-                                    <p className="text-[11px] font-black text-black/20 uppercase tracking-[0.5em] border-l-2 border-black/10 pl-4">
+                                    <p className="text-[11px] font-black text-black/20 uppercase tracking-[0.32em] border-l-2 border-black/10 pl-4 break-words leading-tight">
                                         ID::{item.client}
                                     </p>
                                 </header>
@@ -117,7 +117,7 @@ export default function CasesPage() {
                                         href={`/cases/${item.slug}`}
                                         className="ink-button block w-full text-center py-5 bg-black text-white text-[11px] font-black uppercase tracking-[0.4em] border-[3px] border-black hover:bg-accent transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[16px_16px_0px_0px_rgba(0,0,0,0.2)]"
                                     >
-                                        Analisar Case Completo →
+                                        {item.ctaLabel ? `${item.ctaLabel} →` : 'Analisar Case Completo →'}
                                     </Link>
                                     <p className="mt-6 text-center text-[10px] font-black text-black/40 uppercase tracking-[0.4em] opacity-0 group-hover:opacity-100 transition-opacity">
                                         Metodologia // {item.methodology.split(':')[0]}
